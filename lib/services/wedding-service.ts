@@ -23,6 +23,12 @@ export type WeddingGuestInput = {
   guest_token?: string | null
 }
 
+export type MessageTemplateInput = {
+  title: string
+  content: string
+  is_active?: boolean
+}
+
 export function isSupabaseConfigured() {
   return Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -279,4 +285,69 @@ export async function getActiveMessageTemplate() {
 
   if (error) throw error
   return data as MessageTemplate | null
+}
+
+export async function updateMessageTemplate(
+  id: string,
+  input: Partial<MessageTemplateInput>,
+) {
+  const supabase = getSupabase()
+  if (!supabase) return null
+
+  const patch: Partial<MessageTemplateInput> = {}
+
+  if (input.title !== undefined) {
+    const title = input.title.trim()
+    if (!title) throw new Error('Judul template wajib diisi.')
+    patch.title = title
+  }
+
+  if (input.content !== undefined) {
+    const content = input.content.trim()
+    if (!content) throw new Error('Isi template wajib diisi.')
+    patch.content = content
+  }
+
+  if (input.is_active !== undefined) {
+    patch.is_active = input.is_active
+  }
+
+  const { data, error } = await supabase
+    .from('message_templates')
+    .update(patch)
+    .eq('id', id)
+    .select('*')
+    .single()
+
+  if (error) throw error
+  return data as MessageTemplate
+}
+
+export async function createDefaultMessageTemplateIfMissing(
+  input: MessageTemplateInput,
+) {
+  const existingTemplate = await getActiveMessageTemplate()
+  if (existingTemplate) return existingTemplate
+
+  const supabase = getSupabase()
+  if (!supabase) return null
+
+  const title = input.title.trim()
+  const content = input.content.trim()
+
+  if (!title) throw new Error('Judul template wajib diisi.')
+  if (!content) throw new Error('Isi template wajib diisi.')
+
+  const { data, error } = await supabase
+    .from('message_templates')
+    .insert({
+      title,
+      content,
+      is_active: input.is_active ?? true,
+    })
+    .select('*')
+    .single()
+
+  if (error) throw error
+  return data as MessageTemplate
 }
