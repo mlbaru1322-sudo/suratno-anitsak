@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { AlertTriangle, Home, MessageSquareText, UsersRound } from 'lucide-react'
+import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 
 const navItems = [
@@ -66,6 +67,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8">
         {children}
       </main>
+      <Toaster position="top-center" />
     </div>
   )
 }

@@ -17,6 +17,12 @@ export type SubmitWeddingWishInput = {
   message?: string
 }
 
+export type WeddingGuestInput = {
+  guest_name: string
+  phone?: string | null
+  guest_token?: string | null
+}
+
 export function isSupabaseConfigured() {
   return Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
@@ -142,6 +148,88 @@ export async function getWeddingGuests() {
 
   if (error) throw error
   return (data ?? []) as WeddingGuest[]
+}
+
+export async function createWeddingGuest(input: WeddingGuestInput) {
+  const supabase = getSupabase()
+  if (!supabase) return null
+
+  const guestName = input.guest_name.trim()
+
+  if (!guestName) {
+    throw new Error('Nama tamu wajib diisi.')
+  }
+
+  const { data, error } = await supabase
+    .from('wedding_guests')
+    .insert({
+      guest_name: guestName,
+      phone: input.phone?.trim() || null,
+      guest_token: input.guest_token || null,
+    })
+    .select('*')
+    .single()
+
+  if (error) throw error
+  return data as WeddingGuest
+}
+
+export async function updateWeddingGuest(
+  id: string,
+  input: Partial<WeddingGuestInput>,
+) {
+  const supabase = getSupabase()
+  if (!supabase) return null
+
+  const patch: Partial<WeddingGuestInput> = {}
+
+  if (input.guest_name !== undefined) {
+    const guestName = input.guest_name.trim()
+    if (!guestName) throw new Error('Nama tamu wajib diisi.')
+    patch.guest_name = guestName
+  }
+
+  if (input.phone !== undefined) {
+    patch.phone = input.phone?.trim() || null
+  }
+
+  if (input.guest_token !== undefined) {
+    patch.guest_token = input.guest_token || null
+  }
+
+  const { data, error } = await supabase
+    .from('wedding_guests')
+    .update(patch)
+    .eq('id', id)
+    .select('*')
+    .single()
+
+  if (error) throw error
+  return data as WeddingGuest
+}
+
+export async function deleteWeddingGuest(id: string) {
+  const supabase = getSupabase()
+  if (!supabase) return
+
+  const { error } = await supabase.from('wedding_guests').delete().eq('id', id)
+
+  if (error) throw error
+}
+
+export async function markGuestAsSent(id: string) {
+  const supabase = getSupabase()
+  if (!supabase) return null
+
+  const { data, error } = await supabase
+    .from('wedding_guests')
+    .update({ sent_at: new Date().toISOString() })
+    .eq('id', id)
+    .select('*')
+    .single()
+
+  if (error) throw error
+  return data as WeddingGuest
 }
 
 export async function submitWeddingWish(input: SubmitWeddingWishInput) {
