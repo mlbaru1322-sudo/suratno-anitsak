@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
   AlertTriangle,
+  CalendarHeart,
   Home,
   LogOut,
   MessageSquareText,
@@ -17,6 +18,7 @@ import { cn } from '@/lib/utils'
 
 const navItems = [
   { href: '/admin', label: 'Overview', icon: Home },
+  { href: '/admin/wedding', label: 'Data Undangan', icon: CalendarHeart },
   { href: '/admin/wishes', label: 'RSVP & Ucapan', icon: MessageSquareText },
   { href: '/admin/guests', label: 'Tamu', icon: UsersRound },
   {
