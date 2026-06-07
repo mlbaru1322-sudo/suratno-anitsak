@@ -36,80 +36,104 @@ Catatan:
 
 ## RLS Production Hardening
 
-Beberapa policy dev sebelumnya mungkin masih mengizinkan `anon` untuk membaca atau mengubah data admin.
-Sebelum production, ganti policy admin dev-only dengan policy berbasis `authenticated`.
+`supabase/production-policies.sql` adalah file policy final untuk semua tabel wedding invitation.
+File ini membersihkan semua policy lama pada tabel project, lalu membuat ulang policy public dan admin dari satu tempat.
 
-Rekomendasi:
+Jalankan setelah admin user dibuat di Supabase Auth:
 
 ```sql
--- Public invitation
--- Tetap boleh:
--- - read wedding_settings yang is_published = true
--- - read wedding_events
--- - read approved wedding_wishes
--- - insert wedding_wishes
-
--- Admin data
--- Ganti anon admin policies untuk wedding_guests dan message_templates.
--- Contoh arah production:
-
-drop policy if exists "Dev admin can read guests" on wedding_guests;
-drop policy if exists "Dev admin can insert guests" on wedding_guests;
-drop policy if exists "Dev admin can update guests" on wedding_guests;
-drop policy if exists "Dev admin can delete guests" on wedding_guests;
-
-create policy "Authenticated admin can read guests"
-on wedding_guests
-for select
-to authenticated
-using (true);
-
-create policy "Authenticated admin can insert guests"
-on wedding_guests
-for insert
-to authenticated
-with check (guest_name is not null and length(trim(guest_name)) > 0);
-
-create policy "Authenticated admin can update guests"
-on wedding_guests
-for update
-to authenticated
-using (true)
-with check (guest_name is not null and length(trim(guest_name)) > 0);
-
-create policy "Authenticated admin can delete guests"
-on wedding_guests
-for delete
-to authenticated
-using (true);
-
-drop policy if exists "Dev admin can update message templates" on message_templates;
-drop policy if exists "Dev admin can insert message templates" on message_templates;
-
-create policy "Authenticated admin can update message templates"
-on message_templates
-for update
-to authenticated
-using (true)
-with check (
-  title is not null
-  and length(trim(title)) > 0
-  and content is not null
-  and length(trim(content)) > 0
-);
-
-create policy "Authenticated admin can insert message templates"
-on message_templates
-for insert
-to authenticated
-with check (
-  title is not null
-  and length(trim(title)) > 0
-  and content is not null
-  and length(trim(content)) > 0
-);
-
-notify pgrst, 'reload schema';
+-- Supabase SQL Editor
+-- paste isi file supabase/production-policies.sql
 ```
 
+File tersebut akan:
+- enable RLS untuk semua tabel project;
+- drop semua policy lama/dev-only pada tabel project;
+- membuat public policy yang hanya membuka data undangan publik;
+- membuat authenticated admin policy untuk mengelola data admin;
+- menjalankan `notify pgrst, 'reload schema';`.
+
+Public/anon tetap boleh:
+- read `wedding_settings` dengan `is_published = true`;
+- read `wedding_events`;
+- read `wedding_gallery`;
+- read `wedding_love_stories`;
+- read `wedding_bank_accounts`;
+- read `wedding_wishes` yang `is_approved = true`;
+- insert `wedding_wishes` dengan `guest_name` wajib dan `guest_count >= 1`;
+- read active `message_templates`.
+
+Anon tidak boleh lagi:
+- read/insert/update/delete `wedding_guests`;
+- insert/update/delete `message_templates`;
+- update/delete `wedding_wishes`;
+- insert/update/delete `wedding_settings`, `wedding_events`, `wedding_gallery`, `wedding_love_stories`, dan `wedding_bank_accounts`;
+- read unapproved wishes.
+
+Authenticated admin boleh:
+- select/insert/update/delete `wedding_settings`;
+- select/insert/update/delete `wedding_events`;
+- select/insert/update/delete `wedding_gallery`;
+- select/insert/update/delete `wedding_love_stories`;
+- select/insert/update/delete `wedding_bank_accounts`;
+- select/update/delete `wedding_wishes`;
+- read/insert/update/delete `wedding_guests`;
+- read/insert/update/delete `message_templates`.
+
 Untuk role admin yang lebih ketat, tambahkan tabel profile/roles atau custom claims di tahap berikutnya.
+
+## Query Pengecekan Policy
+
+Cek daftar policy aktif:
+
+```sql
+select
+  schemaname,
+  tablename,
+  policyname,
+  permissive,
+  roles,
+  cmd,
+  qual,
+  with_check
+from pg_policies
+where schemaname = 'public'
+  and tablename in (
+    'wedding_settings',
+    'wedding_events',
+    'wedding_gallery',
+    'wedding_love_stories',
+    'wedding_bank_accounts',
+    'wedding_wishes',
+    'wedding_guests',
+    'message_templates'
+  )
+order by tablename, policyname;
+```
+
+Cek via client anon setelah SQL dijalankan:
+
+```js
+// Anon harus mengembalikan 0 row atau error RLS.
+await supabase.from('wedding_guests').select('*')
+
+// Anon harus gagal karena hanya authenticated admin yang boleh update.
+await supabase
+  .from('message_templates')
+  .update({ title: 'Should Fail' })
+  .eq('is_active', true)
+
+// Public RSVP harus tetap berhasil jika input valid.
+await supabase.from('wedding_wishes').insert({
+  guest_name: 'Test Public RSVP',
+  attendance_status: 'Hadir',
+  guest_count: 1,
+  message: 'Tes public insert'
+})
+```
+
+Setelah login sebagai admin di `/admin/login`, cek manual:
+- `/admin` bisa dibuka;
+- `/admin/guests` bisa read/create/update/delete guest;
+- `/admin/message-template` bisa read/update template;
+- `/admin/wishes` bisa membaca semua wishes untuk kebutuhan moderation.
