@@ -80,6 +80,11 @@ export default function AdminWeddingPage() {
   const [savingEventId, setSavingEventId] = useState<string | null>(null)
   const [creatingDefaults, setCreatingDefaults] = useState(false)
 
+  const settingsHasChanges = useMemo(() => {
+    if (!settings) return false
+    return JSON.stringify(settingsForm) !== JSON.stringify(toSettingsForm(settings))
+  }, [settings, settingsForm])
+
   const orderedEvents = useMemo(
     () =>
       [...events].sort(
@@ -181,7 +186,7 @@ export default function AdminWeddingPage() {
         description:
           error instanceof Error
             ? error.message
-            : 'Periksa RLS policy wedding_settings.',
+            : 'Periksa sesi login admin dan RLS policy wedding_settings.',
       })
     } finally {
       setSavingSettings(false)
@@ -217,7 +222,7 @@ export default function AdminWeddingPage() {
         description:
           error instanceof Error
             ? error.message
-            : 'Periksa RLS policy wedding_events.',
+            : 'Periksa sesi login admin dan RLS policy wedding_events.',
       })
     } finally {
       setSavingEventId(null)
@@ -256,6 +261,29 @@ export default function AdminWeddingPage() {
         <EmptyState message="Data wedding_settings belum ditemukan. Jalankan schema seed atau buat data awal di Supabase." />
       ) : (
         <div className="grid gap-6">
+          <div className="sticky top-[5.5rem] z-20 rounded-2xl border bg-background/95 p-3 shadow-sm backdrop-blur">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm font-medium text-muted-foreground">
+                {settingsHasChanges
+                  ? 'Ada perubahan belum disimpan'
+                  : 'Data undangan sudah tersimpan'}
+              </p>
+              <Button
+                type="button"
+                className="gap-2"
+                disabled={savingSettings || !settingsHasChanges}
+                onClick={handleSaveSettings}
+              >
+                {savingSettings ? (
+                  <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+                ) : (
+                  <Save className="size-4" aria-hidden="true" />
+                )}
+                Simpan Data Undangan
+              </Button>
+            </div>
+          </div>
+
           <AdminCard>
             <SectionTitle
               title="Data Mempelai"
@@ -298,6 +326,13 @@ export default function AdminWeddingPage() {
                 onChange={(value) => updateSettingsField('wedding_date', value)}
               />
             </div>
+            <CardActionFooter>
+              <SaveSettingsButton
+                saving={savingSettings}
+                hasChanges={settingsHasChanges}
+                onClick={handleSaveSettings}
+              />
+            </CardActionFooter>
           </AdminCard>
 
           <AdminCard>
@@ -335,6 +370,13 @@ export default function AdminWeddingPage() {
                 />
               </div>
             </div>
+            <CardActionFooter>
+              <SaveSettingsButton
+                saving={savingSettings}
+                hasChanges={settingsHasChanges}
+                onClick={handleSaveSettings}
+              />
+            </CardActionFooter>
           </AdminCard>
 
           <AdminCard>
@@ -378,6 +420,13 @@ export default function AdminWeddingPage() {
                 onChange={(value) => updateSettingsField('music_url', value)}
               />
             </div>
+            <CardActionFooter>
+              <SaveSettingsButton
+                saving={savingSettings}
+                hasChanges={settingsHasChanges}
+                onClick={handleSaveSettings}
+              />
+            </CardActionFooter>
           </AdminCard>
 
           <AdminCard>
@@ -404,21 +453,13 @@ export default function AdminWeddingPage() {
                 Publish undangan
               </label>
             </div>
-            <div className="mt-5">
-              <Button
-                type="button"
-                className="gap-2"
-                disabled={savingSettings}
+            <CardActionFooter>
+              <SaveSettingsButton
+                saving={savingSettings}
+                hasChanges={settingsHasChanges}
                 onClick={handleSaveSettings}
-              >
-                {savingSettings ? (
-                  <Loader2 className="size-4 animate-spin" aria-hidden="true" />
-                ) : (
-                  <Save className="size-4" aria-hidden="true" />
-                )}
-                Simpan Data Undangan
-              </Button>
-            </div>
+              />
+            </CardActionFooter>
           </AdminCard>
 
           <AdminCard>
@@ -559,6 +600,24 @@ export default function AdminWeddingPage() {
                         className="md:col-span-2"
                       />
                     </div>
+                    <CardActionFooter>
+                      <Button
+                        type="button"
+                        className="gap-2"
+                        disabled={savingEventId === eventForm.id}
+                        onClick={() => handleSaveEvent(eventForm)}
+                      >
+                        {savingEventId === eventForm.id ? (
+                          <Loader2
+                            className="size-4 animate-spin"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <Save className="size-4" aria-hidden="true" />
+                        )}
+                        Simpan Acara
+                      </Button>
+                    </CardActionFooter>
                   </div>
                 ))}
               </div>
@@ -585,6 +644,40 @@ function SectionTitle({
       <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
         {description}
       </p>
+    </div>
+  )
+}
+
+function SaveSettingsButton({
+  saving,
+  hasChanges,
+  onClick,
+}: {
+  saving: boolean
+  hasChanges: boolean
+  onClick: () => void
+}) {
+  return (
+    <Button
+      type="button"
+      className="gap-2"
+      disabled={saving || !hasChanges}
+      onClick={onClick}
+    >
+      {saving ? (
+        <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+      ) : (
+        <Save className="size-4" aria-hidden="true" />
+      )}
+      Simpan Data Undangan
+    </Button>
+  )
+}
+
+function CardActionFooter({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="mt-5 flex flex-col gap-2 border-t pt-4 sm:flex-row sm:justify-end">
+      {children}
     </div>
   )
 }
