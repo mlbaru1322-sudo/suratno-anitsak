@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { AtSign } from 'lucide-react'
 import Image from 'next/image'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { staggerContainer, fadeUp } from './motion-helpers'
 import { CornerOrnament, FloralMark, SectionOrnaments } from './ornaments'
@@ -54,8 +54,8 @@ function CoupleCard({ person }: { person: Person }) {
   )
 }
 
-export function CoupleSection() {
-  const { bride, groom } = weddingData
+export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
+  const { bride, groom } = data
 
   return (
     <section

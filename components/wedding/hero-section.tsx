@@ -2,11 +2,11 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { CornerOrnament, FloralAccent, OrnamentDivider } from './ornaments'
 
-export function HeroSection() {
-  const { bride, groom, portraitPhoto, weddingDateDisplay } = weddingData
+export function HeroSection({ data = weddingData }: { data?: WeddingData }) {
+  const { bride, groom, portraitPhoto, weddingDateDisplay } = data
 
   return (
     <section

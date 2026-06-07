@@ -1,7 +1,16 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Toaster } from '@/components/ui/sonner'
+import {
+  getWeddingEvents,
+  getWeddingSettings,
+} from '@/lib/services/wedding-service'
+import { type WeddingData } from '@/lib/wedding-data'
+import {
+  getFallbackWeddingData,
+  mergeSupabaseWeddingData,
+} from '@/lib/wedding-data-mapper'
 import { OpeningCover } from './opening-cover'
 import { HeroSection } from './hero-section'
 import { GreetingSection } from './greeting-section'
@@ -23,6 +32,35 @@ import { SectionDivider } from './ornaments'
 
 export function InvitationPage() {
   const [opened, setOpened] = useState(false)
+  const [data, setData] = useState<WeddingData>(() => getFallbackWeddingData())
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const guestName = params.get('to')
+
+    setData(getFallbackWeddingData(guestName))
+
+    async function loadSupabaseData() {
+      try {
+        const [settings, events] = await Promise.all([
+          getWeddingSettings(),
+          getWeddingEvents(),
+        ])
+
+        setData(
+          mergeSupabaseWeddingData({
+            settings,
+            events,
+            guestName,
+          }),
+        )
+      } catch {
+        setData(getFallbackWeddingData(guestName))
+      }
+    }
+
+    void loadSupabaseData()
+  }, [])
 
   function handleOpen() {
     setOpened(true)
@@ -33,7 +71,7 @@ export function InvitationPage() {
 
   return (
     <main className="relative bg-background">
-      <OpeningCover open={opened} onOpen={handleOpen} />
+      <OpeningCover data={data} open={opened} onOpen={handleOpen} />
 
       <div
         aria-hidden={!opened}
@@ -43,19 +81,19 @@ export function InvitationPage() {
             : 'pointer-events-none h-screen overflow-hidden opacity-0'
         }
       >
-        <HeroSection />
+        <HeroSection data={data} />
         <SectionDivider />
-        <GreetingSection />
+        <GreetingSection data={data} />
         <SectionDivider />
-        <QuoteSection />
+        <QuoteSection data={data} />
         <SectionDivider />
-        <CoupleSection />
+        <CoupleSection data={data} />
         <SectionDivider />
-        <CountdownSection />
+        <CountdownSection data={data} />
         <SectionDivider />
-        <EventSection />
+        <EventSection data={data} />
         <SectionDivider />
-        <MapsSection />
+        <MapsSection data={data} />
         <SectionDivider />
         <LoveStorySection />
         <SectionDivider />
@@ -69,10 +107,10 @@ export function InvitationPage() {
         <SectionDivider />
         <DigitalGiftSection />
         <SectionDivider />
-        <ClosingSection />
+        <ClosingSection data={data} />
       </div>
 
-      <FloatingMusicButton active={opened} />
+      <FloatingMusicButton active={opened} data={data} />
       <BackToTopButton active={opened} />
       <Toaster position="top-center" />
     </main>

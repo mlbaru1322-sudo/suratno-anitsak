@@ -1,13 +1,13 @@
 'use client'
 
 import { MapPin, Navigation } from 'lucide-react'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { Reveal } from './motion-helpers'
 import { SectionOrnaments } from './ornaments'
 
-export function MapsSection() {
-  const { events, maps } = weddingData
+export function MapsSection({ data = weddingData }: { data?: WeddingData }) {
+  const { events, maps } = data
   const primaryEvent = events[1] ?? events[0]
 
   return (

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { Reveal } from './motion-helpers'
 import { SectionOrnaments } from './ornaments'
@@ -15,8 +15,8 @@ function getTimeLeft(target: number) {
   return { days, hours, minutes, seconds }
 }
 
-export function CountdownSection() {
-  const target = new Date(weddingData.weddingDateISO).getTime()
+export function CountdownSection({ data = weddingData }: { data?: WeddingData }) {
+  const target = new Date(data.weddingDateISO).getTime()
   const [time, setTime] = useState(() => getTimeLeft(target))
   const [mounted, setMounted] = useState(false)
 
@@ -69,7 +69,7 @@ export function CountdownSection() {
 
         <Reveal delay={0.2} className="mt-8 text-center">
           <p className="text-sm text-taupe sm:text-base">
-            {weddingData.weddingDateDisplay}
+            {data.weddingDateDisplay}
           </p>
         </Reveal>
       </div>

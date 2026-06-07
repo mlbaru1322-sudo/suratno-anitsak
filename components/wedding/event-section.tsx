@@ -2,13 +2,13 @@
 
 import { motion } from 'framer-motion'
 import { CalendarDays, Clock, MapPin, Sparkles } from 'lucide-react'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { staggerContainer, fadeUp } from './motion-helpers'
 import { CornerOrnament, OrnamentDivider, SectionOrnaments } from './ornaments'
 
-export function EventSection() {
-  const { events } = weddingData
+export function EventSection({ data = weddingData }: { data?: WeddingData }) {
+  const { events } = data
 
   return (
     <section

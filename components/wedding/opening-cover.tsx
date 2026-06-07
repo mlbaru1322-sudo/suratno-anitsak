@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Mail } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import {
   CornerOrnament,
   FloralAccent,
@@ -13,9 +13,11 @@ import {
 } from './ornaments'
 
 export function OpeningCover({
+  data = weddingData,
   open,
   onOpen,
 }: {
+  data?: WeddingData
   open: boolean
   onOpen: () => void
 }) {
@@ -26,7 +28,7 @@ export function OpeningCover({
     coverPhotoPositionMobile,
     weddingDateDisplay,
     guest,
-  } = weddingData
+  } = data
   const [isDesktopCrop, setIsDesktopCrop] = useState(false)
 
   useEffect(() => {

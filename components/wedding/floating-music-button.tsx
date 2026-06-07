@@ -2,10 +2,16 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Music, Pause } from 'lucide-react'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { cn } from '@/lib/utils'
 
-export function FloatingMusicButton({ active }: { active: boolean }) {
+export function FloatingMusicButton({
+  active,
+  data = weddingData,
+}: {
+  active: boolean
+  data?: WeddingData
+}) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [playing, setPlaying] = useState(false)
 
@@ -37,7 +43,7 @@ export function FloatingMusicButton({ active }: { active: boolean }) {
   return (
     <>
       {/* Dummy audio path with safe fallback (file may not exist) */}
-      <audio ref={audioRef} src={weddingData.music.src} loop preload="none" />
+      <audio ref={audioRef} src={data.music.src} loop preload="none" />
       <button
         onClick={toggle}
         aria-label={playing ? 'Jeda musik' : 'Putar musik'}

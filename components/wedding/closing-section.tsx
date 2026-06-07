@@ -1,12 +1,12 @@
 'use client'
 
 import Image from 'next/image'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { Reveal } from './motion-helpers'
 import { CornerOrnament, FloralAccent, FloralMark, OrnamentDivider } from './ornaments'
 
-export function ClosingSection() {
-  const { closing, coupleShort, coverPhoto } = weddingData
+export function ClosingSection({ data = weddingData }: { data?: WeddingData }) {
+  const { closing, coupleShort, coverPhoto } = data
 
   return (
     <section

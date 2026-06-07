@@ -1,12 +1,12 @@
 'use client'
 
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { Reveal } from './motion-helpers'
 import { CornerOrnament, OrnamentDivider, SectionOrnaments } from './ornaments'
 import { SectionHeading } from './section-heading'
 
-export function GreetingSection() {
-  const { greeting } = weddingData
+export function GreetingSection({ data = weddingData }: { data?: WeddingData }) {
+  const { greeting } = data
 
   return (
     <section

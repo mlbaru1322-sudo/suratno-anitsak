@@ -1,13 +1,13 @@
 'use client'
 
 import { Quote } from 'lucide-react'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { Reveal } from './motion-helpers'
 import { CornerOrnament, OrnamentDivider, SectionOrnaments } from './ornaments'
 import { SectionHeading } from './section-heading'
 
-export function QuoteSection() {
-  const { quote } = weddingData
+export function QuoteSection({ data = weddingData }: { data?: WeddingData }) {
+  const { quote } = data
 
   return (
     <section
