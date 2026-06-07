@@ -1,9 +1,18 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { AlertTriangle, Home, MessageSquareText, UsersRound } from 'lucide-react'
+import { usePathname, useRouter } from 'next/navigation'
+import {
+  AlertTriangle,
+  Home,
+  LogOut,
+  MessageSquareText,
+  UsersRound,
+} from 'lucide-react'
 import { Toaster } from '@/components/ui/sonner'
+import { Button } from '@/components/ui/button'
+import { createSupabaseBrowserClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
 
 const navItems = [
@@ -19,6 +28,78 @@ const navItems = [
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
+  const router = useRouter()
+  const [userEmail, setUserEmail] = useState<string | null>(null)
+  const [checkingSession, setCheckingSession] = useState(true)
+  const isLoginPage = pathname === '/admin/login'
+
+  useEffect(() => {
+    if (isLoginPage) {
+      setCheckingSession(false)
+      return
+    }
+
+    const supabase = createSupabaseBrowserClient()
+    let mounted = true
+
+    async function checkSession() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+
+      if (!mounted) return
+
+      if (!user) {
+        router.replace('/admin/login')
+        return
+      }
+
+      setUserEmail(user.email ?? null)
+      setCheckingSession(false)
+    }
+
+    void checkSession()
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session?.user) {
+        router.replace('/admin/login')
+        return
+      }
+
+      setUserEmail(session.user.email ?? null)
+      setCheckingSession(false)
+    })
+
+    return () => {
+      mounted = false
+      subscription.unsubscribe()
+    }
+  }, [isLoginPage, router])
+
+  async function handleLogout() {
+    const supabase = createSupabaseBrowserClient()
+    await supabase.auth.signOut()
+    router.replace('/admin/login')
+  }
+
+  if (isLoginPage) {
+    return (
+      <>
+        {children}
+        <Toaster position="top-center" />
+      </>
+    )
+  }
+
+  if (checkingSession) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-muted/30 px-4 text-center text-sm text-muted-foreground">
+        Memeriksa sesi admin...
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen bg-muted/30 text-foreground">
@@ -35,32 +116,49 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             </div>
             <p className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
               <AlertTriangle className="size-4 text-gold" aria-hidden="true" />
-              Area admin belum diproteksi auth. Gunakan untuk lokal/dev dulu.
+              Area admin sudah memakai Supabase Auth. Lengkapi policy production
+              sebelum live.
             </p>
+            {userEmail ? (
+              <p className="mt-1 text-xs text-muted-foreground">
+                Login sebagai {userEmail}
+              </p>
+            ) : null}
           </div>
 
-          <nav className="flex gap-2 overflow-x-auto pb-1 lg:pb-0">
-            {navItems.map((item) => {
-              const Icon = item.icon
-              const active = pathname === item.href
+          <div className="flex flex-col gap-3 lg:items-end">
+            <nav className="flex gap-2 overflow-x-auto pb-1 lg:pb-0">
+              {navItems.map((item) => {
+                const Icon = item.icon
+                const active = pathname === item.href
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    'inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors',
-                    active
-                      ? 'border-gold/50 bg-gold/15 text-espresso'
-                      : 'border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground',
-                  )}
-                >
-                  <Icon className="size-4" aria-hidden="true" />
-                  {item.label}
-                </Link>
-              )
-            })}
-          </nav>
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={cn(
+                      'inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors',
+                      active
+                        ? 'border-gold/50 bg-gold/15 text-espresso'
+                        : 'border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground',
+                    )}
+                  >
+                    <Icon className="size-4" aria-hidden="true" />
+                    {item.label}
+                  </Link>
+                )
+              })}
+            </nav>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-fit gap-2"
+              onClick={handleLogout}
+            >
+              <LogOut className="size-4" aria-hidden="true" />
+              Logout
+            </Button>
+          </div>
         </div>
       </header>
 
