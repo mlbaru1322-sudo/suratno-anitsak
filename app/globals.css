@@ -1,0 +1,391 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-heading: var(--font-serif);
+  --font-serif: var(--font-cormorant), 'Cormorant Garamond Fallback', serif;
+  --font-sans: var(--font-jost), 'Jost Fallback', sans-serif;
+  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+
+  /* Wedding theme tokens */
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-champagne: var(--champagne);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-espresso: var(--espresso);
+  --color-taupe: var(--taupe);
+  --shadow-luxe: var(--shadow-luxe);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* Wedding palette */
+  --ivory: oklch(0.985 0.008 85);
+  --cream: oklch(0.96 0.015 88);
+  --champagne: oklch(0.9 0.035 85);
+  --gold: oklch(0.72 0.085 80);
+  --gold-soft: oklch(0.82 0.06 82);
+  --espresso: oklch(0.28 0.025 50);
+  --taupe: oklch(0.58 0.02 65);
+  --shadow-luxe: 0 20px 60px -25px oklch(0.28 0.025 50 / 0.35);
+
+  --background: oklch(0.985 0.008 85);
+  --foreground: oklch(0.28 0.025 50);
+  --card: oklch(0.97 0.012 86);
+  --card-foreground: oklch(0.28 0.025 50);
+  --popover: oklch(0.98 0.01 86);
+  --popover-foreground: oklch(0.28 0.025 50);
+  --primary: oklch(0.72 0.085 80);
+  --primary-foreground: oklch(0.99 0.005 85);
+  --secondary: oklch(0.93 0.025 86);
+  --secondary-foreground: oklch(0.28 0.025 50);
+  --muted: oklch(0.93 0.02 86);
+  --muted-foreground: oklch(0.52 0.02 60);
+  --accent: oklch(0.9 0.035 85);
+  --accent-foreground: oklch(0.28 0.025 50);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.86 0.03 84);
+  --input: oklch(0.88 0.025 84);
+  --ring: oklch(0.72 0.085 80);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    overflow-x: hidden;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    background: color-mix(in oklch, var(--card) 78%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid color-mix(in oklch, var(--gold) 35%, transparent);
+    box-shadow: var(--shadow-luxe);
+  }
+  .paper-texture {
+    background-color: var(--ivory);
+    background-image:
+      radial-gradient(circle at 20% 20%, color-mix(in oklch, var(--gold-soft) 18%, transparent) 0 1px, transparent 1px),
+      radial-gradient(circle at 80% 30%, color-mix(in oklch, var(--taupe) 10%, transparent) 0 1px, transparent 1px),
+      linear-gradient(135deg, color-mix(in oklch, var(--champagne) 30%, transparent), transparent 36%, color-mix(in oklch, var(--cream) 78%, transparent));
+    background-size: 18px 18px, 26px 26px, 100% 100%;
+  }
+  .batik-pattern {
+    background-image:
+      radial-gradient(ellipse at center, color-mix(in oklch, var(--gold) 13%, transparent) 0 12%, transparent 13%),
+      radial-gradient(ellipse at center, transparent 0 42%, color-mix(in oklch, var(--taupe) 8%, transparent) 43% 45%, transparent 46%),
+      linear-gradient(45deg, transparent 46%, color-mix(in oklch, var(--gold-soft) 11%, transparent) 47% 49%, transparent 50%);
+    background-size: 54px 54px, 54px 54px, 27px 27px;
+  }
+  .floral-wash {
+    background:
+      radial-gradient(circle at 12% 18%, color-mix(in oklch, var(--gold-soft) 24%, transparent), transparent 9rem),
+      radial-gradient(circle at 88% 82%, color-mix(in oklch, var(--champagne) 32%, transparent), transparent 10rem),
+      radial-gradient(circle at 50% 8%, color-mix(in oklch, var(--cream) 70%, transparent), transparent 18rem);
+  }
+  .ornamental-section {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .ornamental-section::before,
+  .ornamental-section::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    z-index: -1;
+    width: min(22rem, 78vw);
+    height: 1px;
+    transform: translateX(-50%);
+    background-image: linear-gradient(90deg, transparent, color-mix(in oklch, var(--gold) 55%, transparent), transparent);
+  }
+  .ornamental-section::before {
+    top: 1.25rem;
+  }
+  .ornamental-section::after {
+    bottom: 1.25rem;
+  }
+  .ornate-card {
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, color-mix(in oklch, var(--ivory) 92%, white), color-mix(in oklch, var(--cream) 88%, white)),
+      var(--card);
+    border: 1px solid color-mix(in oklch, var(--gold) 42%, transparent);
+    box-shadow: var(--shadow-luxe);
+  }
+  .ornate-card > * {
+    position: relative;
+    z-index: 1;
+  }
+  .ornate-card::before {
+    content: '';
+    position: absolute;
+    inset: 0.55rem;
+    pointer-events: none;
+    border: 1px solid color-mix(in oklch, var(--gold-soft) 48%, transparent);
+    border-radius: inherit;
+  }
+  .ornate-card::after {
+    content: '';
+    position: absolute;
+    inset: -35% auto auto -12%;
+    width: 12rem;
+    height: 12rem;
+    pointer-events: none;
+    border-radius: 999px;
+    background: radial-gradient(circle, color-mix(in oklch, var(--gold-soft) 22%, transparent), transparent 65%);
+  }
+  .photo-vignette {
+    background:
+      linear-gradient(180deg, oklch(0.28 0.025 50 / 0.25), transparent 36%, oklch(0.28 0.025 50 / 0.82)),
+      radial-gradient(circle at center, transparent 42%, oklch(0.28 0.025 50 / 0.58));
+  }
+  .gold-button {
+    border: 1px solid color-mix(in oklch, var(--champagne) 65%, transparent);
+    background-image: linear-gradient(135deg, var(--gold-soft), var(--gold), var(--champagne));
+    color: var(--espresso);
+    box-shadow: 0 12px 34px -18px color-mix(in oklch, var(--espresso) 55%, transparent);
+  }
+  .soft-badge {
+    border: 1px solid color-mix(in oklch, var(--gold) 36%, transparent);
+    background: color-mix(in oklch, var(--ivory) 78%, transparent);
+    box-shadow: 0 10px 30px -22px color-mix(in oklch, var(--espresso) 45%, transparent);
+  }
+  .text-gold {
+    color: var(--gold);
+  }
+  .bg-gradient-luxe {
+    background-image: linear-gradient(
+      180deg,
+      var(--ivory) 0%,
+      var(--cream) 50%,
+      var(--ivory) 100%
+    );
+  }
+  .bg-layered-ivory {
+    background:
+      radial-gradient(circle at top left, color-mix(in oklch, var(--champagne) 36%, transparent), transparent 34rem),
+      radial-gradient(circle at bottom right, color-mix(in oklch, var(--gold-soft) 22%, transparent), transparent 28rem),
+      radial-gradient(circle at 50% 18%, color-mix(in oklch, var(--ivory) 88%, transparent), transparent 22rem),
+      linear-gradient(180deg, var(--ivory) 0%, var(--cream) 45%, var(--ivory) 100%);
+  }
+  .gold-divider {
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      var(--gold) 50%,
+      transparent
+    );
+  }
+}
+
+@keyframes shimmer-line {
+  0% {
+    transform: translateX(-35%);
+    opacity: 0.15;
+  }
+  50% {
+    opacity: 0.55;
+  }
+  100% {
+    transform: translateX(35%);
+    opacity: 0.15;
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(6deg);
+  }
+}
+
+@keyframes float-slower {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(14px) rotate(-5deg);
+  }
+}
+
+@keyframes slow-zoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes cover-zoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.03);
+  }
+}
+
+@media (min-width: 768px) {
+  @keyframes cover-zoom {
+    0% {
+      transform: scale(1.02);
+    }
+    100% {
+      transform: scale(1.06);
+    }
+  }
+}
+
+@keyframes gentle-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklch, var(--gold) 35%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 24px 4px color-mix(in oklch, var(--gold) 45%, transparent);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 7s ease-in-out infinite;
+}
+.animate-float-slower {
+  animation: float-slower 9s ease-in-out infinite;
+}
+.animate-slow-zoom {
+  animation: slow-zoom 18s ease-in-out infinite alternate;
+}
+.animate-cover-zoom {
+  animation: cover-zoom 18s ease-in-out infinite alternate;
+}
+.animate-gentle-glow {
+  animation: gentle-glow 3s ease-in-out infinite;
+}
+.animate-spin-slow {
+  animation: spin-slow 6s linear infinite;
+}
+.animate-shimmer-line {
+  animation: shimmer-line 5s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-slow,
+  .animate-float-slower,
+  .animate-slow-zoom,
+  .animate-cover-zoom,
+  .animate-gentle-glow,
+  .animate-spin-slow,
+  .animate-shimmer-line {
+    animation: none;
+  }
+}
