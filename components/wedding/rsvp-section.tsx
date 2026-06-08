@@ -14,7 +14,7 @@ import {
 } from '@/lib/services/wedding-service'
 import { SectionHeading } from './section-heading'
 import { Reveal } from './motion-helpers'
-import { CornerOrnament, SectionOrnaments } from './ornaments'
+import { CornerCarving, CornerOrnament, SectionOrnaments } from './ornaments'
 
 type Attendance = 'hadir' | 'tidak' | 'ragu'
 
@@ -188,6 +188,7 @@ export function RsvpSection() {
 
             <CornerOrnament className="absolute left-4 top-4 w-14 opacity-55" />
             <CornerOrnament className="absolute bottom-4 right-4 w-14 rotate-180 opacity-55" />
+            <CornerCarving className="right-4 top-4 rotate-90" />
           </form>
         </Reveal>
       </div>

@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { motion } from 'framer-motion'
 import { Toaster } from '@/components/ui/sonner'
 import {
   getWeddingEvents,
@@ -32,13 +33,31 @@ import { SectionDivider } from './ornaments'
 
 export function InvitationPage() {
   const [opened, setOpened] = useState(false)
-  const [data, setData] = useState<WeddingData>(() => getFallbackWeddingData())
+  const [data, setData] = useState<WeddingData>(() =>
+    getFallbackWeddingData(null),
+  )
+  const [guestName, setGuestName] = useState<string | null>(null)
+
+  const publicData = useMemo<WeddingData>(() => {
+    const cleanGuestName = guestName?.trim()
+
+    if (!cleanGuestName) return data
+
+    return {
+      ...data,
+      guest: {
+        ...data.guest,
+        name: cleanGuestName,
+      },
+    } as WeddingData
+  }, [data, guestName])
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
-    const guestName = params.get('to')
+    const queryGuestName = params.get('to')
 
-    setData(getFallbackWeddingData(guestName))
+    setGuestName(queryGuestName)
+    setData(getFallbackWeddingData(queryGuestName))
 
     async function loadSupabaseData() {
       try {
@@ -51,11 +70,11 @@ export function InvitationPage() {
           mergeSupabaseWeddingData({
             settings,
             events,
-            guestName,
+            guestName: queryGuestName,
           }),
         )
       } catch {
-        setData(getFallbackWeddingData(guestName))
+        setData(getFallbackWeddingData(queryGuestName))
       }
     }
 
@@ -70,30 +89,41 @@ export function InvitationPage() {
   }
 
   return (
-    <main className="relative bg-background">
-      <OpeningCover data={data} open={opened} onOpen={handleOpen} />
+    <main className="vintage-public-page relative bg-background">
+      <OpeningCover data={publicData} open={opened} onOpen={handleOpen} />
 
-      <div
+      <motion.div
         aria-hidden={!opened}
+        initial={false}
+        animate={
+          opened
+            ? { opacity: 1, y: 0 }
+            : { opacity: 0, y: 18 }
+        }
+        transition={{
+          duration: 1,
+          delay: opened ? 0.15 : 0,
+          ease: [0.22, 1, 0.36, 1],
+        }}
         className={
           opened
-            ? 'opacity-100 transition-opacity duration-700'
-            : 'pointer-events-none h-screen overflow-hidden opacity-0'
+            ? 'overflow-x-hidden'
+            : 'pointer-events-none h-screen overflow-hidden'
         }
       >
-        <HeroSection data={data} />
+        <HeroSection data={publicData} active={opened} />
         <SectionDivider />
-        <GreetingSection data={data} />
+        <GreetingSection data={publicData} />
         <SectionDivider />
-        <QuoteSection data={data} />
+        <QuoteSection data={publicData} />
         <SectionDivider />
-        <CoupleSection data={data} />
+        <CoupleSection data={publicData} />
         <SectionDivider />
-        <CountdownSection data={data} />
+        <CountdownSection data={publicData} />
         <SectionDivider />
-        <EventSection data={data} />
+        <EventSection data={publicData} />
         <SectionDivider />
-        <MapsSection data={data} />
+        <MapsSection data={publicData} />
         <SectionDivider />
         <LoveStorySection />
         <SectionDivider />
@@ -103,14 +133,14 @@ export function InvitationPage() {
         <SectionDivider />
         <RsvpSection />
         <SectionDivider />
-        <WishesSection />
+        <WishesSection enabled={opened} />
         <SectionDivider />
         <DigitalGiftSection />
         <SectionDivider />
-        <ClosingSection data={data} />
-      </div>
+        <ClosingSection data={publicData} />
+      </motion.div>
 
-      <FloatingMusicButton active={opened} data={data} />
+      <FloatingMusicButton active={opened} data={publicData} />
       <BackToTopButton active={opened} />
       <Toaster position="top-center" />
     </main>

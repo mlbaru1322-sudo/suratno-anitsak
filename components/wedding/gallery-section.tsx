@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { weddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { staggerContainer } from './motion-helpers'
-import { CornerOrnament, SectionOrnaments } from './ornaments'
+import { CornerCarving, CornerOrnament, SectionOrnaments } from './ornaments'
 
 export function GallerySection() {
   const { gallery } = weddingData
@@ -41,11 +41,13 @@ export function GallerySection() {
               }}
               className={
                 index === 0 || index === 5
-                  ? 'group relative aspect-[3/4] overflow-hidden rounded-[1.35rem] border-[6px] border-ivory outline outline-1 outline-gold/35 shadow-luxe sm:col-span-2 sm:row-span-2'
-                  : 'group relative aspect-[3/4] overflow-hidden rounded-[1.35rem] border-[6px] border-ivory outline outline-1 outline-gold/35 shadow-luxe sm:col-span-2'
+                  ? 'group relative aspect-[3/4] overflow-hidden rounded-[1.35rem] border-[7px] border-ivory outline outline-2 outline-gold/40 shadow-luxe sm:col-span-2 sm:row-span-2'
+                  : 'group relative aspect-[3/4] overflow-hidden rounded-[1.35rem] border-[7px] border-ivory outline outline-2 outline-gold/40 shadow-luxe sm:col-span-2'
               }
             >
               <CornerOrnament className="absolute left-1 top-1 z-10 w-10 text-champagne opacity-75" />
+              <CornerCarving className="right-1 top-1 z-10 w-10 rotate-90 text-champagne opacity-60" />
+              <span className="batik-pattern pointer-events-none absolute inset-0 z-10 opacity-[0.06]" />
               <Image
                 src={src || '/placeholder.svg'}
                 alt={`Foto prewedding ${index + 1}`}

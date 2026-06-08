@@ -1,0 +1,18 @@
+---
+pid: 16908
+cwd: "D:\project\wedding-invitation-website"
+command: "Remove-Item -Recurse -Force .next -ErrorAction SilentlyContinue; npm run dev"
+started_at: 2026-06-08T10:17:35.953Z
+running_for_ms: 1675009  
+---
+At line:1 char:46
++ (cd "D:\\project\\wedding-invitation-website" ; Remove-Item -Recurse  ...
++                                              ~
+Missing closing ')' in expression.
+At line:1 char:125
++ ... tem -Recurse -Force .next -ErrorAction SilentlyContinue; npm run dev)
++                                                                         ~
+Unexpected token ')' in expression or statement.
+    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
+    + FullyQualifiedErrorId : MissingEndParenthesisInExpression
+ 

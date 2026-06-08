@@ -1,0 +1,26 @@
+---
+pid: 23904
+cwd: "D:\project\wedding-invitation-website"
+command: "npm run dev"
+started_at: 2026-06-08T10:18:56.425Z
+running_for_ms: 1595003  
+---
+
+> my-project@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.6 (Turbopack)
+⚠ Port 3000 is in use by process 22884, using available port 3001 instead.
+- Local:         http://localhost:3001
+- Network:       http://192.168.101.73:3001
+- Environments: .env.local
+✓ Ready in 1690ms
+
+⨯ Another next dev server is already running.
+
+- Local:        http://localhost:3000
+- PID:          22884
+- Dir:          D:\project\wedding-invitation-website
+- Log:          .next\dev\logs\next-development.log
+
+Run taskkill /PID 22884 /F to stop it.

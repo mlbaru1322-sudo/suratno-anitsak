@@ -1,0 +1,9 @@
+/* Vintage Jawa final scene assets */
+.vintage-jawa-scene { --vj-gold: #b9976b; --vj-brown: #5a3b2e; --vj-cream: #f5f1e7; }
+.vintage-parallax-slow { animation: vintageParallax 18s ease-in-out infinite alternate; transform-origin: center bottom; }
+.vintage-birds-float { animation: vintageBirds 22s linear infinite; }
+.vintage-gold-drift { animation: vintageGoldDust 16s ease-in-out infinite alternate; }
+@keyframes vintageParallax { 0% { transform: translate3d(-1%, 0, 0) scale(1.02); } 100% { transform: translate3d(1%, -1.2%, 0) scale(1.05); } }
+@keyframes vintageBirds { 0% { transform: translate3d(-12vw, 0, 0) scale(.95); opacity: .35; } 20% { opacity: .72; } 100% { transform: translate3d(92vw, -4vh, 0) scale(1.08); opacity: .18; } }
+@keyframes vintageGoldDust { 0% { transform: translateY(0); opacity: .18; } 100% { transform: translateY(-18px); opacity: .32; } }
+@media (prefers-reduced-motion: reduce) { .vintage-parallax-slow, .vintage-birds-float, .vintage-gold-drift { animation: none !important; } }

@@ -3,7 +3,12 @@
 import { Quote } from 'lucide-react'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { Reveal } from './motion-helpers'
-import { CornerOrnament, OrnamentDivider, SectionOrnaments } from './ornaments'
+import {
+  CornerCarving,
+  CornerOrnament,
+  OrnamentDivider,
+  SectionOrnaments,
+} from './ornaments'
 import { SectionHeading } from './section-heading'
 
 export function QuoteSection({ data = weddingData }: { data?: WeddingData }) {
@@ -21,6 +26,7 @@ export function QuoteSection({ data = weddingData }: { data?: WeddingData }) {
           <div className="ornate-card rounded-[2rem] px-7 py-12 text-center sm:px-12 sm:py-16">
             <CornerOrnament className="absolute left-4 top-4 w-16 opacity-60" />
             <CornerOrnament className="absolute bottom-4 right-4 w-16 rotate-180 opacity-60" />
+            <CornerCarving className="right-4 top-4 rotate-90" />
             <span className="mx-auto mb-6 flex size-12 items-center justify-center rounded-full border border-gold/35 bg-gold/10 text-gold">
               <Quote className="size-6" aria-hidden="true" />
             </span>

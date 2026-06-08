@@ -35,7 +35,7 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
 
   return (
     <section
-      className="ornamental-section paper-texture px-5 py-20 sm:px-6 sm:py-24"
+      className="ornamental-section javanese-warmth px-5 py-20 sm:px-6 sm:py-24"
       aria-label="Hitung mundur"
     >
       <SectionOrnaments />
@@ -54,7 +54,7 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
             {units.map((unit) => (
               <div
                 key={unit.label}
-                className="ornate-card animate-gentle-glow flex min-h-28 flex-col items-center justify-center rounded-2xl px-2 py-6 sm:min-h-36 sm:py-8"
+                className="ornate-card batik-pattern animate-gentle-glow flex min-h-28 flex-col items-center justify-center rounded-2xl px-2 py-6 sm:min-h-36 sm:py-8"
               >
                 <span className="font-serif text-3xl font-semibold tabular-nums text-espresso sm:text-5xl">
                   {mounted ? String(unit.value).padStart(2, '0') : '--'}

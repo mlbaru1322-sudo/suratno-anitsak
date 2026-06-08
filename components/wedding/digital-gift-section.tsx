@@ -6,7 +6,7 @@ import { weddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { staggerContainer, fadeUp } from './motion-helpers'
 import { motion } from 'framer-motion'
-import { SectionOrnaments } from './ornaments'
+import { CornerCarving, SectionOrnaments } from './ornaments'
 
 export function DigitalGiftSection() {
   const { gifts } = weddingData
@@ -49,6 +49,7 @@ export function DigitalGiftSection() {
               variants={fadeUp}
               className="ornate-card rounded-2xl px-6 py-7"
             >
+              <CornerCarving className="right-4 top-4 rotate-90" />
               <div className="flex items-center gap-3">
                 <span className="flex size-12 items-center justify-center rounded-full border border-gold/35 bg-gold/90 text-ivory shadow-luxe">
                   <Mail className="size-5" aria-hidden="true" />

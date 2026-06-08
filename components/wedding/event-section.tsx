@@ -1,11 +1,17 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { CalendarDays, Clock, MapPin, Sparkles } from 'lucide-react'
+import { CalendarDays, Clock, MapPin } from 'lucide-react'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { staggerContainer, fadeUp } from './motion-helpers'
-import { CornerOrnament, OrnamentDivider, SectionOrnaments } from './ornaments'
+import {
+  CornerOrnament,
+  CornerCarving,
+  GununganMark,
+  OrnamentDivider,
+  SectionOrnaments,
+} from './ornaments'
 
 export function EventSection({ data = weddingData }: { data?: WeddingData }) {
   const { events } = data
@@ -35,8 +41,9 @@ export function EventSection({ data = weddingData }: { data?: WeddingData }) {
             >
               <CornerOrnament className="absolute left-4 top-4 w-14 opacity-55" />
               <CornerOrnament className="absolute bottom-4 right-4 w-14 rotate-180 opacity-55" />
+              <CornerCarving className="right-4 top-4 rotate-90" />
               <span className="mb-4 flex size-12 items-center justify-center rounded-full border border-gold/35 bg-gold/10 text-gold">
-                <Sparkles className="size-5" aria-hidden="true" />
+                <GununganMark className="size-8" />
               </span>
               <h3 className="font-serif text-2xl font-semibold text-espresso sm:text-3xl">
                 {event.title}
@@ -44,18 +51,18 @@ export function EventSection({ data = weddingData }: { data?: WeddingData }) {
               <OrnamentDivider className="my-5" />
 
               <ul className="w-full space-y-4 text-taupe">
-                <li className="soft-badge flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm">
+                <li className="soft-badge batik-pattern flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm">
                   <CalendarDays
                     className="size-4 text-gold"
                     aria-hidden="true"
                   />
                   {event.date}
                 </li>
-                <li className="soft-badge flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm">
+                <li className="soft-badge batik-pattern flex items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm">
                   <Clock className="size-4 text-gold" aria-hidden="true" />
                   {event.time}
                 </li>
-                <li className="rounded-2xl border border-gold/25 bg-ivory/55 px-4 py-4">
+                <li className="rounded-2xl border border-gold/35 bg-ivory/70 px-4 py-4 shadow-luxe">
                   <span className="flex items-center gap-2 font-medium text-espresso">
                     <MapPin className="size-4 text-gold" aria-hidden="true" />
                     {event.venue}

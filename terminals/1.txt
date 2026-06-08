@@ -1,0 +1,15 @@
+---
+pid: 19876
+cwd: "D:\project\wedding-invitation-website"
+command: "npm run start"
+started_at: 2026-06-08T06:16:42.134Z
+running_for_ms: 16130006 
+---
+
+> my-project@0.1.0 start
+> next start
+
+▲ Next.js 16.2.6
+- Local:         http://localhost:3000
+- Network:       http://192.168.101.73:3000
+✓ Ready in 284ms

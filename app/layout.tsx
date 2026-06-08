@@ -1,18 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
-import { Cormorant_Garamond, Jost, Geist_Mono } from 'next/font/google'
 import './globals.css'
-
-const cormorant = Cormorant_Garamond({
-  variable: '--font-cormorant',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-})
-const jost = Jost({ variable: '--font-jost', subsets: ['latin'] })
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
 
 export const metadata: Metadata = {
   title: 'The Wedding of Rahayu & Mardian',
@@ -44,10 +32,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="id"
-      className={`${cormorant.variable} ${jost.variable} ${geistMono.variable} bg-background`}
-    >
+    <html lang="id" className="bg-background">
       <body className="font-sans antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}

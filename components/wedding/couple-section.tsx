@@ -6,7 +6,13 @@ import Image from 'next/image'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { staggerContainer, fadeUp } from './motion-helpers'
-import { CornerOrnament, FloralMark, SectionOrnaments } from './ornaments'
+import {
+  CornerOrnament,
+  CornerCarving,
+  FloralMark,
+  GununganMark,
+  SectionOrnaments,
+} from './ornaments'
 
 type Person = {
   name: string
@@ -23,8 +29,10 @@ function CoupleCard({ person }: { person: Person }) {
     >
       <CornerOrnament className="absolute left-4 top-4 w-14 opacity-55" />
       <CornerOrnament className="absolute bottom-4 right-4 w-14 rotate-180 opacity-55" />
+      <CornerCarving className="right-4 top-4 rotate-90" />
       <div className="soft-badge mb-6 rounded-full p-2">
-        <div className="relative h-48 w-40 overflow-hidden rounded-t-full rounded-b-[5rem] border-4 border-ivory outline outline-1 outline-gold/50 shadow-luxe sm:h-56 sm:w-48">
+        <div className="relative h-48 w-40 overflow-hidden rounded-t-full rounded-b-[5rem] border-[6px] border-ivory outline outline-2 outline-gold/45 shadow-luxe sm:h-56 sm:w-48">
+          <span className="batik-pattern pointer-events-none absolute inset-0 z-10 opacity-[0.08]" />
           <Image
             src={person.photo || '/placeholder.svg'}
             alt={person.name}
@@ -77,9 +85,10 @@ export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
           <CoupleCard person={bride} />
           <motion.div
             variants={fadeUp}
-            className="mx-auto flex size-20 items-center justify-center rounded-full border border-gold/40 bg-ivory/80 font-serif text-5xl text-gold shadow-luxe md:size-24 md:text-6xl"
+            className="soft-badge mx-auto flex size-20 flex-col items-center justify-center rounded-full bg-ivory/85 font-serif text-5xl text-gold shadow-luxe md:size-24 md:text-6xl"
             aria-hidden="true"
           >
+            <GununganMark className="mb-[-0.35rem] h-7 w-7 opacity-70" />
             &
           </motion.div>
           <CoupleCard person={groom} />

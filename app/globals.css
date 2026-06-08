@@ -6,9 +6,9 @@
 
 @theme inline {
   --font-heading: var(--font-serif);
-  --font-serif: var(--font-cormorant), 'Cormorant Garamond Fallback', serif;
-  --font-sans: var(--font-jost), 'Jost Fallback', sans-serif;
-  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-jost);
+  --font-mono: var(--font-geist-mono);
 
   /* Wedding theme tokens */
   --color-ivory: var(--ivory);
@@ -60,32 +60,43 @@
 }
 
 :root {
-  /* Wedding palette */
-  --ivory: oklch(0.985 0.008 85);
-  --cream: oklch(0.96 0.015 88);
-  --champagne: oklch(0.9 0.035 85);
-  --gold: oklch(0.72 0.085 80);
-  --gold-soft: oklch(0.82 0.06 82);
-  --espresso: oklch(0.28 0.025 50);
-  --taupe: oklch(0.58 0.02 65);
-  --shadow-luxe: 0 20px 60px -25px oklch(0.28 0.025 50 / 0.35);
+  /* Local-safe font stacks (no network fetch at build) */
+  --font-cormorant: Georgia, 'Times New Roman', Times, serif;
+  --font-jost: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
 
-  --background: oklch(0.985 0.008 85);
-  --foreground: oklch(0.28 0.025 50);
-  --card: oklch(0.97 0.012 86);
-  --card-foreground: oklch(0.28 0.025 50);
+  /* Wedding palette */
+  --ivory: oklch(0.982 0.012 84);
+  --cream: oklch(0.945 0.025 83);
+  --champagne: oklch(0.86 0.052 79);
+  --gold: oklch(0.66 0.095 74);
+  --gold-soft: oklch(0.78 0.074 78);
+  --espresso: oklch(0.24 0.035 47);
+  --taupe: oklch(0.5 0.035 57);
+  --batik-brown: oklch(0.35 0.055 48);
+  --joglo-wood: oklch(0.31 0.06 42);
+  --warm-beige: oklch(0.9 0.038 78);
+  --antique-gold: oklch(0.68 0.105 72);
+  --shadow-luxe: 0 22px 64px -28px oklch(0.24 0.035 47 / 0.48);
+
+  --background: oklch(0.982 0.012 84);
+  --foreground: oklch(0.24 0.035 47);
+  --card: oklch(0.958 0.02 83);
+  --card-foreground: oklch(0.24 0.035 47);
   --popover: oklch(0.98 0.01 86);
   --popover-foreground: oklch(0.28 0.025 50);
-  --primary: oklch(0.72 0.085 80);
+  --primary: oklch(0.66 0.095 74);
   --primary-foreground: oklch(0.99 0.005 85);
   --secondary: oklch(0.93 0.025 86);
   --secondary-foreground: oklch(0.28 0.025 50);
   --muted: oklch(0.93 0.02 86);
-  --muted-foreground: oklch(0.52 0.02 60);
+  --muted-foreground: oklch(0.48 0.035 56);
   --accent: oklch(0.9 0.035 85);
   --accent-foreground: oklch(0.28 0.025 50);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.86 0.03 84);
+  --border: oklch(0.82 0.04 78);
   --input: oklch(0.88 0.025 84);
   --ring: oklch(0.72 0.085 80);
   --chart-1: oklch(0.87 0 0);
@@ -145,6 +156,12 @@
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;
+    background:
+      radial-gradient(circle at 14% 8%, color-mix(in oklch, var(--antique-gold) 13%, transparent), transparent 17rem),
+      radial-gradient(circle at 88% 28%, color-mix(in oklch, var(--batik-brown) 10%, transparent), transparent 20rem),
+      radial-gradient(ellipse at center, color-mix(in oklch, var(--antique-gold) 8%, transparent) 0 8%, transparent 9%),
+      linear-gradient(180deg, var(--ivory), var(--cream));
+    background-size: auto, auto, 72px 72px, auto;
   }
   html {
     @apply font-sans;
@@ -162,17 +179,24 @@
   .paper-texture {
     background-color: var(--ivory);
     background-image:
-      radial-gradient(circle at 20% 20%, color-mix(in oklch, var(--gold-soft) 18%, transparent) 0 1px, transparent 1px),
-      radial-gradient(circle at 80% 30%, color-mix(in oklch, var(--taupe) 10%, transparent) 0 1px, transparent 1px),
-      linear-gradient(135deg, color-mix(in oklch, var(--champagne) 30%, transparent), transparent 36%, color-mix(in oklch, var(--cream) 78%, transparent));
-    background-size: 18px 18px, 26px 26px, 100% 100%;
+      radial-gradient(circle at 22% 22%, color-mix(in oklch, var(--antique-gold) 16%, transparent) 0 1px, transparent 1.5px),
+      radial-gradient(circle at 78% 34%, color-mix(in oklch, var(--batik-brown) 10%, transparent) 0 1px, transparent 1.5px),
+      linear-gradient(135deg, color-mix(in oklch, var(--warm-beige) 36%, transparent), transparent 36%, color-mix(in oklch, var(--cream) 86%, transparent));
+    background-size: 18px 18px, 30px 30px, 100% 100%;
   }
   .batik-pattern {
     background-image:
-      radial-gradient(ellipse at center, color-mix(in oklch, var(--gold) 13%, transparent) 0 12%, transparent 13%),
-      radial-gradient(ellipse at center, transparent 0 42%, color-mix(in oklch, var(--taupe) 8%, transparent) 43% 45%, transparent 46%),
-      linear-gradient(45deg, transparent 46%, color-mix(in oklch, var(--gold-soft) 11%, transparent) 47% 49%, transparent 50%);
-    background-size: 54px 54px, 54px 54px, 27px 27px;
+      radial-gradient(ellipse at center, color-mix(in oklch, var(--antique-gold) 26%, transparent) 0 10%, transparent 11%),
+      radial-gradient(ellipse at center, transparent 0 35%, color-mix(in oklch, var(--batik-brown) 18%, transparent) 36% 39%, transparent 40%),
+      linear-gradient(45deg, transparent 45%, color-mix(in oklch, var(--antique-gold) 20%, transparent) 46% 50%, transparent 51%),
+      linear-gradient(-45deg, transparent 45%, color-mix(in oklch, var(--joglo-wood) 15%, transparent) 46% 50%, transparent 51%);
+    background-size: 56px 56px, 56px 56px, 28px 28px, 28px 28px;
+  }
+  .javanese-warmth {
+    background:
+      radial-gradient(circle at 50% 0%, color-mix(in oklch, var(--antique-gold) 18%, transparent), transparent 22rem),
+      radial-gradient(circle at 8% 80%, color-mix(in oklch, var(--batik-brown) 12%, transparent), transparent 17rem),
+      linear-gradient(180deg, var(--ivory) 0%, var(--warm-beige) 52%, var(--ivory) 100%);
   }
   .floral-wash {
     background:
@@ -185,16 +209,47 @@
     overflow: hidden;
     isolation: isolate;
   }
+  .ornamental-section > :not(.javanese-section-frame):not(.batik-pattern):not(svg):not(img) {
+    position: relative;
+    z-index: 1;
+  }
+  .ornamental-section > .javanese-section-frame {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .ornamental-section > .javanese-section-frame::before,
+  .ornamental-section > .javanese-section-frame::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-image: linear-gradient(
+      180deg,
+      transparent,
+      color-mix(in oklch, var(--antique-gold) 58%, transparent),
+      color-mix(in oklch, var(--batik-brown) 32%, transparent),
+      transparent
+    );
+  }
+  .ornamental-section > .javanese-section-frame::before {
+    left: clamp(0.75rem, 3vw, 2.5rem);
+  }
+  .ornamental-section > .javanese-section-frame::after {
+    right: clamp(0.75rem, 3vw, 2.5rem);
+  }
   .ornamental-section::before,
   .ornamental-section::after {
     content: '';
     position: absolute;
     left: 50%;
-    z-index: -1;
-    width: min(22rem, 78vw);
-    height: 1px;
+    z-index: 0;
+    width: min(28rem, 84vw);
+    height: 2px;
     transform: translateX(-50%);
-    background-image: linear-gradient(90deg, transparent, color-mix(in oklch, var(--gold) 55%, transparent), transparent);
+    background-image: linear-gradient(90deg, transparent, color-mix(in oklch, var(--joglo-wood) 22%, transparent), color-mix(in oklch, var(--antique-gold) 70%, transparent), color-mix(in oklch, var(--joglo-wood) 22%, transparent), transparent);
   }
   .ornamental-section::before {
     top: 1.25rem;
@@ -206,10 +261,12 @@
     position: relative;
     overflow: hidden;
     background:
-      linear-gradient(180deg, color-mix(in oklch, var(--ivory) 92%, white), color-mix(in oklch, var(--cream) 88%, white)),
+      linear-gradient(180deg, color-mix(in oklch, var(--ivory) 94%, white), color-mix(in oklch, var(--warm-beige) 78%, white)),
       var(--card);
-    border: 1px solid color-mix(in oklch, var(--gold) 42%, transparent);
-    box-shadow: var(--shadow-luxe);
+    border: 2px solid color-mix(in oklch, var(--antique-gold) 72%, transparent);
+    box-shadow:
+      0 1px 0 color-mix(in oklch, white 65%, transparent) inset,
+      var(--shadow-luxe);
   }
   .ornate-card > * {
     position: relative;
@@ -218,20 +275,30 @@
   .ornate-card::before {
     content: '';
     position: absolute;
-    inset: 0.55rem;
+    inset: 0.45rem;
     pointer-events: none;
-    border: 1px solid color-mix(in oklch, var(--gold-soft) 48%, transparent);
+    border: 1px solid color-mix(in oklch, var(--batik-brown) 46%, transparent);
     border-radius: inherit;
+  }
+  .ornate-card .card-carving {
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+    width: 4.5rem;
+    color: var(--gold-soft);
+    opacity: 0.78;
   }
   .ornate-card::after {
     content: '';
     position: absolute;
-    inset: -35% auto auto -12%;
-    width: 12rem;
-    height: 12rem;
+    inset: 0;
     pointer-events: none;
-    border-radius: 999px;
-    background: radial-gradient(circle, color-mix(in oklch, var(--gold-soft) 22%, transparent), transparent 65%);
+    background:
+      radial-gradient(circle at 8% 10%, color-mix(in oklch, var(--antique-gold) 16%, transparent), transparent 7rem),
+      radial-gradient(circle at 92% 90%, color-mix(in oklch, var(--batik-brown) 10%, transparent), transparent 8rem),
+      linear-gradient(45deg, transparent 48%, color-mix(in oklch, var(--antique-gold) 7%, transparent) 49% 51%, transparent 52%);
+    background-size: 100% 100%, 100% 100%, 34px 34px;
+    opacity: 0.9;
   }
   .photo-vignette {
     background:
@@ -239,15 +306,18 @@
       radial-gradient(circle at center, transparent 42%, oklch(0.28 0.025 50 / 0.58));
   }
   .gold-button {
-    border: 1px solid color-mix(in oklch, var(--champagne) 65%, transparent);
-    background-image: linear-gradient(135deg, var(--gold-soft), var(--gold), var(--champagne));
+    border: 1px solid color-mix(in oklch, var(--champagne) 70%, transparent);
+    background-image:
+      linear-gradient(135deg, var(--gold-soft), var(--antique-gold), var(--champagne)),
+      linear-gradient(45deg, transparent 46%, color-mix(in oklch, var(--joglo-wood) 12%, transparent) 47% 49%, transparent 50%);
     color: var(--espresso);
-    box-shadow: 0 12px 34px -18px color-mix(in oklch, var(--espresso) 55%, transparent);
+    box-shadow: 0 14px 38px -19px color-mix(in oklch, var(--espresso) 68%, transparent);
   }
   .soft-badge {
-    border: 1px solid color-mix(in oklch, var(--gold) 36%, transparent);
-    background: color-mix(in oklch, var(--ivory) 78%, transparent);
-    box-shadow: 0 10px 30px -22px color-mix(in oklch, var(--espresso) 45%, transparent);
+    border: 1px solid color-mix(in oklch, var(--antique-gold) 42%, transparent);
+    background:
+      linear-gradient(180deg, color-mix(in oklch, var(--ivory) 88%, transparent), color-mix(in oklch, var(--warm-beige) 42%, transparent));
+    box-shadow: 0 10px 30px -22px color-mix(in oklch, var(--espresso) 55%, transparent);
   }
   .text-gold {
     color: var(--gold);
@@ -262,18 +332,109 @@
   }
   .bg-layered-ivory {
     background:
-      radial-gradient(circle at top left, color-mix(in oklch, var(--champagne) 36%, transparent), transparent 34rem),
-      radial-gradient(circle at bottom right, color-mix(in oklch, var(--gold-soft) 22%, transparent), transparent 28rem),
+      radial-gradient(circle at top left, color-mix(in oklch, var(--antique-gold) 24%, transparent), transparent 34rem),
+      radial-gradient(circle at bottom right, color-mix(in oklch, var(--batik-brown) 12%, transparent), transparent 28rem),
       radial-gradient(circle at 50% 18%, color-mix(in oklch, var(--ivory) 88%, transparent), transparent 22rem),
-      linear-gradient(180deg, var(--ivory) 0%, var(--cream) 45%, var(--ivory) 100%);
+      linear-gradient(180deg, var(--ivory) 0%, var(--warm-beige) 45%, var(--ivory) 100%);
   }
   .gold-divider {
     background-image: linear-gradient(
       90deg,
       transparent,
-      var(--gold) 50%,
+      color-mix(in oklch, var(--joglo-wood) 48%, transparent) 14%,
+      var(--antique-gold) 50%,
+      color-mix(in oklch, var(--joglo-wood) 48%, transparent) 86%,
       transparent
     );
+  }
+  .gebyok-frame {
+    box-shadow:
+      inset 0 0 0 1px color-mix(in oklch, var(--champagne) 78%, transparent),
+      inset 0 0 0 6px color-mix(in oklch, var(--joglo-wood) 42%, transparent),
+      inset 0 0 0 8px color-mix(in oklch, var(--antique-gold) 70%, transparent),
+      inset 0 0 0 11px color-mix(in oklch, var(--espresso) 20%, transparent);
+  }
+  .javanese-float {
+    filter:
+      drop-shadow(0 8px 14px color-mix(in oklch, var(--espresso) 38%, transparent))
+      drop-shadow(0 0 12px color-mix(in oklch, var(--gold-soft) 36%, transparent));
+  }
+  .gold-dust {
+    background:
+      radial-gradient(circle, color-mix(in oklch, var(--champagne) 95%, transparent) 0 2px, transparent 2.6px),
+      radial-gradient(circle, color-mix(in oklch, var(--gold-soft) 85%, transparent) 0 1.5px, transparent 2.1px);
+    background-position: 0 0, 18px 22px;
+    background-size: 42px 48px, 54px 64px;
+  }
+  .vintage-public-page {
+    background:
+      linear-gradient(180deg, rgba(43, 26, 18, 0.88), rgba(90, 59, 46, 0.84)),
+      url('/ornaments/vintage-jawa-final/patterns/parang-pattern.svg');
+    background-attachment: fixed;
+    background-color: #2b1a12;
+    background-size: auto, 340px 340px;
+  }
+  .vintage-public-page .paper-texture,
+  .vintage-public-page .bg-layered-ivory,
+  .vintage-public-page .javanese-warmth {
+    background:
+      linear-gradient(180deg, rgba(245, 241, 231, 0.95), rgba(232, 223, 201, 0.92)),
+      url('/ornaments/vintage-jawa-final/patterns/kawung-pattern.svg');
+    background-color: #f5f1e7;
+    background-size: auto, 220px 220px;
+  }
+  .vintage-public-page .ornamental-section::before,
+  .vintage-public-page .ornamental-section::after {
+    background-image: url('/ornaments/vintage-jawa-final/dividers/divider-batik-line.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 18px;
+    opacity: 0.58;
+  }
+  .vintage-jawa-scene {
+    --vj-gold: #b9976b;
+    --vj-brown: #5a3b2e;
+    --vj-cream: #f5f1e7;
+  }
+  .vintage-opening-panel,
+  .vintage-hero-panel {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(185, 151, 107, 0.72);
+    background:
+      linear-gradient(180deg, rgba(245, 241, 231, 0.94), rgba(232, 223, 201, 0.9)),
+      url('/ornaments/vintage-jawa-final/backgrounds/bg-paper-cream.svg');
+    background-size: cover;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.55) inset,
+      0 28px 70px -38px rgba(18, 10, 6, 0.82);
+  }
+  .vintage-opening-panel {
+    border-radius: 1.7rem;
+  }
+  .vintage-opening-panel::before,
+  .vintage-hero-panel::before {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    inset: 0.55rem;
+    z-index: 0;
+    border: 1px solid rgba(90, 59, 46, 0.32);
+    border-radius: inherit;
+  }
+  .vintage-opening-panel > *,
+  .vintage-hero-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+  .vintage-hero-panel {
+    border-radius: 2rem;
+  }
+  .vintage-cream-section {
+    background:
+      radial-gradient(circle at 50% 8%, rgba(216, 187, 133, 0.22), transparent 18rem),
+      linear-gradient(180deg, rgba(245, 241, 231, 0.98), rgba(232, 223, 201, 0.94));
   }
 }
 
@@ -308,6 +469,51 @@
   }
   50% {
     transform: translateY(14px) rotate(-5deg);
+  }
+}
+
+@keyframes javanese-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+    opacity: 0.28;
+  }
+  50% {
+    transform: translate3d(0, -22px, 0) rotate(3deg);
+    opacity: 0.46;
+  }
+}
+
+@keyframes javanese-drift-alt {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(3deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translate3d(10px, 18px, 0) rotate(-3deg);
+    opacity: 0.4;
+  }
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 0.16;
+  }
+  50% {
+    opacity: 0.36;
+  }
+}
+
+@keyframes divider-reveal {
+  0% {
+    transform: scaleX(0.68);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
   }
 }
 
@@ -356,11 +562,130 @@
   }
 }
 
+@keyframes vintage-parallax {
+  0% {
+    transform: translate3d(-1.4%, 0, 0) scale(1.02);
+  }
+  100% {
+    transform: translate3d(1.2%, -1.2%, 0) scale(1.045);
+  }
+}
+
+@keyframes vintage-birds {
+  0% {
+    transform: translate3d(-14vw, 0, 0) scale(0.95);
+    opacity: 0.25;
+  }
+  20% {
+    opacity: 0.68;
+  }
+  100% {
+    transform: translate3d(112vw, -4vh, 0) scale(1.08);
+    opacity: 0.18;
+  }
+}
+
+@keyframes vintage-gold-dust {
+  0% {
+    transform: translateY(0);
+    opacity: 0.14;
+  }
+  100% {
+    transform: translateY(-18px);
+    opacity: 0.24;
+  }
+}
+
+@keyframes vintage-soft-reveal {
+  0% {
+    transform: translateY(8px) scale(0.98);
+    opacity: 0.58;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.82;
+  }
+}
+
+@keyframes vintage-bird-drift {
+  0% {
+    transform: translate3d(-25vw, 0, 0);
+    opacity: 0.45;
+  }
+  12% {
+    opacity: 0.68;
+  }
+  50% {
+    transform: translate3d(48vw, -6px, 0);
+    opacity: 0.62;
+  }
+  100% {
+    transform: translate3d(125vw, -12px, 0);
+    opacity: 0.38;
+  }
+}
+
+@keyframes vintage-bird-drift-reverse {
+  0% {
+    transform: translate3d(115vw, 4px, 0) scaleX(-1);
+    opacity: 0.28;
+  }
+  18% {
+    opacity: 0.48;
+  }
+  100% {
+    transform: translate3d(-30vw, -8px, 0) scaleX(-1);
+    opacity: 0.22;
+  }
+}
+
+@keyframes vintage-landscape-drift {
+  0% {
+    transform: translate3d(-8px, 0, 0) scale(1.02);
+  }
+  100% {
+    transform: translate3d(8px, -4px, 0) scale(1.04);
+  }
+}
+
+@keyframes vintage-soft-float {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+@keyframes vintage-divider-reveal {
+  0% {
+    transform: scaleX(0.72);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
 .animate-float-slow {
   animation: float-slow 7s ease-in-out infinite;
 }
 .animate-float-slower {
   animation: float-slower 9s ease-in-out infinite;
+}
+.animate-javanese-drift {
+  animation: javanese-drift 11s ease-in-out infinite;
+}
+.animate-javanese-drift-alt {
+  animation: javanese-drift-alt 13s ease-in-out infinite;
+}
+.animate-soft-pulse {
+  animation: soft-pulse 5.5s ease-in-out infinite;
+}
+.animate-divider-reveal {
+  animation: divider-reveal 1.5s ease-out both;
+  transform-origin: center;
 }
 .animate-slow-zoom {
   animation: slow-zoom 18s ease-in-out infinite alternate;
@@ -377,15 +702,63 @@
 .animate-shimmer-line {
   animation: shimmer-line 5s ease-in-out infinite alternate;
 }
+.vintage-parallax-slow {
+  animation: vintage-parallax 18s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+}
+.vintage-birds-float {
+  animation: vintage-birds 22s linear infinite;
+}
+.vintage-bird-drift {
+  animation: vintage-bird-drift 22s linear infinite;
+  will-change: transform, opacity;
+}
+.vintage-bird-drift-reverse {
+  animation: vintage-bird-drift-reverse 28s linear infinite;
+  animation-delay: 4s;
+  will-change: transform, opacity;
+}
+.vintage-landscape-drift {
+  animation: vintage-landscape-drift 22s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+.vintage-soft-float {
+  animation: vintage-soft-float 7.5s ease-in-out infinite alternate;
+  will-change: transform;
+}
+.vintage-divider-reveal {
+  animation: vintage-divider-reveal 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-origin: center;
+}
+.vintage-gold-drift {
+  animation: vintage-gold-dust 16s ease-in-out infinite alternate;
+}
+.animate-vintage-soft-reveal {
+  animation: vintage-soft-reveal 3.8s ease-in-out infinite alternate;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .animate-float-slow,
   .animate-float-slower,
+  .animate-javanese-drift,
+  .animate-javanese-drift-alt,
+  .animate-soft-pulse,
+  .animate-divider-reveal,
   .animate-slow-zoom,
   .animate-cover-zoom,
   .animate-gentle-glow,
   .animate-spin-slow,
-  .animate-shimmer-line {
+  .animate-shimmer-line,
+  .vintage-parallax-slow,
+  .vintage-birds-float,
+  .vintage-bird-drift,
+  .vintage-bird-drift-reverse,
+  .vintage-landscape-drift,
+  .vintage-soft-float,
+  .vintage-divider-reveal,
+  .vintage-gold-drift,
+  .animate-vintage-soft-reveal {
     animation: none;
   }
 }
