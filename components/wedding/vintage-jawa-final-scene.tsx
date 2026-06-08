@@ -18,14 +18,14 @@ export function VintageJawaBirdsLayer({ className }: { className?: string }) {
         alt=""
         width={280}
         height={90}
-        className="vintage-bird-drift absolute top-[10%] z-20 w-[5.5rem] opacity-60 sm:top-[12%] sm:w-[7.5rem]"
+        className="vintage-bird-drift absolute top-[9%] z-20 w-[5.75rem] opacity-[0.62] sm:top-[11%] sm:w-[7.75rem]"
       />
       <Image
         src={`${base}/birds/birds-flock-02.svg`}
         alt=""
         width={220}
         height={72}
-        className="vintage-bird-drift-reverse absolute top-[16%] z-20 w-[4.5rem] opacity-50 sm:top-[18%] sm:w-[6rem]"
+        className="vintage-bird-drift-reverse absolute top-[15%] z-20 w-[4.75rem] opacity-[0.48] sm:top-[17%] sm:w-[6.25rem]"
       />
     </div>
   )
@@ -183,10 +183,10 @@ export function VintageJawaHeroBackdrop({ active = false }: { active?: boolean }
         initial={false}
         animate={
           active
-            ? { opacity: 0.44, y: 0, scale: 1 }
-            : { opacity: 0, y: 24, scale: 1.04 }
+            ? { opacity: 0.48, y: 0, scale: 1 }
+            : { opacity: 0, y: 28, scale: 1.04 }
         }
-        transition={motionT(1.4, 0.2)}
+        transition={motionT(1.5, 0.15)}
       >
         <Image
           src={`${base}/backgrounds/landscape-joglo-gunung.svg`}
@@ -202,10 +202,10 @@ export function VintageJawaHeroBackdrop({ active = false }: { active?: boolean }
         initial={false}
         animate={
           active
-            ? { opacity: 0.34, y: 0, x: 0 }
-            : { opacity: 0, y: 20, x: -12 }
+            ? { opacity: 0.32, y: 0, x: 0 }
+            : { opacity: 0, y: 24, x: -14 }
         }
-        transition={motionT(1.2, 0.4)}
+        transition={motionT(1.2, 0.45)}
       >
         <Image
           src={`${base}/wayang/horse-wayang.svg`}
@@ -221,10 +221,10 @@ export function VintageJawaHeroBackdrop({ active = false }: { active?: boolean }
         initial={false}
         animate={
           active
-            ? { opacity: 0.26, y: 0, x: 0 }
-            : { opacity: 0, y: 20, x: 12 }
+            ? { opacity: 0.24, y: 0, x: 0 }
+            : { opacity: 0, y: 24, x: 14 }
         }
-        transition={motionT(1.2, 0.5)}
+        transition={motionT(1.2, 0.55)}
       >
         <Image
           src={`${base}/trees/palm-pair.svg`}
@@ -235,17 +235,17 @@ export function VintageJawaHeroBackdrop({ active = false }: { active?: boolean }
         />
       </motion.div>
 
+      <div className="absolute inset-0 z-30 bg-[radial-gradient(ellipse_at_center,rgba(43,26,18,0.08)_0%,rgba(24,14,9,0.42)_68%,rgba(12,7,4,0.72)_100%)]" />
+      <div className="absolute inset-0 z-30 bg-[linear-gradient(180deg,rgba(18,10,6,0.22)_0%,transparent_24%,transparent_72%,rgba(18,10,6,0.44)_100%)]" />
+
       <motion.div
-        className="absolute inset-0 z-20"
+        className="absolute inset-0 z-[32]"
         initial={false}
         animate={active ? { opacity: 1 } : { opacity: 0 }}
-        transition={motionT(0.9, 0.3)}
+        transition={motionT(1, 0.25)}
       >
         <VintageJawaBirdsLayer />
       </motion.div>
-
-      <div className="absolute inset-0 z-30 bg-[radial-gradient(ellipse_at_center,rgba(43,26,18,0.1)_0%,rgba(24,14,9,0.48)_68%,rgba(12,7,4,0.78)_100%)]" />
-      <div className="absolute inset-0 z-30 bg-[linear-gradient(180deg,rgba(18,10,6,0.38)_0%,transparent_30%,transparent_70%,rgba(18,10,6,0.46)_100%)]" />
     </div>
   )
 }

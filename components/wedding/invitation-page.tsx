@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { motion } from 'framer-motion'
 import { Toaster } from '@/components/ui/sonner'
 import {
   getWeddingEvents,
@@ -33,6 +32,7 @@ import { SectionDivider } from './ornaments'
 
 export function InvitationPage() {
   const [opened, setOpened] = useState(false)
+  const [heroActive, setHeroActive] = useState(false)
   const [data, setData] = useState<WeddingData>(() =>
     getFallbackWeddingData(null),
   )
@@ -82,36 +82,37 @@ export function InvitationPage() {
   }, [])
 
   function handleOpen() {
+    setHeroActive(false)
     setOpened(true)
-    // Prevent the page behind the cover from scrolling while closed
     document.body.style.overflow = ''
     window.scrollTo({ top: 0 })
   }
 
+  function handleCoverExitComplete() {
+    // setHeroActive(true)
+    window.setTimeout(() => {
+    setHeroActive(true)
+  }, 60)
+  }
+
   return (
     <main className="vintage-public-page relative bg-background">
-      <OpeningCover data={publicData} open={opened} onOpen={handleOpen} />
+      <OpeningCover
+        data={publicData}
+        open={opened}
+        onOpen={handleOpen}
+        onExitComplete={handleCoverExitComplete}
+      />
 
-      <motion.div
-        aria-hidden={!opened}
-        initial={false}
-        animate={
-          opened
-            ? { opacity: 1, y: 0 }
-            : { opacity: 0, y: 18 }
-        }
-        transition={{
-          duration: 1,
-          delay: opened ? 0.15 : 0,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className={
-          opened
-            ? 'overflow-x-hidden'
-            : 'pointer-events-none h-screen overflow-hidden'
-        }
-      >
-        <HeroSection data={publicData} active={opened} />
+      <div
+  aria-hidden={!heroActive}
+  className={
+    heroActive
+      ? 'overflow-x-hidden opacity-100'
+      : 'pointer-events-none h-screen overflow-hidden opacity-0'
+  }
+>
+        <HeroSection data={publicData} active={heroActive} />
         <SectionDivider />
         <GreetingSection data={publicData} />
         <SectionDivider />
@@ -138,7 +139,7 @@ export function InvitationPage() {
         <DigitalGiftSection />
         <SectionDivider />
         <ClosingSection data={publicData} />
-      </motion.div>
+      </div>
 
       <FloatingMusicButton active={opened} data={publicData} />
       <BackToTopButton active={opened} />

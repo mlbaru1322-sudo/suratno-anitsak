@@ -11,6 +11,18 @@ import {
 const vintageBase = '/ornaments/vintage-jawa-final'
 const revealEase = [0.22, 1, 0.36, 1] as const
 
+const HERO_TIMELINE = {
+  label: { duration: 0.75, delay: 0.55 },
+  panel: { duration: 1.1, delay: 0.12 },
+  frame: { duration: 1, delay: 0.38 },
+  photo: { duration: 1.1, delay: 0.48 },
+  jasmine: { duration: 0.75, delay: 0.72 },
+  names: { duration: 0.9, delay: 0.72 },
+  divider: { duration: 0.9, delay: 0.9 },
+  date: { duration: 0.8, delay: 1.02 },
+  gununganBottom: { duration: 0.75, delay: 1.08 },
+} as const
+
 export function HeroSection({
   data = weddingData,
   active = false,
@@ -23,7 +35,7 @@ export function HeroSection({
 
   const t = (duration: number, delay: number) =>
     reduceMotion
-      ? { duration: 0 }
+      ? { duration: 0.35, delay: 0, ease: revealEase }
       : { duration, delay, ease: revealEase }
 
   return (
@@ -40,15 +52,15 @@ export function HeroSection({
           animate={
             active
               ? { opacity: 1, y: 0 }
-              : { opacity: 0, y: reduceMotion ? 0 : 14 }
+              : { opacity: 0, y: reduceMotion ? 0 : 16 }
           }
-          transition={t(0.85, 0.9)}
+          transition={t(HERO_TIMELINE.label.duration, HERO_TIMELINE.label.delay)}
           className="flex flex-col items-center"
         >
           <motion.div
             initial={false}
-            animate={active ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-            transition={t(0.7, 0.88)}
+            animate={active ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
+            transition={t(0.7, HERO_TIMELINE.label.delay - 0.04)}
           >
             <Image
               src={`${vintageBase}/gunungan/gunungan-01.svg`}
@@ -77,7 +89,7 @@ export function HeroSection({
               ? { opacity: 1, y: 0, scale: 1 }
               : { opacity: 0, y: reduceMotion ? 0 : 48, scale: reduceMotion ? 1 : 0.94 }
           }
-          transition={t(1.1, 0.55)}
+          transition={t(HERO_TIMELINE.panel.duration, HERO_TIMELINE.panel.delay)}
           className="relative mt-7 w-full max-w-[19rem] overflow-hidden rounded-[1.75rem] border border-[#b9976b]/58 px-4 py-5 shadow-[0_24px_60px_-34px_rgba(12,7,4,0.88)] sm:mt-8 sm:max-w-[22rem] sm:px-5 sm:py-6"
         >
           <Image
@@ -126,9 +138,9 @@ export function HeroSection({
             animate={
               active
                 ? { opacity: 1, scale: 1, y: 0 }
-                : { opacity: 0, scale: reduceMotion ? 1 : 0.88, y: reduceMotion ? 0 : 12 }
+                : { opacity: 0, scale: reduceMotion ? 1 : 0.88, y: reduceMotion ? 0 : 14 }
             }
-            transition={t(1, 0.75)}
+            transition={t(HERO_TIMELINE.frame.duration, HERO_TIMELINE.frame.delay)}
             className="relative z-10"
           >
             <VintageJawaPhotoFrame
@@ -143,7 +155,7 @@ export function HeroSection({
                     ? { opacity: 1, scale: 1 }
                     : { opacity: 0, scale: reduceMotion ? 1 : 1.08 }
                 }
-                transition={t(1.15, 0.92)}
+                transition={t(HERO_TIMELINE.photo.duration, HERO_TIMELINE.photo.delay)}
               >
                 <Image
                   src={portraitPhoto}
@@ -166,7 +178,7 @@ export function HeroSection({
               ? { opacity: 1, y: 0 }
               : { opacity: 0, y: reduceMotion ? 0 : 10 }
           }
-          transition={t(0.8, 1.05)}
+          transition={t(HERO_TIMELINE.jasmine.duration, HERO_TIMELINE.jasmine.delay)}
           className="mt-5 flex flex-col items-center sm:mt-6"
           aria-hidden="true"
         >
@@ -184,9 +196,9 @@ export function HeroSection({
           animate={
             active
               ? { opacity: 1, y: 0, scale: 1 }
-              : { opacity: 0, y: reduceMotion ? 0 : 18, scale: reduceMotion ? 1 : 0.97 }
+              : { opacity: 0, y: reduceMotion ? 0 : 20, scale: reduceMotion ? 1 : 0.97 }
           }
-          transition={t(0.95, 1.05)}
+          transition={t(HERO_TIMELINE.names.duration, HERO_TIMELINE.names.delay)}
           className="relative z-50 mt-7 font-serif text-3xl font-semibold leading-tight text-[#f5f1e7] text-balance drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] sm:mt-8 sm:text-5xl md:text-6xl"
         >
           {bride.name}
@@ -201,9 +213,9 @@ export function HeroSection({
           animate={
             active
               ? { opacity: 1, scaleX: 1 }
-              : { opacity: 0, scaleX: reduceMotion ? 1 : 0.72 }
+              : { opacity: 0, scaleX: reduceMotion ? 1 : 0 }
           }
-          transition={t(1, 1.2)}
+          transition={t(HERO_TIMELINE.divider.duration, HERO_TIMELINE.divider.delay)}
           className="relative z-50 mt-6 w-full max-w-md origin-center"
         >
           <Image
@@ -220,9 +232,9 @@ export function HeroSection({
           animate={
             active
               ? { opacity: 1, y: 0 }
-              : { opacity: 0, y: reduceMotion ? 0 : 10 }
+              : { opacity: 0, y: reduceMotion ? 0 : 12 }
           }
-          transition={t(0.85, 1.35)}
+          transition={t(HERO_TIMELINE.date.duration, HERO_TIMELINE.date.delay)}
           className="relative z-50 mt-6 text-sm uppercase tracking-[0.14em] text-[#d4c4a8]/92 sm:text-base"
         >
           {weddingDateDisplay}
@@ -231,7 +243,10 @@ export function HeroSection({
         <motion.div
           initial={false}
           animate={active ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={t(0.75, 1.45)}
+          transition={t(
+            HERO_TIMELINE.gununganBottom.duration,
+            HERO_TIMELINE.gununganBottom.delay,
+          )}
           className="relative z-50 mt-4"
           aria-hidden="true"
         >

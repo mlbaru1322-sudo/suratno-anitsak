@@ -3,7 +3,7 @@ pid: 19876
 cwd: "D:\project\wedding-invitation-website"
 command: "npm run start"
 started_at: 2026-06-08T06:16:42.134Z
-running_for_ms: 16130006 
+running_for_ms: 23850004 
 ---
 
 > my-project@0.1.0 start

@@ -14,26 +14,28 @@ export function OpeningCover({
   data = weddingData,
   open,
   onOpen,
+  onExitComplete,
 }: {
   data?: WeddingData
   open: boolean
   onOpen: () => void
+  onExitComplete?: () => void
 }) {
   const { coupleShort, guest } = data
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={onExitComplete}>
       {!open ? (
         <motion.section
           key="cover"
           className="fixed inset-0 z-50 h-[100dvh] overflow-hidden bg-[#1a0f0a]"
           exit={{
             opacity: 0,
-            y: -36,
-            scale: 1.035,
+            y: -32,
+            scale: 1.03,
             filter: 'blur(2px)',
           }}
-          transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           aria-label="Sampul undangan"
         >
           <VintageJawaOpeningScene variant="landscape" />
