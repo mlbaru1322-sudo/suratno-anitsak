@@ -3,10 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
-import {
-  VintageJawaBirdsLayer,
-  VintageJawaOpeningScene,
-} from './vintage-jawa-final-scene'
+import { ReferenceVideoOpeningScene } from './reference-video-opening-scene'
 
 const vintageBase = '/ornaments/vintage-jawa-final'
 
@@ -38,20 +35,25 @@ export function OpeningCover({
           transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           aria-label="Sampul undangan"
         >
-          <VintageJawaOpeningScene variant="landscape" />
+          <div className="reference-video-cover-stage pointer-events-none absolute inset-0" aria-hidden="true">
+            <ReferenceVideoOpeningScene
+              active
+              coverMode
+              showCurtain={false}
+              className="h-full w-full"
+            />
+          </div>
 
           <div
-            className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(180deg,rgba(12,7,4,0.62)_0%,rgba(18,10,6,0.18)_24%,rgba(18,10,6,0.12)_50%,rgba(18,10,6,0.22)_76%,rgba(12,7,4,0.68)_100%)]"
+            className="pointer-events-none absolute inset-0 z-20 bg-[linear-gradient(180deg,rgba(12,7,4,0.74)_0%,rgba(33,20,13,0.34)_24%,rgba(43,26,18,0.18)_50%,rgba(28,17,11,0.36)_74%,rgba(10,6,4,0.78)_100%)]"
             aria-hidden="true"
           />
           <div
-            className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(18,10,6,0.28)_52%,rgba(10,6,4,0.62)_100%)]"
+            className="pointer-events-none absolute inset-0 z-20 bg-[radial-gradient(ellipse_at_center,rgba(245,241,231,0.12)_0%,rgba(89,55,35,0.1)_38%,rgba(18,10,6,0.72)_100%)]"
             aria-hidden="true"
           />
 
-          <VintageJawaBirdsLayer className="z-[25]" />
-
-          <div className="relative z-30 flex h-full min-h-0 flex-col items-center justify-center px-5 pb-[clamp(5.5rem,14dvh,8rem)] pt-[clamp(5.5rem,14dvh,8rem)] text-center sm:px-6">
+          <div className="reference-video-cover-copy relative z-30 flex h-full min-h-0 flex-col items-center justify-center px-5 pb-[clamp(5.5rem,14dvh,8rem)] pt-[clamp(5.5rem,14dvh,8rem)] text-center sm:px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -88,7 +90,7 @@ export function OpeningCover({
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.9, duration: 0.8 }}
-                className="mt-6 w-full max-w-[18rem] rounded-lg border border-[#b9976b]/32 bg-[rgba(43,26,18,0.42)] px-4 py-3 backdrop-blur-[2px] sm:mt-7 sm:max-w-[20rem] sm:px-5 sm:py-3.5"
+                className="mt-6 w-full max-w-[18rem] rounded-2xl border border-[#d8bb85]/24 bg-[rgba(38,23,15,0.28)] px-4 py-3 shadow-[0_18px_48px_-34px_rgba(0,0,0,0.9)] backdrop-blur-[3px] sm:mt-7 sm:max-w-[20rem] sm:px-5 sm:py-3.5"
               >
                 <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#c9b89a]/90 sm:text-[0.68rem]">
                   {guest.label}

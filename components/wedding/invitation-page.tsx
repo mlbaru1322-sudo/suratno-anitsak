@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import Image from 'next/image'
 import { Toaster } from '@/components/ui/sonner'
 import {
   getWeddingEvents,
@@ -96,7 +97,19 @@ export function InvitationPage() {
   }
 
   return (
-    <main className="vintage-public-page relative bg-background">
+    <main className="vintage-public-page relative isolate min-h-screen overflow-hidden bg-[#1f120c]">
+      <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+        <Image
+          src="/reference-video-opening/images/landscape-background.jpg"
+          alt=""
+          fill
+          priority
+          className="object-cover object-center opacity-80 contrast-[1.04] saturate-[1.02]"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,10,6,0.76)_0%,rgba(43,26,18,0.48)_28%,rgba(43,26,18,0.42)_62%,rgba(12,7,4,0.82)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,241,231,0.1)_0%,rgba(70,43,28,0.18)_42%,rgba(10,6,4,0.72)_100%)]" />
+      </div>
       <OpeningCover
         data={publicData}
         open={opened}
@@ -105,13 +118,13 @@ export function InvitationPage() {
       />
 
       <div
-  aria-hidden={!heroActive}
-  className={
-    heroActive
-      ? 'overflow-x-hidden opacity-100'
-      : 'pointer-events-none h-screen overflow-hidden opacity-0'
-  }
->
+        aria-hidden={!heroActive}
+        className={
+          heroActive
+            ? 'relative z-10 overflow-x-hidden opacity-100'
+            : 'pointer-events-none relative z-10 h-screen overflow-hidden opacity-0'
+        }
+      >
         <HeroSection data={publicData} active={heroActive} />
         <SectionDivider />
         <GreetingSection data={publicData} />

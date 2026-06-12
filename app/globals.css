@@ -762,3 +762,105 @@
     animation: none;
   }
 }
+
+@keyframes reference-video-bird-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(18px, -8px, 0) scale(1.02);
+  }
+}
+
+@keyframes reference-video-bird-drift-reverse {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-16px, -7px, 0) scale(1.02);
+  }
+}
+
+@keyframes reference-video-bird-flap {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scaleY(1) skewX(0deg) rotate(0deg);
+  }
+  45% {
+    transform: translate3d(0, 1px, 0) scaleY(0.92) skewX(-1.2deg) rotate(-0.45deg);
+  }
+  70% {
+    transform: translate3d(0, -0.5px, 0) scaleY(1.035) skewX(0.8deg) rotate(0.28deg);
+  }
+}
+
+@keyframes reference-video-bird-flap-reverse {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scaleY(1) skewX(0deg) rotate(0deg);
+  }
+  45% {
+    transform: translate3d(0, 1px, 0) scaleY(0.93) skewX(1deg) rotate(0.4deg);
+  }
+  72% {
+    transform: translate3d(0, -0.5px, 0) scaleY(1.03) skewX(-0.7deg) rotate(-0.24deg);
+  }
+}
+
+@keyframes reference-video-gold-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.16;
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+    opacity: 0.24;
+  }
+}
+
+.reference-video-bird-drift {
+  animation: reference-video-bird-drift 25s ease-in-out infinite;
+}
+
+.reference-video-bird-drift-reverse {
+  animation: reference-video-bird-drift-reverse 26s ease-in-out infinite;
+}
+
+.reference-video-bird-flap {
+  animation: reference-video-bird-flap 1.9s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.reference-video-bird-flap-reverse {
+  animation: reference-video-bird-flap-reverse 2.15s ease-in-out infinite;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.reference-video-gold-drift {
+  animation: reference-video-gold-drift 18s ease-in-out infinite;
+}
+
+.reference-video-cover-copy {
+  text-shadow:
+    0 2px 12px rgba(18, 10, 6, 0.86),
+    0 0 28px rgba(18, 10, 6, 0.62);
+}
+
+.reference-video-cover-copy button {
+  text-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reference-video-bird-drift,
+  .reference-video-bird-drift-reverse,
+  .reference-video-bird-flap,
+  .reference-video-bird-flap-reverse,
+  .reference-video-gold-drift {
+    animation: none !important;
+  }
+}
