@@ -14,12 +14,7 @@ const HERO_TIMELINE = {
   panel: { duration: 1.2, delay: REFERENCE_VIDEO_OPENING_TIMELINE.panelReveal.start },
   frame: { duration: 0.95, delay: REFERENCE_VIDEO_OPENING_TIMELINE.photoReveal.start },
   photo: { duration: 0.95, delay: REFERENCE_VIDEO_OPENING_TIMELINE.photoReveal.start + 0.22 },
-  jasmine: { duration: 0.75, delay: REFERENCE_VIDEO_OPENING_TIMELINE.textReveal.start - 0.2 },
   label: { duration: 0.75, delay: REFERENCE_VIDEO_OPENING_TIMELINE.textReveal.start },
-  names: { duration: 0.9, delay: REFERENCE_VIDEO_OPENING_TIMELINE.textReveal.start + 0.12 },
-  divider: { duration: 0.8, delay: REFERENCE_VIDEO_OPENING_TIMELINE.textReveal.start + 0.32 },
-  date: { duration: 0.75, delay: REFERENCE_VIDEO_OPENING_TIMELINE.textReveal.start + 0.48 },
-  gununganBottom: { duration: 0.65, delay: REFERENCE_VIDEO_OPENING_TIMELINE.settle.start },
 } as const
 
 export function HeroSection({
@@ -29,7 +24,7 @@ export function HeroSection({
   data?: WeddingData
   active?: boolean
 }) {
-  const { bride, groom, portraitPhoto, weddingDateDisplay } = data
+  const { bride, groom, portraitPhoto } = data
   const reduceMotion = useReducedMotion()
 
   const t = (duration: number, delay: number) =>
@@ -40,11 +35,11 @@ export function HeroSection({
   return (
     <section
       id="hero"
-      className="relative isolate flex min-h-[100dvh] overflow-hidden bg-[#1f120c] px-5 py-16 sm:px-6 sm:py-24"
+      className="relative isolate flex min-h-[100dvh] overflow-hidden bg-transparent px-5 py-16 sm:px-6 sm:py-24"
       aria-label="Mempelai"
     >
       <div className="reference-video-hero-stage pointer-events-none absolute inset-0" aria-hidden="true">
-        <ReferenceVideoOpeningScene active={active} className="h-full w-full" />
+        <ReferenceVideoOpeningScene active={active} showBackground={false} className="h-full w-full" />
       </div>
 
       <div className="relative z-40 mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center">
@@ -206,99 +201,6 @@ export function HeroSection({
               </motion.div>
             </VintageJawaPhotoFrame>
           </motion.div>
-        </motion.div>
-
-        <motion.div
-          initial={false}
-          animate={
-            active
-              ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-              : { opacity: 0, y: reduceMotion ? 0 : 10, filter: 'blur(6px)' }
-          }
-          transition={t(HERO_TIMELINE.jasmine.duration, HERO_TIMELINE.jasmine.delay)}
-          className="mt-5 flex flex-col items-center sm:mt-6"
-          aria-hidden="true"
-        >
-          <Image
-            src={`${vintageBase}/flowers/jasmine-cluster.svg`}
-            alt=""
-            width={160}
-            height={80}
-            className="w-24 opacity-65 sm:w-28"
-          />
-        </motion.div>
-
-        <motion.h1
-          initial={false}
-          animate={
-            active
-              ? { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
-              : {
-                  opacity: 0,
-                  y: reduceMotion ? 0 : 20,
-                  scale: reduceMotion ? 1 : 0.97,
-                  filter: reduceMotion ? 'blur(0px)' : 'blur(8px)',
-                }
-          }
-          transition={t(HERO_TIMELINE.names.duration, HERO_TIMELINE.names.delay)}
-          className="relative z-50 mt-7 font-serif text-3xl font-semibold leading-tight text-[#f5f1e7] text-balance drop-shadow-[0_2px_10px_rgba(0,0,0,0.4)] sm:mt-8 sm:text-5xl md:text-6xl"
-        >
-          {bride.name}
-          <span className="my-2 block text-2xl text-[#c9a96e] sm:text-4xl">
-            &
-          </span>
-          {groom.name}
-        </motion.h1>
-
-        <motion.div
-          initial={false}
-          animate={
-            active
-              ? { opacity: 1, scaleX: 1 }
-              : { opacity: 0, scaleX: reduceMotion ? 1 : 0 }
-          }
-          transition={t(HERO_TIMELINE.divider.duration, HERO_TIMELINE.divider.delay)}
-          className="relative z-50 mt-6 w-full max-w-md origin-center"
-        >
-          <Image
-            src={`${vintageBase}/dividers/divider-gunungan-01.svg`}
-            alt=""
-            width={720}
-            height={100}
-            className={`mx-auto w-full opacity-85 ${active && !reduceMotion ? 'vintage-divider-reveal' : ''}`}
-          />
-        </motion.div>
-
-        <motion.p
-          initial={false}
-          animate={
-            active
-              ? { opacity: 1, y: 0 }
-              : { opacity: 0, y: reduceMotion ? 0 : 12 }
-          }
-          transition={t(HERO_TIMELINE.date.duration, HERO_TIMELINE.date.delay)}
-          className="relative z-50 mt-6 text-sm uppercase tracking-[0.14em] text-[#d4c4a8]/92 sm:text-base"
-        >
-          {weddingDateDisplay}
-        </motion.p>
-
-        <motion.div
-          initial={false}
-          animate={active ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={t(
-            HERO_TIMELINE.gununganBottom.duration,
-            HERO_TIMELINE.gununganBottom.delay,
-          )}
-          className="relative z-50 mt-4"
-          aria-hidden="true"
-        >
-          <Image
-            src={`${vintageBase}/gunungan/gunungan-01.svg`}
-            alt=""
-            width={56}
-            height={68}
-            className="mx-auto w-9 opacity-55"
-          />
         </motion.div>
       </div>
     </section>

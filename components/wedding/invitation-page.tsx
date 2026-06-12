@@ -99,16 +99,20 @@ export function InvitationPage() {
   return (
     <main className="vintage-public-page relative isolate min-h-screen overflow-hidden bg-[#1f120c]">
       <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-        <Image
-          src="/reference-video-opening/images/landscape-background.jpg"
-          alt=""
-          fill
-          priority
-          className="object-cover object-center opacity-80 contrast-[1.04] saturate-[1.02]"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,10,6,0.76)_0%,rgba(43,26,18,0.48)_28%,rgba(43,26,18,0.42)_62%,rgba(12,7,4,0.82)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,241,231,0.1)_0%,rgba(70,43,28,0.18)_42%,rgba(10,6,4,0.72)_100%)]" />
+        <div className="absolute inset-0 scale-[1.08]">
+          <Image
+            src="/reference-video-opening/images/landscape-background.jpg"
+            alt=""
+            fill
+            priority
+            className="object-cover object-center contrast-[1.08] brightness-[1.04] saturate-[1.08]"
+            sizes="100vw"
+          />
+        </div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,248,236,0.04),rgba(43,26,18,0.08)_44%,rgba(18,10,6,0.34)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,10,6,0.12)_0%,rgba(18,10,6,0.03)_32%,rgba(18,10,6,0.08)_70%,rgba(18,10,6,0.3)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,7,4,0.74)_0%,rgba(33,20,13,0.34)_24%,rgba(43,26,18,0.18)_50%,rgba(28,17,11,0.36)_74%,rgba(10,6,4,0.78)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,241,231,0.12)_0%,rgba(89,55,35,0.1)_38%,rgba(18,10,6,0.72)_100%)]" />
       </div>
       <OpeningCover
         data={publicData}

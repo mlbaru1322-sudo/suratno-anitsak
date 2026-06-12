@@ -16,13 +16,15 @@ const ease = [0.22, 1, 0.36, 1] as const
 export function ReferenceVideoOpeningScene({
   active = false,
   className = '',
-  showCurtain = true,
+  showCurtain: _showCurtain = false,
   coverMode = false,
+  showBackground = true,
 }: {
   active?: boolean
   className?: string
   showCurtain?: boolean
   coverMode?: boolean
+  showBackground?: boolean
 }) {
   const reduceMotion = useReducedMotion()
 
@@ -35,27 +37,29 @@ export function ReferenceVideoOpeningScene({
       : { duration, delay, ease: 'easeInOut' as const, repeat: Infinity }
 
   return (
-    <div className={`relative isolate overflow-hidden bg-[#2b1a12] ${className}`}>
-      {/* Background gunung sudah ada dari awal */}
-      <motion.div
-        className="absolute inset-0"
-        initial={false}
-        animate={
-          active || coverMode
-            ? { x: reduceMotion ? 0 : [-2, 2, -2], y: reduceMotion ? 0 : [0, -4, 0], scale: reduceMotion ? 1.08 : [1.08, 1.095, 1.08] }
-            : { x: 0, y: 0, scale: 1.08 }
-        }
-        transition={idleT(28, coverMode ? 0 : REFERENCE_VIDEO_OPENING_TIMELINE.landscapeLive.start)}
-      >
-        <Image
-          src={`${base}/images/landscape-background.jpg`}
-          alt=""
-          fill
-          priority
-          className="object-cover object-center contrast-[1.08] brightness-[1.04] saturate-[1.08]"
-          sizes="100vw"
-        />
-      </motion.div>
+    <div className={`relative isolate overflow-hidden ${showBackground ? 'bg-[#2b1a12]' : 'bg-transparent'} ${className}`}>
+      {/* Background gunung bisa dimatikan saat scene dipakai di atas persistent page background. */}
+      {showBackground ? (
+        <motion.div
+          className="absolute inset-0"
+          initial={false}
+          animate={
+            active || coverMode
+              ? { x: reduceMotion ? 0 : [-2, 2, -2], y: reduceMotion ? 0 : [0, -4, 0], scale: reduceMotion ? 1.08 : [1.08, 1.095, 1.08] }
+              : { x: 0, y: 0, scale: 1.08 }
+          }
+          transition={idleT(28, coverMode ? 0 : REFERENCE_VIDEO_OPENING_TIMELINE.landscapeLive.start)}
+        >
+          <Image
+            src={`${base}/images/landscape-background.jpg`}
+            alt=""
+            fill
+            priority
+            className="object-cover object-center contrast-[1.08] brightness-[1.04] saturate-[1.08]"
+            sizes="100vw"
+          />
+        </motion.div>
+      ) : null}
 
       {/* overlay tone vintage */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,248,236,0.04),rgba(43,26,18,0.08)_44%,rgba(18,10,6,0.34)_100%)]" />
@@ -146,43 +150,6 @@ export function ReferenceVideoOpeningScene({
               />
             </motion.div>
           </motion.div>
-        </>
-      ) : null}
-
-      {showCurtain ? (
-        <>
-          <motion.div
-            initial={false}
-            animate={
-              active
-                ? reduceMotion
-                  ? { opacity: 0, x: 0 }
-                  : { opacity: 0.08, x: '-46%' }
-                : { opacity: 0.58, x: '0%' }
-            }
-            transition={t(
-              REFERENCE_VIDEO_OPENING_TIMELINE.centerCurtainReveal.end -
-                REFERENCE_VIDEO_OPENING_TIMELINE.centerCurtainReveal.start,
-              REFERENCE_VIDEO_OPENING_TIMELINE.centerCurtainReveal.start,
-            )}
-            className="absolute inset-y-[18%] left-0 z-30 w-[56%] rounded-r-[2rem] bg-[linear-gradient(180deg,rgba(91,59,43,0.78),rgba(54,32,22,0.7))] shadow-[18px_0_42px_rgba(0,0,0,0.18)] backdrop-blur-[1px]"
-          />
-          <motion.div
-            initial={false}
-            animate={
-              active
-                ? reduceMotion
-                  ? { opacity: 0, x: 0 }
-                  : { opacity: 0.08, x: '46%' }
-                : { opacity: 0.58, x: '0%' }
-            }
-            transition={t(
-              REFERENCE_VIDEO_OPENING_TIMELINE.centerCurtainReveal.end -
-                REFERENCE_VIDEO_OPENING_TIMELINE.centerCurtainReveal.start,
-              REFERENCE_VIDEO_OPENING_TIMELINE.centerCurtainReveal.start,
-            )}
-            className="absolute inset-y-[18%] right-0 z-30 w-[56%] rounded-l-[2rem] bg-[linear-gradient(180deg,rgba(91,59,43,0.78),rgba(54,32,22,0.7))] shadow-[-18px_0_42px_rgba(0,0,0,0.18)] backdrop-blur-[1px]"
-          />
         </>
       ) : null}
 
