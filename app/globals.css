@@ -821,6 +821,16 @@
   }
 }
 
+@keyframes reference-video-soft-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -4px, 0) rotate(-0.45deg);
+  }
+}
+
 .reference-video-bird-drift {
   animation: reference-video-bird-drift 25s ease-in-out infinite;
 }
@@ -845,6 +855,12 @@
   animation: reference-video-gold-drift 18s ease-in-out infinite;
 }
 
+.reference-video-soft-float {
+  animation: reference-video-soft-float 8.5s ease-in-out infinite;
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
 .reference-video-cover-copy {
   text-shadow:
     0 2px 12px rgba(18, 10, 6, 0.86),
@@ -860,7 +876,8 @@
   .reference-video-bird-drift-reverse,
   .reference-video-bird-flap,
   .reference-video-bird-flap-reverse,
-  .reference-video-gold-drift {
+  .reference-video-gold-drift,
+  .reference-video-soft-float {
     animation: none !important;
   }
 }

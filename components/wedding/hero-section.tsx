@@ -114,35 +114,6 @@ export function HeroSection({
             fill
             className="pointer-events-none object-cover opacity-[0.1] mix-blend-multiply"
           />
-          <Image
-            src={`${vintageBase}/corners/corner-carving-small.svg`}
-            alt=""
-            width={120}
-            height={90}
-            className="pointer-events-none absolute left-1.5 top-1.5 z-10 w-10 opacity-70"
-          />
-          <Image
-            src={`${vintageBase}/corners/corner-carving-small.svg`}
-            alt=""
-            width={120}
-            height={90}
-            className="pointer-events-none absolute right-1.5 top-1.5 z-10 w-10 -scale-x-100 opacity-70"
-          />
-          <Image
-            src={`${vintageBase}/corners/corner-carving-small.svg`}
-            alt=""
-            width={120}
-            height={90}
-            className="pointer-events-none absolute bottom-1.5 left-1.5 z-10 w-10 -scale-y-100 opacity-70"
-          />
-          <Image
-            src={`${vintageBase}/corners/corner-carving-small.svg`}
-            alt=""
-            width={120}
-            height={90}
-            className="pointer-events-none absolute bottom-1.5 right-1.5 z-10 w-10 -scale-100 opacity-70"
-          />
-
           <motion.div
             initial={false}
             animate={
