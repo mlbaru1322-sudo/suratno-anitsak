@@ -877,7 +877,21 @@
   .reference-video-bird-flap,
   .reference-video-bird-flap-reverse,
   .reference-video-gold-drift,
-  .reference-video-soft-float {
+  .reference-video-soft-float,
+  .wedding-slow-rotate {
     animation: none !important;
   }
+}
+
+@keyframes wedding-slow-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.wedding-slow-rotate {
+  animation: wedding-slow-rotate 12s linear infinite;
 }

@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="80" viewBox="0 0 900 80" fill="none">
-
-<path d="M60 40 C130 10 165 10 230 40 C165 70 130 70 60 40Z" fill="none" stroke="#B9976B" stroke-width="3"/>
-<path d="M670 40 C740 10 775 10 840 40 C775 70 740 70 670 40Z" fill="none" stroke="#B9976B" stroke-width="3"/>
-<path d="M230 40 H670" stroke="#B9976B" stroke-width="3" stroke-dasharray="8 14"/>
-
-</svg>

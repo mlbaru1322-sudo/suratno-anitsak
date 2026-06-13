@@ -73,13 +73,7 @@ export function ReferenceVideoOpeningScene({
         transition={t(1, REFERENCE_VIDEO_OPENING_TIMELINE.landscapeLive.start + 0.35)}
         className="absolute inset-0 z-10"
       >
-        <Image
-          src={`${base}/sparkles/gold-dust-soft.svg`}
-          alt=""
-          fill
-          className="object-cover reference-video-gold-drift"
-          sizes="100vw"
-        />
+        {/* SVG dihapus sesuai instruksi minimal */}
       </motion.div>
 
     </div>

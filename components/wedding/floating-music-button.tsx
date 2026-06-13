@@ -48,7 +48,10 @@ export function FloatingMusicButton({
         onClick={toggle}
         aria-label={playing ? 'Jeda musik' : 'Putar musik'}
         aria-pressed={playing}
-        className="fixed bottom-6 right-6 z-40 flex size-12 items-center justify-center rounded-full bg-gold text-espresso shadow-luxe transition-colors hover:bg-gold-soft"
+        className={cn(
+          "fixed bottom-6 right-6 z-40 flex size-11 items-center justify-center rounded-full bg-gold text-espresso shadow-luxe transition-colors hover:bg-gold-soft",
+          playing && "wedding-slow-rotate"
+        )}
       >
         {playing ? (
           <Pause className="size-5" aria-hidden="true" />

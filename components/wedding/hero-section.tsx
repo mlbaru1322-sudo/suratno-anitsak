@@ -11,10 +11,10 @@ const vintageBase = '/ornaments/vintage-jawa-final'
 const revealEase = [0.22, 1, 0.36, 1] as const
 
 const HERO_TIMELINE = {
-  panel: { duration: 1.2, delay: REFERENCE_VIDEO_OPENING_TIMELINE.panelReveal.start },
-  frame: { duration: 0.95, delay: REFERENCE_VIDEO_OPENING_TIMELINE.photoReveal.start },
-  photo: { duration: 0.95, delay: REFERENCE_VIDEO_OPENING_TIMELINE.photoReveal.start + 0.22 },
-  label: { duration: 0.75, delay: REFERENCE_VIDEO_OPENING_TIMELINE.textReveal.start },
+  panel: { duration: 0.5, delay: 0 },
+  frame: { duration: 0.5, delay: 0 },
+  photo: { duration: 0.5, delay: 0 },
+  label: { duration: 0.5, delay: 0 },
 } as const
 
 export function HeroSection({
@@ -45,28 +45,14 @@ export function HeroSection({
       <div className="relative z-40 mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center">
         <motion.div
           initial={false}
-          animate={
-            active
-              ? { opacity: 1, y: 0, filter: 'blur(0px)' }
-              : { opacity: 0, y: reduceMotion ? 0 : 16, filter: 'blur(8px)' }
-          }
-          transition={t(HERO_TIMELINE.label.duration, HERO_TIMELINE.label.delay)}
+          animate={active ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: HERO_TIMELINE.label.duration, delay: HERO_TIMELINE.label.delay }}
           className="flex flex-col items-center"
         >
-          <motion.div
-            initial={false}
-            animate={active ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
-            transition={t(0.7, HERO_TIMELINE.label.delay - 0.04)}
+          <p 
+            className="text-[0.62rem] uppercase tracking-[0.32em] text-[#d4c4a8] sm:text-xs"
+            style={{ textShadow: '0 1px 4px rgba(42,25,14,0.45)' }}
           >
-            <Image
-              src={`${vintageBase}/gunungan/gunungan-01.svg`}
-              alt=""
-              width={72}
-              height={88}
-              className="mb-3 w-11 opacity-80 sm:w-12"
-            />
-          </motion.div>
-          <p className="text-[0.62rem] uppercase tracking-[0.32em] text-[#d4c4a8]/90 sm:text-xs">
             We Are Getting Married
           </p>
           <Image
@@ -80,95 +66,38 @@ export function HeroSection({
 
         <motion.div
           initial={false}
-          animate={
-            active
-              ? {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  filter: 'blur(0px)',
-                  clipPath: 'inset(0% 0% 0% 0% round 1.75rem)',
-                }
-              : {
-                  opacity: 0,
-                  y: reduceMotion ? 0 : 48,
-                  scale: reduceMotion ? 1 : 0.94,
-                  filter: reduceMotion ? 'blur(0px)' : 'blur(12px)',
-                  clipPath: reduceMotion
-                    ? 'inset(0% 0% 0% 0% round 1.75rem)'
-                    : 'inset(16% 12% 16% 12% round 1.75rem)',
-                }
-          }
-          transition={t(HERO_TIMELINE.panel.duration, HERO_TIMELINE.panel.delay)}
-          className="relative mt-7 w-full max-w-[19rem] overflow-hidden rounded-[1.75rem] border border-[#b9976b]/58 px-4 py-5 shadow-[0_24px_60px_-34px_rgba(12,7,4,0.88)] sm:mt-8 sm:max-w-[22rem] sm:px-5 sm:py-6"
+          animate={active ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: HERO_TIMELINE.panel.duration, delay: HERO_TIMELINE.panel.delay }}
+          className="relative mt-7 w-full max-w-[19rem] overflow-hidden rounded-[1.75rem] border border-[#c9a96e]/35 bg-[rgba(232,223,201,0.38)] px-4 py-5 shadow-[0_20px_48px_-16px_rgba(28,17,11,0.55)] backdrop-blur-[3px] sm:mt-8 sm:max-w-[22rem] sm:px-5 sm:py-6"
         >
-          <Image
-            src={`${vintageBase}/backgrounds/bg-paper-cream.svg`}
-            alt=""
-            fill
-            className="pointer-events-none object-cover opacity-[0.92]"
-          />
-          <Image
-            src={`${vintageBase}/backgrounds/bg-batik-cream.svg`}
-            alt=""
-            fill
-            className="pointer-events-none object-cover opacity-[0.1] mix-blend-multiply"
-          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#f5f1e7]/25 to-transparent" />
           <motion.div
             initial={false}
-            animate={
-              active
-                ? {
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
-                    clipPath: 'inset(0% 0% 0% 0% round 999px 999px 1.5rem 1.5rem)',
-                  }
-                : {
-                    opacity: 0,
-                    scale: reduceMotion ? 1 : 0.88,
-                    y: reduceMotion ? 0 : 14,
-                    clipPath: reduceMotion
-                      ? 'inset(0% 0% 0% 0% round 999px 999px 1.5rem 1.5rem)'
-                      : 'inset(0% 50% 0% 50% round 999px 999px 1.5rem 1.5rem)',
-                  }
-            }
-            transition={t(HERO_TIMELINE.frame.duration, HERO_TIMELINE.frame.delay)}
+            animate={active ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: HERO_TIMELINE.frame.duration, delay: HERO_TIMELINE.frame.delay }}
             className="relative z-10"
           >
             <VintageJawaPhotoFrame
               type="arch"
-              className="mx-auto aspect-[3/4] w-full max-w-[17rem] sm:max-w-[19.5rem]"
+              className="mx-auto aspect-[3/4] w-[min(72vw,17rem)] max-w-[17rem] shadow-[0_12px_28px_-8px_rgba(28,17,11,0.4)] sm:max-w-[19.5rem]"
             >
               <motion.div
                 className="relative h-full w-full"
                 initial={false}
-                animate={
-                  active
-                    ? {
-                        opacity: 1,
-                        scale: 1,
-                        filter: 'blur(0px)',
-                        clipPath: 'inset(0% 0% 0% 0%)',
-                      }
-                    : {
-                        opacity: 0,
-                        scale: reduceMotion ? 1 : 1.08,
-                        filter: reduceMotion ? 'blur(0px)' : 'blur(10px)',
-                        clipPath: reduceMotion ? 'inset(0% 0% 0% 0%)' : 'inset(10% 0% 18% 0%)',
-                      }
-                }
-                transition={t(HERO_TIMELINE.photo.duration, HERO_TIMELINE.photo.delay)}
+                animate={active ? { opacity: 1 } : { opacity: 0 }}
+                transition={{ duration: HERO_TIMELINE.photo.duration, delay: HERO_TIMELINE.photo.delay }}
               >
                 <Image
                   src={portraitPhoto}
                   alt={`Foto ${bride.shortName} dan ${groom.shortName}`}
                   fill
                   priority
-                  className="object-cover object-[center_20%]"
+                  className="object-cover object-top"
                   sizes="(max-width: 640px) 76vw, 312px"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2b1a12]/28 via-transparent to-[#2b1a12]/8" />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_35%,rgba(28,17,11,0.28)_100%)]" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#1c110b]/65 via-[#1c110b]/5 to-transparent" />
+                <div className="absolute inset-0 rounded-t-full rounded-b-3xl ring-1 ring-inset ring-[#e8dfc9]/35" />
               </motion.div>
             </VintageJawaPhotoFrame>
           </motion.div>

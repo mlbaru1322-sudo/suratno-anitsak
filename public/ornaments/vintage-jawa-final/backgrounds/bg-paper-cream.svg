@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1600" viewBox="0 0 900 1600" fill="none">
-
-<defs><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="5"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .13"/></feComponentTransfer></filter></defs>
-<rect width="900" height="1600" fill="#F5F1E7"/>
-<rect width="900" height="1600" fill="#D8BB85" opacity=".12"/>
-<rect width="900" height="1600" filter="url(#n)"/>
-
-</svg>

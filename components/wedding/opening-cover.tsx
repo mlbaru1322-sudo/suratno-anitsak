@@ -78,13 +78,7 @@ export function OpeningCover({
                 {coupleShort}
               </motion.h1>
 
-              <Image
-                src={`${vintageBase}/dividers/divider-batik-line.svg`}
-                alt=""
-                width={480}
-                height={60}
-                className="mx-auto mt-5 w-36 opacity-55 brightness-125 sm:mt-6 sm:w-44"
-              />
+              {/* SVG dihapus sesuai instruksi minimal */}
 
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
