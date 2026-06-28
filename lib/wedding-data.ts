@@ -176,7 +176,7 @@ export const weddingData = {
 
   // Audio
   music: {
-    src: '/audio/song.mp3',
+    src: '/music/music.mp3',
     title: 'Wedding Song',
   },
 } as const

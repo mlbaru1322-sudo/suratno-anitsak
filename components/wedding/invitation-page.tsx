@@ -27,7 +27,10 @@ import { RsvpSection } from './rsvp-section'
 import { WishesSection } from './wishes-section'
 import { DigitalGiftSection } from './digital-gift-section'
 import { ClosingSection } from './closing-section'
-import { FloatingMusicButton } from './floating-music-button'
+import {
+  FloatingMusicButton,
+  WEDDING_MUSIC_PLAY_EVENT,
+} from './floating-music-button'
 import { BackToTopButton } from './back-to-top-button'
 import { SectionDivider } from './ornaments'
 
@@ -83,6 +86,7 @@ export function InvitationPage() {
   }, [])
 
   function handleOpen() {
+    window.dispatchEvent(new Event(WEDDING_MUSIC_PLAY_EVENT))
     setHeroActive(true)
     setOpened(true)
     document.body.style.overflow = ''

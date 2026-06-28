@@ -144,7 +144,7 @@ select
   'Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.',
   'Assalamu''alaikum Wr. Wb.',
   'Bismillahirrahmanirrahim. Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.',
-  '/audio/song.mp3',
+  '/music/music.mp3',
   null,
   true
 where not exists (
