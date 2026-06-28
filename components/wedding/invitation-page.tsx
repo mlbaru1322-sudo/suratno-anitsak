@@ -83,23 +83,16 @@ export function InvitationPage() {
   }, [])
 
   function handleOpen() {
-    setHeroActive(false)
+    setHeroActive(true)
     setOpened(true)
     document.body.style.overflow = ''
     window.scrollTo({ top: 0 })
   }
 
-  function handleCoverExitComplete() {
-    // setHeroActive(true)
-    window.setTimeout(() => {
-    setHeroActive(true)
-  }, 60)
-  }
-
   return (
     <main className="vintage-public-page relative isolate min-h-screen overflow-hidden bg-[#1f120c]">
       <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
-        <div className="absolute inset-0 scale-[1.08]">
+        <div className="absolute top-0 h-full w-[125%] -left-[12.5%] scale-[1.08] sm:w-full sm:left-0">
           <Image
             src="/reference-video-opening/images/landscape-background.jpg"
             alt=""
@@ -118,16 +111,11 @@ export function InvitationPage() {
         data={publicData}
         open={opened}
         onOpen={handleOpen}
-        onExitComplete={handleCoverExitComplete}
       />
 
       <div
         aria-hidden={!heroActive}
-        className={
-          heroActive
-            ? 'relative z-10 overflow-x-hidden opacity-100'
-            : 'pointer-events-none relative z-10 h-screen overflow-hidden opacity-0'
-        }
+        className={`relative z-10 overflow-x-hidden ${!heroActive ? 'h-screen overflow-hidden pointer-events-none' : ''}`}
       >
         <HeroSection data={publicData} active={heroActive} />
         <SectionDivider />

@@ -40,7 +40,7 @@ export function ReferenceVideoOpeningScene({
       {/* Background gunung bisa dimatikan saat scene dipakai di atas persistent page background. */}
       {showBackground ? (
         <motion.div
-          className="absolute inset-0"
+          className="absolute top-0 h-full w-[125%] -left-[12.5%] sm:w-full sm:left-0"
           initial={false}
           animate={
             active || coverMode
@@ -54,7 +54,7 @@ export function ReferenceVideoOpeningScene({
             alt=""
             fill
             priority
-            className="object-cover object-center contrast-[1.08] brightness-[1.04] saturate-[1.08]"
+            className="object-cover object-bottom contrast-[1.08] brightness-[1.04] saturate-[1.08]"
             sizes="100vw"
           />
         </motion.div>

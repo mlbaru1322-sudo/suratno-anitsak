@@ -368,8 +368,8 @@
   }
   .vintage-public-page {
     background:
-      linear-gradient(180deg, rgba(43, 26, 18, 0.88), rgba(90, 59, 46, 0.84)),
-      url('/ornaments/vintage-jawa-final/patterns/parang-pattern.svg');
+      linear-gradient(180deg, rgba(43, 26, 18, 0.88), rgba(90, 59, 46, 0.84));
+      /* url('/ornaments/vintage-jawa-final/patterns/parang-pattern.svg'); */
     background-attachment: fixed;
     background-color: #2b1a12;
     background-size: auto, 340px 340px;
@@ -378,14 +378,14 @@
   .vintage-public-page .bg-layered-ivory,
   .vintage-public-page .javanese-warmth {
     background:
-      linear-gradient(180deg, rgba(245, 241, 231, 0.95), rgba(232, 223, 201, 0.92)),
-      url('/ornaments/vintage-jawa-final/patterns/kawung-pattern.svg');
+      linear-gradient(180deg, rgba(245, 241, 231, 0.95), rgba(232, 223, 201, 0.92));
+      /* url('/ornaments/vintage-jawa-final/patterns/kawung-pattern.svg'); */
     background-color: #f5f1e7;
     background-size: auto, 220px 220px;
   }
   .vintage-public-page .ornamental-section::before,
   .vintage-public-page .ornamental-section::after {
-    background-image: url('/ornaments/vintage-jawa-final/dividers/divider-batik-line.svg');
+    /* background-image: url('/ornaments/vintage-jawa-final/dividers/divider-batik-line.svg'); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;

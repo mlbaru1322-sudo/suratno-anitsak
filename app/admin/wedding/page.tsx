@@ -119,7 +119,7 @@ export default function AdminWeddingPage() {
 
   useEffect(() => {
     void loadWeddingData()
-  }, [loadWeddingData])
+  }, [])
 
   function updateSettingsField<K extends keyof SettingsForm>(
     key: K,
