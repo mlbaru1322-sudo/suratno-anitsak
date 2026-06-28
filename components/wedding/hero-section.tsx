@@ -6,9 +6,7 @@ import Image from 'next/image'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { ReferenceVideoOpeningScene } from './reference-video-opening-scene'
 import { REFERENCE_VIDEO_OPENING_TIMELINE } from './reference-video-opening-timeline'
-import { VintageJawaPhotoFrame } from './vintage-jawa-final-scene'
 
-const vintageBase = '/ornaments/vintage-jawa-final'
 const revealEase = [0.22, 1, 0.36, 1] as const
 
 const HERO_TIMELINE = {
@@ -17,6 +15,53 @@ const HERO_TIMELINE = {
 } as const
 
 function AmbientTrees({ active = false }: { active?: boolean }) {
+  const trees = [
+    {
+      src: '/ornaments/pohon/pohon_07_palem_ukiran_multi_batang.png',
+      alt: 'pohon palem kanan bawah',
+      className:
+        'bottom-[-2%] right-[-13%] w-[48%] max-w-[220px] sm:right-[-7%] sm:w-[26vw] sm:max-w-[300px]',
+      delay: 0.2,
+      initialRotate: -3,
+      swayRotate: 1.4,
+      swayX: 2,
+      duration: 4.6,
+    },
+    {
+      src: '/ornaments/pohon/pohon_02_dua_pohon_kelapa.png',
+      alt: 'dua pohon kelapa kiri bawah',
+      className:
+        'bottom-[-4%] left-[-14%] w-[54%] max-w-[240px] sm:left-[-8%] sm:w-[28vw] sm:max-w-[320px]',
+      delay: 0.6,
+      initialRotate: 3,
+      swayRotate: 1.6,
+      swayX: -2,
+      duration: 4.2,
+    },
+    {
+      src: '/ornaments/pohon/pohon_03_kelapa_minimal_vintage.png',
+      alt: 'pohon kelapa minimal kiri tengah',
+      className:
+        'top-[30%] left-[-17%] w-[42%] max-w-[180px] sm:top-[26%] sm:left-[-7%] sm:w-[19vw] sm:max-w-[240px]',
+      delay: 1.0,
+      initialRotate: 4,
+      swayRotate: 1.3,
+      swayX: 2,
+      duration: 5,
+    },
+    {
+      src: '/ornaments/pohon/pohon_09_kelapa_lengkung_vintage.png',
+      alt: 'pohon kelapa lengkung kanan atas',
+      className:
+        'top-[9%] right-[-10%] w-[40%] max-w-[170px] sm:top-[8%] sm:right-[-3%] sm:w-[17vw] sm:max-w-[220px]',
+      delay: 1.4,
+      initialRotate: -4,
+      swayRotate: 1.2,
+      swayX: -2,
+      duration: 4.8,
+    },
+  ]
+
   const flowers = [
     { num: 1, scale: 1.1, rot: 5, left: '-5%', mb: '-2%', z: 26 },
     { num: 2, scale: 0.95, rot: -5, left: '15%', mb: '-4%', z: 27 },
@@ -28,20 +73,53 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
   ]
 
   return (
-    <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden">
-      {/* POHON KIRI (Rama Side) */}
-      <img
-        src="/ornaments/pohon/pohon_06_palem_rimbun.png"
-        className="absolute bottom-[-1%] left-[-8%] z-30 h-auto w-[58%] max-w-[260px] object-contain pointer-events-none sm:left-[-4%] sm:w-[36vw] sm:max-w-[340px]"
-        alt="pohon kiri"
-      />
-
-      {/* POHON KANAN (Sinta Side) */}
-      <img
-        src="/ornaments/pohon/pohon_07_palem_ukiran_multi_batang.png"
-        className="absolute bottom-[-1%] right-[-8%] z-30 h-auto w-[54%] max-w-[240px] object-contain pointer-events-none sm:right-[-4%] sm:w-[34vw] sm:max-w-[320px]"
-        alt="pohon kanan"
-      />
+    <div className="absolute inset-0 z-[45] pointer-events-none overflow-hidden">
+      {trees.map((tree) => (
+        <motion.div
+          key={tree.src}
+          className={`absolute z-[45] origin-bottom pointer-events-none ${tree.className}`}
+          initial={{ opacity: 0, y: 34, scale: 0.94, rotate: tree.initialRotate }}
+          animate={
+            active
+              ? {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  rotate: [
+                    tree.initialRotate,
+                    tree.initialRotate + tree.swayRotate,
+                    tree.initialRotate - tree.swayRotate,
+                    tree.initialRotate,
+                  ],
+                  x: [0, tree.swayX, -tree.swayX, 0],
+                }
+              : { opacity: 0, y: 34, scale: 0.94, rotate: tree.initialRotate, x: 0 }
+          }
+          transition={{
+            opacity: { duration: 0.9, ease: 'easeOut', delay: active ? tree.delay : 0 },
+            y: { duration: 0.9, ease: 'easeOut', delay: active ? tree.delay : 0 },
+            scale: { duration: 0.9, ease: 'easeOut', delay: active ? tree.delay : 0 },
+            rotate: {
+              duration: tree.duration,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: active ? tree.delay + 0.9 : 0,
+            },
+            x: {
+              duration: tree.duration,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: active ? tree.delay + 0.9 : 0,
+            },
+          }}
+        >
+          <img
+            src={tree.src}
+            className="h-auto w-full object-contain drop-shadow-[0_12px_22px_rgba(28,17,11,0.28)]"
+            alt={tree.alt}
+          />
+        </motion.div>
+      ))}
 
       {/* Semak Bunga Bawah */}
       <div className="absolute bottom-0 left-0 z-[32] h-[15vh] w-full">
@@ -172,19 +250,12 @@ export function HeroSection({
           >
             We Are Getting Married
           </p>
-          {/* <Image
-            src={`${vintageBase}/dividers/divider-batik-line.svg`}
-            alt=""
-            width={360}
-            height={48}
-            className="mt-3 w-32 opacity-55 brightness-110 sm:w-36"
-          /> */}
         </motion.div>
 
         <motion.div
           initial={{ opacity: 0, y: 100 }}
           animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
-          transition={{ duration: 2.0, ease: "easeOut", delay: active ? 7.0 : 0 }}
+          transition={{ duration: 2.0, ease: "easeOut", delay: active ? 5.0 : 0 }}
           className="mt-8 flex w-[90%] max-w-[400px] flex-col items-center"
         >
           <motion.div

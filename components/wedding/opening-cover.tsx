@@ -1,11 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
-
-const vintageBase = '/ornaments/vintage-jawa-final'
 
 export function OpeningCover({
   data = weddingData,
@@ -18,12 +15,26 @@ export function OpeningCover({
 }) {
   const { coupleShort, guest } = data
   const [isOpened, setIsOpened] = useState(false)
+  const [hidden, setHidden] = useState(false)
 
   useEffect(() => {
-    if (isOpened) {
-      onOpen() // Trigger HeroSection activation at 0s
+    if (!open) {
+      setHidden(false)
+      return
     }
-  }, [isOpened, onOpen])
+
+    const timer = window.setTimeout(() => setHidden(true), 5800)
+    return () => window.clearTimeout(timer)
+  }, [open])
+
+  function handleOpenClick() {
+    if (isOpened) return
+
+    setIsOpened(true)
+    onOpen()
+  }
+
+  if (hidden) return null
 
   return (
     <motion.section
@@ -132,7 +143,7 @@ export function OpeningCover({
               </p>
 
               <button
-                onClick={() => setIsOpened(true)}
+                onClick={handleOpenClick}
                 className="mt-6 inline-flex min-h-[48px] w-[80%] max-w-[14rem] items-center justify-center rounded-[8px] border border-[#a6803c] bg-[linear-gradient(135deg,rgba(232,223,201,0.95),rgba(201,169,110,0.9))] px-6 py-2 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-[#3b281d] shadow-[0_6px_20px_-12px_rgba(0,0,0,0.6)] transition-transform hover:-translate-y-0.5 active:scale-95"
               >
                 Buka Undangan

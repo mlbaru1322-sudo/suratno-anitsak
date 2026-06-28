@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { REFERENCE_VIDEO_OPENING_TIMELINE } from './reference-video-opening-timeline'
 
 const base = '/reference-video-opening'
-const ease = [0.22, 1, 0.36, 1] as const
 
 /**
  * Komponen referensi visual untuk style video contoh.
@@ -26,9 +25,6 @@ export function ReferenceVideoOpeningScene({
   showBackground?: boolean
 }) {
   const reduceMotion = useReducedMotion()
-
-  const t = (duration: number, delay: number) =>
-    reduceMotion ? { duration: 0.35, delay: 0, ease } : { duration, delay, ease }
 
   const idleT = (duration: number, delay = 0) =>
     reduceMotion
@@ -63,19 +59,6 @@ export function ReferenceVideoOpeningScene({
       {/* overlay tone vintage */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,248,236,0.04),rgba(43,26,18,0.08)_44%,rgba(18,10,6,0.34)_100%)]" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,10,6,0.12)_0%,rgba(18,10,6,0.03)_32%,rgba(18,10,6,0.08)_70%,rgba(18,10,6,0.3)_100%)]" />
-
-
-
-      {/* sparkle/particle hint */}
-      <motion.div
-        initial={false}
-        animate={active || coverMode ? { opacity: coverMode ? 0.1 : 0.18 } : { opacity: 0 }}
-        transition={t(1, REFERENCE_VIDEO_OPENING_TIMELINE.landscapeLive.start + 0.35)}
-        className="absolute inset-0 z-10"
-      >
-        {/* SVG dihapus sesuai instruksi minimal */}
-      </motion.div>
-
     </div>
   )
 }
