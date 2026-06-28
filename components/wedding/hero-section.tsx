@@ -20,9 +20,9 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       src: '/ornaments/pohon/pohon_07_palem_ukiran_multi_batang.png',
       alt: 'pohon palem kanan bawah',
       className:
-        'bottom-[-2%] right-[-13%] w-[48%] max-w-[220px] sm:right-[-7%] sm:w-[26vw] sm:max-w-[300px]',
+        'bottom-[-2%] right-[-25%] w-[48%] max-w-[220px] sm:right-[-11%] sm:w-[26vw] sm:max-w-[300px]',
       delay: 0.2,
-      initialRotate: -3,
+      initialRotate: -10,
       swayRotate: 1.4,
       swayX: 2,
       duration: 4.6,
@@ -31,9 +31,9 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       src: '/ornaments/pohon/pohon_02_dua_pohon_kelapa.png',
       alt: 'dua pohon kelapa kiri bawah',
       className:
-        'bottom-[-4%] left-[-14%] w-[54%] max-w-[240px] sm:left-[-8%] sm:w-[28vw] sm:max-w-[320px]',
+        'bottom-[-4%] left-[-30%] w-[54%] max-w-[240px] sm:left-[-12%] sm:w-[28vw] sm:max-w-[320px]',
       delay: 0.6,
-      initialRotate: 3,
+      initialRotate: 10,
       swayRotate: 1.6,
       swayX: -2,
       duration: 4.2,
@@ -42,7 +42,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       src: '/ornaments/pohon/pohon_03_kelapa_minimal_vintage.png',
       alt: 'pohon kelapa minimal kiri tengah',
       className:
-        'top-[30%] left-[-17%] w-[42%] max-w-[180px] sm:top-[26%] sm:left-[-7%] sm:w-[19vw] sm:max-w-[240px]',
+        'top-[16%] left-[-17%] w-[42%] max-w-[180px] sm:top-[32%] sm:left-[-7%] sm:w-[19vw] sm:max-w-[240px]',
       delay: 1.0,
       initialRotate: 4,
       swayRotate: 1.3,
@@ -53,9 +53,9 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       src: '/ornaments/pohon/pohon_09_kelapa_lengkung_vintage.png',
       alt: 'pohon kelapa lengkung kanan atas',
       className:
-        'top-[9%] right-[-10%] w-[40%] max-w-[170px] sm:top-[8%] sm:right-[-3%] sm:w-[17vw] sm:max-w-[220px]',
+        'top-[20%] right-[-20%] w-[40%] max-w-[170px] sm:top-[14%] sm:right-[-8%] sm:w-[17vw] sm:max-w-[220px]',
       delay: 1.4,
-      initialRotate: -4,
+      initialRotate: -7,
       swayRotate: 1.2,
       swayX: -2,
       duration: 4.8,
@@ -73,11 +73,11 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
   ]
 
   return (
-    <div className="absolute inset-0 z-[45] pointer-events-none overflow-hidden">
+    <div className="absolute inset-0 z-30 pointer-events-none overflow-hidden">
       {trees.map((tree) => (
         <motion.div
           key={tree.src}
-          className={`absolute z-[45] origin-bottom pointer-events-none ${tree.className}`}
+          className={`absolute z-30 origin-bottom pointer-events-none ${tree.className}`}
           initial={{ opacity: 0, y: 34, scale: 0.94, rotate: tree.initialRotate }}
           animate={
             active
@@ -253,9 +253,9 @@ export function HeroSection({
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 100 }}
-          animate={active ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
-          transition={{ duration: 2.0, ease: "easeOut", delay: active ? 5.0 : 0 }}
+          initial={{ opacity: 0, scale: 0.96, y: 0 }}
+          animate={active ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.96, y: 0 }}
+          transition={{ duration: 2.0, ease: "easeOut", delay: active ? 6.0 : 0 }}
           className="mt-8 flex w-[90%] max-w-[400px] flex-col items-center"
         >
           <motion.div
