@@ -63,7 +63,7 @@ export function FloatingMusicButton({
   return (
     <>
       {/* Local invitation music. */}
-      <audio ref={audioRef} src={audioSrc} loop preload="auto" />
+      <audio ref={audioRef} src={audioSrc} loop preload="none" />
       {active ? (
         <button
           onClick={toggle}

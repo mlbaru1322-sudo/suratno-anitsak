@@ -1,8 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
+
+const GAPURA_FRAME_SRC = '/ornaments/gapura/gapura-frame.webp'
 
 export function OpeningCover({
   data = weddingData,
@@ -65,15 +68,23 @@ export function OpeningCover({
             transition={{ delay: 2, duration: 3, ease: 'easeIn' }}
           >
             {/* Frame Atas */}
-            <img 
-              src="/assets/java_vintage_frame_TRANSPARENT_FIXED.png" 
+            <Image
+              src={GAPURA_FRAME_SRC}
               alt="" 
+              width={960}
+              height={1200}
+              priority
+              sizes="(max-width: 480px) 100vw, 480px"
               className="absolute top-0 left-0 w-full h-auto opacity-95 drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)]" 
             />
             {/* Frame Bawah */}
-            <img 
-              src="/assets/java_vintage_frame_TRANSPARENT_FIXED.png" 
+            <Image
+              src={GAPURA_FRAME_SRC}
               alt="" 
+              width={960}
+              height={1200}
+              priority
+              sizes="(max-width: 480px) 100vw, 480px"
               className="absolute bottom-0 left-0 w-full h-auto opacity-95 drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)] rotate-180" 
             />
           </motion.div>
