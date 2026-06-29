@@ -22,7 +22,6 @@ import { EventSection } from './event-section'
 import { MapsSection } from './maps-section'
 import { LoveStorySection } from './love-story-section'
 import { GallerySection } from './gallery-section'
-import { VideoSection } from './video-section'
 import { RsvpSection } from './rsvp-section'
 import { WishesSection } from './wishes-section'
 import { DigitalGiftSection } from './digital-gift-section'
@@ -138,8 +137,6 @@ export function InvitationPage() {
         <LoveStorySection />
         <SectionDivider />
         <GallerySection />
-        <SectionDivider />
-        <VideoSection />
         <SectionDivider />
         <RsvpSection />
         <SectionDivider />

@@ -12,6 +12,7 @@ import {
   OrnamentDivider,
   SectionOrnaments,
 } from './ornaments'
+import { SectionBackdrop } from './section-backdrop'
 
 export function EventSection({ data = weddingData }: { data?: WeddingData }) {
   const { events } = data
@@ -19,11 +20,12 @@ export function EventSection({ data = weddingData }: { data?: WeddingData }) {
   return (
     <section
       id="event"
-      className="ornamental-section bg-layered-ivory px-5 py-20 sm:px-6 sm:py-24"
+      className="ornamental-section relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
       aria-label="Acara pernikahan"
     >
+      <SectionBackdrop variant="event" />
       <SectionOrnaments />
-      <div className="mx-auto max-w-5xl">
+      <div className="relative z-10 mx-auto max-w-5xl">
         <SectionHeading subtitle="Save The Date" title="Rangkaian Acara" />
 
         <motion.div

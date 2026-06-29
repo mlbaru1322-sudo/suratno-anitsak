@@ -5,17 +5,19 @@ import { Heart } from 'lucide-react'
 import { weddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { CornerOrnament, SectionOrnaments } from './ornaments'
+import { SectionBackdrop } from './section-backdrop'
 
 export function LoveStorySection() {
   const { loveStory } = weddingData
 
   return (
     <section
-      className="ornamental-section bg-layered-ivory px-5 py-20 sm:px-6 sm:py-24"
+      className="ornamental-section relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
       aria-label="Kisah cinta"
     >
+      <SectionBackdrop variant="story" />
       <SectionOrnaments />
-      <div className="mx-auto max-w-4xl">
+      <div className="relative z-10 mx-auto max-w-4xl">
         <SectionHeading subtitle="Our Journey" title="Cerita Cinta" />
 
         <ol className="relative mt-14 grid gap-8 md:gap-10">

@@ -11,6 +11,7 @@ import {
   GununganMark,
   OrnamentDivider,
 } from './ornaments'
+import { SectionBackdrop } from './section-backdrop'
 
 export function ClosingSection({ data = weddingData }: { data?: WeddingData }) {
   const { closing, coupleShort, coverPhoto } = data
@@ -42,6 +43,7 @@ export function ClosingSection({ data = weddingData }: { data?: WeddingData }) {
       <CornerOrnament className="absolute bottom-6 right-6 w-24 rotate-180 text-champagne opacity-70 sm:w-32" />
       <FloralAccent className="animate-float-slow absolute -left-8 bottom-16 w-36 text-champagne opacity-35 sm:w-52" />
       <FloralAccent className="animate-float-slower absolute -right-8 top-16 w-36 rotate-180 text-champagne opacity-35 sm:w-52" />
+      <SectionBackdrop variant="closing" />
 
       <Reveal className="relative mx-auto max-w-2xl text-center text-ivory">
         <GununganMark className="animate-javanese-drift mx-auto mb-4 h-20 w-20 text-champagne" />

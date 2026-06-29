@@ -13,6 +13,7 @@ import {
   GununganMark,
   SectionOrnaments,
 } from './ornaments'
+import { SectionBackdrop } from './section-backdrop'
 
 type Person = {
   name: string
@@ -68,11 +69,12 @@ export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
   return (
     <section
       id="couple"
-      className="ornamental-section bg-layered-ivory px-5 py-20 sm:px-6 sm:py-24"
+      className="ornamental-section relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
       aria-label="Pasangan mempelai"
     >
+      <SectionBackdrop variant="couple" />
       <SectionOrnaments />
-      <div className="mx-auto max-w-5xl">
+      <div className="relative z-10 mx-auto max-w-5xl">
         <SectionHeading subtitle="Bismillahirrahmanirrahim" title="Mempelai" />
 
         <motion.div

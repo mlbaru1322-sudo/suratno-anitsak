@@ -6,21 +6,21 @@ export const weddingData = {
   bride: {
     name: 'Tri Rahayu',
     shortName: 'Rahayu',
-    photo: '/images/bride.png',
+    photo: '/images/optimized/bride.webp',
     parents: 'Putri dari Bapak Suparman & Ibu Sulastri',
     instagram: '@trirahayu',
   },
   groom: {
     name: 'Mardian Ifan Rizkyadi',
     shortName: 'Mardian',
-    photo: '/images/groom.png',
+    photo: '/images/optimized/groom.webp',
     parents: 'Putra dari Bapak Hartono & Ibu Mardiana',
     instagram: '@mardian.ifan',
   },
 
   // Display
   coupleShort: 'Rahayu & Mardian',
-  coverPhoto: '/images/couple-portrait.png',
+  coverPhoto: '/images/optimized/couple-portrait.webp',
   coverPhotoPositionMobile: '43% center',
   coverPhotoPositionDesktop: 'center center',
   portraitPhoto: '/images/couple-portrait.png',
@@ -105,19 +105,13 @@ export const weddingData = {
 
   // Gallery
   gallery: [
-    '/images/gallery-1.png',
-    '/images/gallery-2.png',
-    '/images/gallery-3.png',
-    '/images/gallery-4.png',
-    '/images/gallery-5.png',
-    '/images/gallery-6.png',
+    '/images/optimized/gallery-1.webp',
+    '/images/optimized/gallery-2.webp',
+    '/images/optimized/gallery-3.webp',
+    '/images/optimized/gallery-4.webp',
+    '/images/optimized/gallery-5.webp',
+    '/images/optimized/gallery-6.webp',
   ],
-
-  video: {
-    title: 'Wedding Film',
-    caption: 'Momen video perjalanan kami akan ditampilkan di sini.',
-    thumbnail: '/images/couple-portrait.png',
-  },
 
   // Wishes (dummy testimonials)
   wishes: [
