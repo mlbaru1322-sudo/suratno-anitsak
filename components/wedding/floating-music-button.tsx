@@ -2,29 +2,22 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Music, Pause } from 'lucide-react'
-import { weddingData, type WeddingData } from '@/lib/wedding-data'
+import { type WeddingData } from '@/lib/wedding-data'
 import { cn } from '@/lib/utils'
 
 const LOCAL_MUSIC_SRC = '/music/music.mp3'
-const LEGACY_MUSIC_SRC = `/${['audio', 'song.mp3'].join('/')}`
 export const WEDDING_MUSIC_PLAY_EVENT = 'wedding:play-music'
-
-function getMusicSrc(src?: string) {
-  const cleanSrc = src?.trim()
-  if (!cleanSrc || cleanSrc === LEGACY_MUSIC_SRC) return LOCAL_MUSIC_SRC
-  return cleanSrc
-}
 
 export function FloatingMusicButton({
   active,
-  data = weddingData,
 }: {
   active: boolean
   data?: WeddingData
 }) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const hasTriedAutoplayRef = useRef(false)
   const [playing, setPlaying] = useState(false)
-  const audioSrc = getMusicSrc(data.music.src)
+  const audioSrc = LOCAL_MUSIC_SRC
 
   const playMusic = useCallback(() => {
     const audio = audioRef.current
@@ -38,32 +31,52 @@ export function FloatingMusicButton({
       })
   }, [])
 
-  useEffect(() => {
-    window.addEventListener(WEDDING_MUSIC_PLAY_EVENT, playMusic)
-    return () => window.removeEventListener(WEDDING_MUSIC_PLAY_EVENT, playMusic)
+  const tryAutoplayOnce = useCallback(() => {
+    if (hasTriedAutoplayRef.current) return
+
+    hasTriedAutoplayRef.current = true
+    playMusic()
   }, [playMusic])
 
-  // Fallback attempt after the invitation is opened.
+  useEffect(() => {
+    window.addEventListener(WEDDING_MUSIC_PLAY_EVENT, tryAutoplayOnce)
+    return () => window.removeEventListener(WEDDING_MUSIC_PLAY_EVENT, tryAutoplayOnce)
+  }, [tryAutoplayOnce])
+
+  // Fallback attempt after the invitation is opened. Run only once, so pause stays paused.
   useEffect(() => {
     if (!active) return
-    playMusic()
-  }, [active, playMusic])
+    tryAutoplayOnce()
+  }, [active, tryAutoplayOnce])
 
   function toggle() {
     const audio = audioRef.current
     if (!audio) return
-    if (playing) {
-      audio.pause()
-      setPlaying(false)
+
+    if (audio.paused) {
+      audio
+        .play()
+        .then(() => setPlaying(true))
+        .catch(() => {
+          setPlaying(false)
+        })
     } else {
-      playMusic()
+      audio.pause()
     }
   }
 
   return (
     <>
       {/* Local invitation music. */}
-      <audio ref={audioRef} src={audioSrc} loop preload="none" />
+      <audio
+        ref={audioRef}
+        src={audioSrc}
+        loop
+        preload="none"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onEnded={() => setPlaying(false)}
+      />
       {active ? (
         <button
           onClick={toggle}

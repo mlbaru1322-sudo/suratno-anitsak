@@ -373,6 +373,11 @@
     background-color: #2b1a12;
     background-size: auto, 340px 340px;
   }
+  @media (max-width: 768px) {
+    .vintage-public-page {
+      background-attachment: scroll;
+    }
+  }
   .vintage-public-page .paper-texture,
   .vintage-public-page .bg-layered-ivory,
   .vintage-public-page .javanese-warmth {

@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useState, useEffect, useMemo, useRef } from 'react'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { ReferenceVideoOpeningScene } from './reference-video-opening-scene'
@@ -77,7 +77,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       {trees.map((tree) => (
         <motion.div
           key={tree.src}
-          className={`absolute z-30 origin-bottom pointer-events-none ${tree.className}`}
+          className={`absolute z-30 origin-bottom pointer-events-none will-change-transform ${tree.className}`}
           initial={{ opacity: 0, y: 34, scale: 0.94, rotate: tree.initialRotate }}
           animate={
             active
@@ -101,13 +101,13 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
             scale: { duration: 0.9, ease: 'easeOut', delay: active ? tree.delay : 0 },
             rotate: {
               duration: tree.duration,
-              repeat: Infinity,
+              repeat: active ? Infinity : 0,
               ease: 'easeInOut',
               delay: active ? tree.delay + 0.9 : 0,
             },
             x: {
               duration: tree.duration,
-              repeat: Infinity,
+              repeat: active ? Infinity : 0,
               ease: 'easeInOut',
               delay: active ? tree.delay + 0.9 : 0,
             },
@@ -135,7 +135,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
             initial={{ rotate: flower.rot, scale: flower.scale, opacity: 0, y: 40 }}
             animate={active ? { rotate: [flower.rot, flower.rot + 4, flower.rot], opacity: 1, y: 0 } : { rotate: flower.rot, opacity: 0, y: 40 }}
             transition={{ 
-              rotate: { duration: 5 + (i % 3), repeat: Infinity, ease: 'easeInOut', delay: i * 0.4 },
+              rotate: { duration: 5 + (i % 3), repeat: active ? Infinity : 0, ease: 'easeInOut', delay: i * 0.4 },
               opacity: { duration: 1.5, ease: 'easeOut', delay: active ? 5.0 + (i * 0.05) : 0 },
               y: { duration: 1.5, ease: 'easeOut', delay: active ? 5.0 + (i * 0.05) : 0 }
             }}
@@ -214,9 +214,25 @@ export function HeroSection({
   const { bride, groom, portraitPhoto } = data
   const reduceMotion = useReducedMotion()
   const [isMounted, setIsMounted] = useState(false)
+  const [isCompactViewport, setIsCompactViewport] = useState(false)
+  const heroRef = useRef<HTMLElement | null>(null)
+  const heroInView = useInView(heroRef, {
+    amount: 0.05,
+    margin: '240px 0px 240px 0px',
+  })
+  const heroMotionActive = active && (!isMounted || heroInView)
 
   useEffect(() => {
     setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 640px)')
+    const updateViewport = () => setIsCompactViewport(media.matches)
+
+    updateViewport()
+    media.addEventListener('change', updateViewport)
+    return () => media.removeEventListener('change', updateViewport)
   }, [])
 
   const t = (duration: number, delay: number) =>
@@ -226,16 +242,17 @@ export function HeroSection({
 
   return (
     <section
+      ref={heroRef}
       id="hero"
       className="relative isolate flex min-h-[100dvh] overflow-hidden bg-transparent px-5 py-16 sm:px-6 sm:py-24"
       aria-label="Mempelai"
     >
       <div className="reference-video-hero-stage pointer-events-none absolute inset-0 z-0" aria-hidden="true">
-        <ReferenceVideoOpeningScene active={active} showBackground={false} className="h-full w-full" />
+        <ReferenceVideoOpeningScene active={heroMotionActive} showBackground={false} className="h-full w-full" />
       </div>
 
-      <AmbientTrees active={active} />
-      {isMounted && active && <FallingLeaves />}
+      <AmbientTrees active={heroMotionActive} />
+      {isMounted && heroMotionActive && !isCompactViewport && <FallingLeaves />}
 
       <div className="relative z-40 mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center">
         <motion.div
@@ -259,9 +276,9 @@ export function HeroSection({
           className="mt-8 flex w-[90%] max-w-[400px] flex-col items-center"
         >
           <motion.div
-            animate={active ? { y: [0, -10, 0] } : { y: 0 }}
-            transition={{ repeat: Infinity, duration: 6, ease: 'easeInOut', delay: 2 }}
-            className="relative flex w-full flex-col items-center overflow-hidden rounded-t-[1000px] rounded-b-3xl bg-[#E5D3B3]/80 backdrop-blur-md pt-10 px-6 pb-12 shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-[#5c4033]/30"
+            animate={heroMotionActive ? { y: [0, -10, 0] } : { y: 0 }}
+            transition={{ repeat: heroMotionActive ? Infinity : 0, duration: 6, ease: 'easeInOut', delay: 2 }}
+            className="relative flex w-full flex-col items-center overflow-hidden rounded-t-[1000px] rounded-b-3xl bg-[#E5D3B3]/80 backdrop-blur-md pt-10 px-6 pb-12 shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-[#5c4033]/30 will-change-transform"
           >
             {/* Soft inner glow for depth */}
             <div className="absolute inset-0 shadow-[inset_0_0_40px_rgba(252,250,242,0.5)] pointer-events-none" />
