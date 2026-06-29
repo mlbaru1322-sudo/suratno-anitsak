@@ -74,6 +74,16 @@ export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
     >
       <SectionBackdrop variant="couple" />
       <SectionOrnaments />
+      <img
+        src="/ornaments/pohon/optimized/pohon_03_kelapa_minimal_vintage.webp"
+        alt=""
+        className="pointer-events-none absolute -left-12 bottom-12 hidden w-28 -rotate-6 opacity-[0.13] sm:block md:w-36"
+      />
+      <img
+        src="/ornaments/pohon/optimized/pohon_09_kelapa_lengkung_vintage.webp"
+        alt=""
+        className="pointer-events-none absolute -right-12 top-28 hidden w-28 rotate-6 opacity-[0.12] sm:block md:w-36"
+      />
       <div className="relative z-10 mx-auto max-w-5xl">
         <SectionHeading subtitle="Bismillahirrahmanirrahim" title="Mempelai" />
 

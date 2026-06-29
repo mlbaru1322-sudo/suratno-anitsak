@@ -15,6 +15,17 @@ export function LoveStorySection() {
     >
       <SectionBackdrop variant="story" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_5%,rgba(255,248,236,0.42),transparent_28rem),linear-gradient(180deg,rgba(245,241,231,0.12),rgba(101,67,45,0.06)_52%,rgba(245,241,231,0.14))]" />
+      <div className="batik-pattern pointer-events-none absolute inset-0 opacity-[0.03]" />
+      <img
+        src="/ornaments/pohon/optimized/pohon_03_kelapa_minimal_vintage.webp"
+        alt=""
+        className="pointer-events-none absolute -left-14 bottom-16 hidden w-28 -rotate-6 opacity-[0.12] sm:block md:w-36"
+      />
+      <img
+        src="/ornaments/pohon/optimized/pohon_09_kelapa_lengkung_vintage.webp"
+        alt=""
+        className="pointer-events-none absolute -right-14 top-24 hidden w-28 rotate-6 opacity-[0.11] sm:block md:w-36"
+      />
       <div className="relative z-10 mx-auto max-w-4xl">
         <SectionHeading subtitle="Our Journey" title="Cerita Cinta" />
 
@@ -52,6 +63,10 @@ export function LoveStorySection() {
               >
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.50),transparent_14rem),linear-gradient(135deg,rgba(216,187,133,0.10),transparent_45%,rgba(90,59,46,0.07))]" />
                 <div className="pointer-events-none absolute inset-2 rounded-b-[1rem] rounded-t-[2.05rem] border border-batik-brown/14" />
+                <span
+                  className="pointer-events-none absolute right-4 top-4 h-12 w-6 bg-batik-brown/8 [clip-path:polygon(50%_0,88%_22%,70%_100%,50%_80%,30%_100%,12%_22%)]"
+                  aria-hidden="true"
+                />
 
                 <div className="relative">
                   <span className="text-[0.68rem] font-medium uppercase tracking-[0.24em] text-gold">
