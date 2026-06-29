@@ -1,44 +1,64 @@
 'use client'
 
-import { Quote } from 'lucide-react'
-import { weddingData, type WeddingData } from '@/lib/wedding-data'
-import { Reveal } from './motion-helpers'
-import {
-  CornerCarving,
-  CornerOrnament,
-  OrnamentDivider,
-  SectionOrnaments,
-} from './ornaments'
-import { SectionHeading } from './section-heading'
+import { motion } from 'framer-motion'
+import { type WeddingData } from '@/lib/wedding-data'
 
-export function QuoteSection({ data = weddingData }: { data?: WeddingData }) {
-  const { quote } = data
+const quoteLabel = 'QS. Ar-Rum Ayat 21'
+const quoteText =
+  'Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang.'
+const quoteSource = 'QS. Ar-Rum: 21'
 
+function QuoteDivider() {
+  return (
+    <div
+      className="mx-auto flex w-full max-w-[17rem] items-center gap-3 sm:max-w-sm sm:gap-4"
+      aria-hidden="true"
+    >
+      <span className="h-px min-w-0 flex-1 bg-gradient-to-r from-transparent via-gold/55 to-gold/25" />
+      <span className="size-2 rotate-45 rounded-[2px] border border-gold/60 bg-ivory shadow-[0_0_0_4px_rgba(185,151,107,0.08)]" />
+      <span className="h-px min-w-0 flex-1 bg-gradient-to-l from-transparent via-gold/55 to-gold/25" />
+    </div>
+  )
+}
+
+export function QuoteSection(_props: { data?: WeddingData }) {
   return (
     <section
-      className="ornamental-section paper-texture px-5 py-20 sm:px-6 sm:py-24"
-      aria-label="Kutipan"
+      className="relative isolate overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
+      aria-label="Kutipan Doa"
     >
-      <SectionOrnaments />
+      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(216,187,133,0.26),transparent_34rem),radial-gradient(circle_at_12%_84%,rgba(90,59,46,0.12),transparent_22rem),linear-gradient(180deg,rgba(245,241,231,0.94)_0%,rgba(232,223,201,0.88)_48%,rgba(245,241,231,0.94)_100%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-24 bg-[linear-gradient(180deg,rgba(101,67,45,0.12),transparent)]" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-24 bg-[linear-gradient(0deg,rgba(101,67,45,0.10),transparent)]" />
+
       <div className="mx-auto max-w-3xl">
-        <SectionHeading subtitle="Ayat Suci" title="Kutipan Cinta" />
-        <Reveal className="mt-12">
-          <div className="ornate-card rounded-[2rem] px-7 py-12 text-center sm:px-12 sm:py-16">
-            <CornerOrnament className="absolute left-4 top-4 w-16 opacity-60" />
-            <CornerOrnament className="absolute bottom-4 right-4 w-16 rotate-180 opacity-60" />
-            <CornerCarving className="right-4 top-4 rotate-90" />
-            <span className="mx-auto mb-6 flex size-12 items-center justify-center rounded-full border border-gold/35 bg-gold/10 text-gold">
-              <Quote className="size-6" aria-hidden="true" />
-            </span>
-            <OrnamentDivider className="mb-8" />
-            <blockquote className="font-serif text-xl leading-relaxed text-espresso sm:text-2xl md:text-3xl text-pretty">
-              {`"${quote.text}"`}
+        <motion.div
+          initial={{ opacity: 0, y: 16, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.25 }}
+          className="relative overflow-hidden rounded-[1.75rem] border border-gold/35 bg-ivory/72 px-6 py-10 text-center shadow-[0_22px_60px_-42px_rgba(43,26,18,0.74),inset_0_1px_0_rgba(255,255,255,0.55)] backdrop-blur-[2px] sm:rounded-[2rem] sm:px-12 sm:py-14"
+        >
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.72),transparent_18rem),linear-gradient(135deg,rgba(216,187,133,0.12),transparent_38%,rgba(90,59,46,0.08))]" />
+
+          <div className="relative">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-gold sm:text-sm">
+              {quoteLabel}
+            </p>
+
+            <QuoteDivider />
+
+            <blockquote className="mx-auto my-8 max-w-2xl font-serif text-[1.35rem] italic leading-[1.85] text-espresso text-pretty sm:text-2xl sm:leading-[1.8] md:text-[1.7rem]">
+              {quoteText}
             </blockquote>
-            <p className="mt-8 text-sm uppercase tracking-[0.25em] text-gold">
-              {quote.source}
+
+            <QuoteDivider />
+
+            <p className="mt-7 text-xs font-medium uppercase tracking-[0.22em] text-batik-brown/75 sm:text-sm">
+              {quoteSource}
             </p>
           </div>
-        </Reveal>
+        </motion.div>
       </div>
     </section>
   )

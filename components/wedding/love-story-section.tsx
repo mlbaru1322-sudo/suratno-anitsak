@@ -1,10 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Heart } from 'lucide-react'
 import { weddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
-import { CornerOrnament, SectionOrnaments } from './ornaments'
 import { SectionBackdrop } from './section-backdrop'
 
 export function LoveStorySection() {
@@ -16,24 +14,24 @@ export function LoveStorySection() {
       aria-label="Kisah cinta"
     >
       <SectionBackdrop variant="story" />
-      <SectionOrnaments />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_5%,rgba(255,248,236,0.42),transparent_28rem),linear-gradient(180deg,rgba(245,241,231,0.12),rgba(101,67,45,0.06)_52%,rgba(245,241,231,0.14))]" />
       <div className="relative z-10 mx-auto max-w-4xl">
         <SectionHeading subtitle="Our Journey" title="Cerita Cinta" />
 
-        <ol className="relative mt-14 grid gap-8 md:gap-10">
+        <ol className="relative mt-14 grid gap-7 md:gap-10">
           <span
-            className="absolute left-4 top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-gold/55 to-transparent md:left-1/2 md:block"
+            className="absolute left-4 top-2 h-[calc(100%-1rem)] w-px bg-gradient-to-b from-transparent via-gold/55 to-transparent md:left-1/2"
             aria-hidden="true"
           />
           {loveStory.map((item, index) => (
             <motion.li
               key={item.id}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{
-                duration: 0.7,
-                delay: index * 0.15,
+                duration: 0.8,
+                delay: index * 0.08,
                 ease: [0.22, 1, 0.36, 1],
               }}
               className={
@@ -42,26 +40,34 @@ export function LoveStorySection() {
                   : 'relative md:grid md:grid-cols-[1fr_3rem_1fr]'
               }
             >
-              <span className="absolute -left-0 top-6 z-10 flex size-8 items-center justify-center rounded-full border border-gold/50 bg-gold/90 text-ivory shadow-luxe md:left-1/2 md:-translate-x-1/2">
-                <Heart className="size-3.5" aria-hidden="true" />
+              <span className="absolute left-0 top-7 z-10 flex size-8 items-center justify-center rounded-full border border-gold/45 bg-ivory shadow-[0_10px_28px_-22px_rgba(43,26,18,0.75)] md:left-1/2 md:-translate-x-1/2">
+                <span className="size-2.5 rounded-full bg-gold/80" />
               </span>
               <div
                 className={
                   index % 2 === 0
-                    ? 'ornate-card ml-12 rounded-2xl px-6 py-6 md:ml-0 md:col-start-1'
-                    : 'ornate-card ml-12 rounded-2xl px-6 py-6 md:ml-0 md:col-start-3'
+                    ? 'relative ml-12 overflow-hidden rounded-b-[1.4rem] rounded-t-[2.5rem] border border-gold/32 bg-ivory/74 px-5 py-6 shadow-[0_20px_52px_-42px_rgba(43,26,18,0.76),inset_0_1px_0_rgba(255,255,255,0.56)] md:col-start-1 md:ml-0 md:px-6'
+                    : 'relative ml-12 overflow-hidden rounded-b-[1.4rem] rounded-t-[2.5rem] border border-gold/32 bg-ivory/74 px-5 py-6 shadow-[0_20px_52px_-42px_rgba(43,26,18,0.76),inset_0_1px_0_rgba(255,255,255,0.56)] md:col-start-3 md:ml-0 md:px-6'
                 }
               >
-                <CornerOrnament className="absolute right-3 top-3 w-12 rotate-90 opacity-40" />
-                <span className="text-xs uppercase tracking-[0.25em] text-gold">
-                  {item.date}
-                </span>
-                <h3 className="mt-1 font-serif text-2xl font-semibold text-espresso">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-taupe">
-                  {item.description}
-                </p>
+                <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.50),transparent_14rem),linear-gradient(135deg,rgba(216,187,133,0.10),transparent_45%,rgba(90,59,46,0.07))]" />
+                <div className="pointer-events-none absolute inset-2 rounded-b-[1rem] rounded-t-[2.05rem] border border-batik-brown/14" />
+
+                <div className="relative">
+                  <span className="text-[0.68rem] font-medium uppercase tracking-[0.24em] text-gold">
+                    {item.date}
+                  </span>
+                  <h3 className="mt-2 font-serif text-2xl font-semibold leading-tight text-espresso sm:text-[1.7rem]">
+                    {item.title}
+                  </h3>
+                  <span
+                    className="my-4 block h-px w-full bg-gradient-to-r from-gold/45 via-batik-brown/16 to-transparent"
+                    aria-hidden="true"
+                  />
+                  <p className="text-sm leading-relaxed text-taupe text-pretty">
+                    {item.description}
+                  </p>
+                </div>
               </div>
             </motion.li>
           ))}

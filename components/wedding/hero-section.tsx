@@ -219,7 +219,7 @@ export function HeroSection({
   data?: WeddingData
   active?: boolean
 }) {
-  const { bride, groom, portraitPhoto } = data
+  const { bride, groom, portraitPhoto, weddingDateISO } = data
   const reduceMotion = useReducedMotion()
   const [isMounted, setIsMounted] = useState(false)
   const [isCompactViewport, setIsCompactViewport] = useState(false)
@@ -247,6 +247,21 @@ export function HeroSection({
     reduceMotion
       ? { duration: 0.35, delay: 0, ease: revealEase }
       : { duration, delay, ease: revealEase }
+
+  const heroDate = useMemo(() => {
+    const date = new Date(weddingDateISO)
+
+    if (Number.isNaN(date.getTime())) return ''
+
+    return new Intl.DateTimeFormat('id-ID', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      timeZone: 'Asia/Jakarta',
+    })
+      .format(date)
+      .replace(/\//g, ' . ')
+  }, [weddingDateISO])
 
   return (
     <section
@@ -315,9 +330,11 @@ export function HeroSection({
                 <h2 className="font-serif text-4xl sm:text-5xl font-medium text-[#4E342E] tracking-wide drop-shadow-sm">
                   {groom.shortName} & {bride.shortName}
                 </h2>
-                <p className="mt-5 font-serif text-[0.8rem] tracking-[0.25em] text-[#A67C00]">
-                  11 . 06 . 2027
-                </p>
+                {heroDate ? (
+                  <p className="mt-5 font-serif text-[0.8rem] tracking-[0.25em] text-[#A67C00]">
+                    {heroDate}
+                  </p>
+                ) : null}
               </div>
             </div>
           </motion.div>

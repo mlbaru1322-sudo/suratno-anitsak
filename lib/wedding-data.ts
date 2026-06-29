@@ -23,7 +23,7 @@ export const weddingData = {
   coverPhoto: '/images/optimized/couple-portrait.webp',
   coverPhotoPositionMobile: '43% center',
   coverPhotoPositionDesktop: 'center center',
-  portraitPhoto: '/images/couple-portrait.png',
+  portraitPhoto: '/images/optimized/couple-portrait.webp',
   // ISO date used for the countdown and display
   weddingDateISO: '2026-09-12T08:00:00+07:00',
   weddingDateDisplay: 'Sabtu, 12 September 2026',

@@ -4,9 +4,7 @@ import { useState } from 'react'
 import { Check, Copy, Mail } from 'lucide-react'
 import { weddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
-import { staggerContainer, fadeUp } from './motion-helpers'
 import { motion } from 'framer-motion'
-import { CornerCarving, SectionOrnaments } from './ornaments'
 
 export function DigitalGiftSection() {
   const { gifts } = weddingData
@@ -24,11 +22,11 @@ export function DigitalGiftSection() {
 
   return (
     <section
-      className="ornamental-section bg-layered-ivory px-5 py-20 sm:px-6 sm:py-24"
+      className="ornamental-section relative overflow-hidden bg-layered-ivory px-5 py-20 sm:px-6 sm:py-24"
       aria-label="Hadiah digital"
     >
-      <SectionOrnaments />
-      <div className="mx-auto max-w-3xl">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,248,236,0.42),transparent_28rem),radial-gradient(circle_at_12%_88%,rgba(90,59,46,0.10),transparent_20rem),linear-gradient(180deg,rgba(245,241,231,0.16),rgba(216,187,133,0.10)_48%,rgba(245,241,231,0.18))]" />
+      <div className="relative z-10 mx-auto max-w-3xl">
         <SectionHeading subtitle="Wedding Gift" title="Amplop Digital" />
 
         <p className="mx-auto mt-6 max-w-md text-center text-sm leading-relaxed text-taupe">
@@ -37,33 +35,44 @@ export function DigitalGiftSection() {
         </p>
 
         <motion.div
-          variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
+          transition={{ staggerChildren: 0.14 }}
           className="mt-12 grid gap-6 sm:grid-cols-2"
         >
           {gifts.map((gift) => (
             <motion.div
               key={gift.id}
-              variants={fadeUp}
-              className="ornate-card rounded-2xl px-6 py-7"
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+                },
+              }}
+              className="relative min-w-0 overflow-hidden rounded-b-[1.5rem] rounded-t-[2.75rem] border border-gold/34 bg-ivory/76 px-5 py-7 shadow-[0_22px_58px_-44px_rgba(43,26,18,0.76),inset_0_1px_0_rgba(255,255,255,0.58)] sm:px-6"
             >
-              <CornerCarving className="right-4 top-4 rotate-90" />
-              <div className="flex items-center gap-3">
-                <span className="flex size-12 items-center justify-center rounded-full border border-gold/35 bg-gold/90 text-ivory shadow-luxe">
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.50),transparent_14rem),linear-gradient(135deg,rgba(216,187,133,0.10),transparent_45%,rgba(90,59,46,0.07))]" />
+              <div className="pointer-events-none absolute inset-2 rounded-b-[1.1rem] rounded-t-[2.25rem] border border-batik-brown/14" />
+
+              <div className="relative flex items-center gap-3">
+                <span className="flex size-12 shrink-0 items-center justify-center rounded-t-[1.3rem] rounded-b-xl border border-gold/40 bg-espresso text-ivory shadow-[0_14px_34px_-26px_rgba(43,26,18,0.82)]">
                   <Mail className="size-5" aria-hidden="true" />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <span className="text-xs uppercase tracking-[0.2em] text-gold">
                     Rekening
                   </span>
-                  <p className="font-serif text-xl text-espresso">{gift.bank}</p>
+                  <p className="font-serif text-xl leading-tight text-espresso">
+                    {gift.bank}
+                  </p>
                 </div>
               </div>
 
-              <div className="mt-6 rounded-2xl border border-gold/25 bg-ivory/65 px-4 py-4">
-                <p className="font-mono text-lg tracking-widest text-espresso">
+              <div className="relative mt-6 rounded-xl border border-gold/28 bg-cream/48 px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.52)]">
+                <p className="break-all font-mono text-lg tracking-[0.18em] text-espresso">
                   {gift.accountNumber}
                 </p>
                 <p className="mt-1 text-sm text-taupe">
@@ -73,7 +82,7 @@ export function DigitalGiftSection() {
 
               <button
                 onClick={() => copyNumber(gift.id, gift.accountNumber)}
-                className="gold-button mt-5 inline-flex min-h-10 items-center gap-2 rounded-full px-5 py-2 text-sm font-medium"
+                className="relative mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-gold/55 bg-espresso px-4 py-3 text-sm font-medium uppercase tracking-[0.08em] text-ivory shadow-[0_14px_34px_-26px_rgba(43,26,18,0.82)] transition-colors hover:bg-batik-brown focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/30"
               >
                 {copiedId === gift.id ? (
                   <>

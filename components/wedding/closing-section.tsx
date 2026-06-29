@@ -3,14 +3,6 @@
 import Image from 'next/image'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { Reveal } from './motion-helpers'
-import {
-  CornerOrnament,
-  FloralAccent,
-  GebyokArch,
-  GoldDust,
-  GununganMark,
-  OrnamentDivider,
-} from './ornaments'
 import { SectionBackdrop } from './section-backdrop'
 
 export function ClosingSection({ data = weddingData }: { data?: WeddingData }) {
@@ -30,37 +22,37 @@ export function ClosingSection({ data = weddingData }: { data?: WeddingData }) {
           sizes="100vw"
         />
         <div className="photo-vignette absolute inset-0" />
-        <div className="absolute inset-0 bg-espresso/62" />
-        <div className="batik-pattern absolute inset-0 opacity-[0.08]" />
-        <GoldDust className="opacity-35" />
+        <div className="absolute inset-0 bg-espresso/64" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_18%,rgba(216,187,133,0.22),transparent_24rem),linear-gradient(180deg,rgba(43,26,18,0.42),rgba(43,26,18,0.24)_48%,rgba(18,10,6,0.76))]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(18,10,6,0.48),transparent_28%,transparent_72%,rgba(18,10,6,0.48))]" />
       </div>
 
-      <div className="gebyok-frame pointer-events-none absolute inset-5 border border-champagne/45 sm:inset-8" />
-      <div className="pointer-events-none absolute inset-8 border border-champagne/20 sm:inset-12" />
-      <GebyokArch className="pointer-events-none absolute left-1/2 top-10 hidden w-[42rem] max-w-[78vw] -translate-x-1/2 opacity-45 sm:block" />
-      <GebyokArch className="pointer-events-none absolute bottom-10 left-1/2 hidden w-[42rem] max-w-[78vw] -translate-x-1/2 rotate-180 opacity-35 sm:block" />
-      <CornerOrnament className="absolute left-6 top-6 w-24 text-champagne opacity-70 sm:w-32" />
-      <CornerOrnament className="absolute bottom-6 right-6 w-24 rotate-180 text-champagne opacity-70 sm:w-32" />
-      <FloralAccent className="animate-float-slow absolute -left-8 bottom-16 w-36 text-champagne opacity-35 sm:w-52" />
-      <FloralAccent className="animate-float-slower absolute -right-8 top-16 w-36 rotate-180 text-champagne opacity-35 sm:w-52" />
+      <div className="pointer-events-none absolute inset-5 border border-champagne/38 sm:inset-8" />
+      <div className="pointer-events-none absolute inset-8 border border-champagne/16 sm:inset-12" />
       <SectionBackdrop variant="closing" />
 
       <Reveal className="relative mx-auto max-w-2xl text-center text-ivory">
-        <GununganMark className="animate-javanese-drift mx-auto mb-4 h-20 w-20 text-champagne" />
-        <OrnamentDivider className="mb-8 [&_*]:text-champagne" />
-        <p className="text-base leading-relaxed text-ivory/90 sm:text-lg text-pretty">
-          {closing.message}
-        </p>
-        <p className="mt-6 text-base text-ivory/90">{closing.thanks}</p>
+        <div className="relative overflow-hidden rounded-b-[1.75rem] rounded-t-[3.25rem] border border-champagne/42 bg-espresso/48 px-6 py-10 shadow-[0_28px_72px_-46px_rgba(0,0,0,0.82),inset_0_1px_0_rgba(255,255,255,0.16)] sm:px-10 sm:py-12">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(216,187,133,0.22),transparent_18rem),linear-gradient(135deg,rgba(255,248,236,0.08),transparent_42%,rgba(90,59,46,0.18))]" />
+          <div className="pointer-events-none absolute inset-2 rounded-b-[1.25rem] rounded-t-[2.8rem] border border-champagne/18" />
 
-        <h2 className="mt-10 font-serif text-4xl font-semibold text-champagne sm:text-5xl">
-          {coupleShort}
-        </h2>
-        <OrnamentDivider className="mt-8 [&_*]:text-champagne" />
+          <div className="relative">
+            <span className="mx-auto mb-7 block h-px w-44 max-w-full bg-gradient-to-r from-transparent via-champagne/70 to-transparent" />
+            <p className="text-base leading-relaxed text-ivory/90 sm:text-lg text-pretty">
+              {closing.message}
+            </p>
+            <p className="mt-6 text-base text-ivory/90">{closing.thanks}</p>
 
-        <p className="mt-12 text-xs uppercase tracking-[0.25em] text-ivory/60">
-          Made with love
-        </p>
+            <h2 className="mt-10 font-serif text-4xl font-semibold leading-tight text-champagne sm:text-5xl">
+              {coupleShort}
+            </h2>
+            <span className="mx-auto mt-8 block h-px w-44 max-w-full bg-gradient-to-r from-transparent via-champagne/70 to-transparent" />
+
+            <p className="mt-10 text-xs uppercase tracking-[0.25em] text-ivory/62">
+              Made with love
+            </p>
+          </div>
+        </div>
       </Reveal>
     </section>
   )

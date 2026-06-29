@@ -1,10 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { Reveal } from './motion-helpers'
-import { SectionOrnaments } from './ornaments'
 
 function getTimeLeft(target: number) {
   const diff = Math.max(0, target - Date.now())
@@ -35,11 +34,11 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
 
   return (
     <section
-      className="ornamental-section javanese-warmth px-5 py-20 sm:px-6 sm:py-24"
+      className="ornamental-section javanese-warmth relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
       aria-label="Hitung mundur"
     >
-      <SectionOrnaments />
-      <div className="mx-auto max-w-4xl">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,248,236,0.36),transparent_28rem),linear-gradient(180deg,rgba(245,241,231,0.12),rgba(216,187,133,0.10)_50%,rgba(245,241,231,0.14))]" />
+      <div className="relative z-10 mx-auto max-w-4xl">
         <SectionHeading subtitle="Menuju Hari Bahagia" title="Hitung Mundur" />
 
         <Reveal delay={0.1} className="mx-auto mt-6 max-w-lg text-center">
@@ -50,25 +49,39 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
         </Reveal>
 
         <Reveal className="mt-14">
-          <div className="grid grid-cols-4 gap-3 sm:gap-6">
-            {units.map((unit) => (
-              <div
-                key={unit.label}
-                className="ornate-card batik-pattern animate-gentle-glow flex min-h-28 flex-col items-center justify-center rounded-2xl px-2 py-6 sm:min-h-36 sm:py-8"
-              >
-                <span className="font-serif text-3xl font-semibold tabular-nums text-espresso sm:text-5xl">
-                  {mounted ? String(unit.value).padStart(2, '0') : '--'}
-                </span>
-                <span className="mt-2 text-[0.65rem] uppercase tracking-[0.2em] text-taupe sm:text-xs">
-                  {unit.label}
-                </span>
-              </div>
-            ))}
+          <div className="relative overflow-hidden rounded-b-[1.75rem] rounded-t-[3rem] border border-gold/30 bg-ivory/64 px-4 py-7 shadow-[0_22px_58px_-44px_rgba(43,26,18,0.72),inset_0_1px_0_rgba(255,255,255,0.54)] sm:px-8 sm:py-9">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.50),transparent_18rem),linear-gradient(135deg,rgba(216,187,133,0.10),transparent_45%,rgba(90,59,46,0.07))]" />
+            <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-gold/55 to-transparent" />
+
+            <div className="relative grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center">
+              {units.map((unit, index) => (
+                <Fragment key={unit.label}>
+                  <div
+                    className="flex min-w-0 flex-col items-center justify-center px-1 text-center"
+                  >
+                    <span className="font-serif text-[2rem] font-semibold leading-none tabular-nums text-espresso sm:text-5xl md:text-6xl">
+                      {mounted ? String(unit.value).padStart(2, '0') : '--'}
+                    </span>
+                    <span className="mt-3 text-[0.58rem] font-medium uppercase tracking-[0.18em] text-taupe sm:text-xs sm:tracking-[0.24em]">
+                      {unit.label}
+                    </span>
+                  </div>
+                  {index < units.length - 1 ? (
+                    <span
+                      className="mx-1 h-14 w-px bg-gradient-to-b from-transparent via-gold/45 to-transparent sm:mx-4 sm:h-20"
+                      aria-hidden="true"
+                    />
+                  ) : null}
+                </Fragment>
+              ))}
+            </div>
           </div>
         </Reveal>
 
         <Reveal delay={0.2} className="mt-8 text-center">
-          <p className="text-sm text-taupe sm:text-base">
+          <p
+            className="mx-auto w-fit rounded-lg border border-gold/25 bg-ivory/52 px-4 py-2 text-sm text-taupe sm:text-base"
+          >
             {data.weddingDateDisplay}
           </p>
         </Reveal>
