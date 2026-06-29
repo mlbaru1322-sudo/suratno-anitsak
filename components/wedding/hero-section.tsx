@@ -14,10 +14,12 @@ const HERO_TIMELINE = {
   label: { duration: 1.5, delay: 0.5 },
 } as const
 
+const FLOWER_ASSET_BASE = '/ornaments/bunga/optimized'
+
 function AmbientTrees({ active = false }: { active?: boolean }) {
   const trees = [
     {
-      src: '/ornaments/pohon/pohon_07_palem_ukiran_multi_batang.png',
+      src: '/ornaments/pohon/optimized/pohon_07_palem_ukiran_multi_batang.webp',
       alt: 'pohon palem kanan bawah',
       className:
         'bottom-[-2%] right-[-25%] w-[48%] max-w-[220px] sm:right-[-11%] sm:w-[26vw] sm:max-w-[300px]',
@@ -28,7 +30,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       duration: 4.6,
     },
     {
-      src: '/ornaments/pohon/pohon_02_dua_pohon_kelapa.png',
+      src: '/ornaments/pohon/optimized/pohon_02_dua_pohon_kelapa.webp',
       alt: 'dua pohon kelapa kiri bawah',
       className:
         'bottom-[-4%] left-[-30%] w-[54%] max-w-[240px] sm:left-[-12%] sm:w-[28vw] sm:max-w-[320px]',
@@ -39,7 +41,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       duration: 4.2,
     },
     {
-      src: '/ornaments/pohon/pohon_03_kelapa_minimal_vintage.png',
+      src: '/ornaments/pohon/optimized/pohon_03_kelapa_minimal_vintage.webp',
       alt: 'pohon kelapa minimal kiri tengah',
       className:
         'top-[16%] left-[-17%] w-[42%] max-w-[180px] sm:top-[32%] sm:left-[-7%] sm:w-[19vw] sm:max-w-[240px]',
@@ -50,7 +52,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       duration: 5,
     },
     {
-      src: '/ornaments/pohon/pohon_09_kelapa_lengkung_vintage.png',
+      src: '/ornaments/pohon/optimized/pohon_09_kelapa_lengkung_vintage.webp',
       alt: 'pohon kelapa lengkung kanan atas',
       className:
         'top-[20%] right-[-20%] w-[40%] max-w-[170px] sm:top-[14%] sm:right-[-8%] sm:w-[17vw] sm:max-w-[220px]',
@@ -64,11 +66,15 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
 
   const flowers = [
     { num: 1, scale: 1.1, rot: 5, left: '-5%', mb: '-2%', z: 26 },
+    { num: 6, scale: 0.78, rot: 10, left: '5%', mb: '-6%', z: 25 },
     { num: 2, scale: 0.95, rot: -5, left: '15%', mb: '-4%', z: 27 },
+    { num: 4, scale: 0.82, rot: -10, left: '24%', mb: '-5%', z: 25 },
     { num: 5, scale: 1, rot: 8, left: '30%', mb: '-1%', z: 26 },
     { num: 2, scale: 0.95, rot: 5, left: '40%', mb: '-3%', z: 28 },
     { num: 4, scale: 1.15, rot: -8, left: '58%', mb: '0%', z: 26 },
+    { num: 1, scale: 0.8, rot: 7, left: '68%', mb: '-5%', z: 25 },
     { num: 6, scale: 0.9, rot: 12, left: '75%', mb: '-4%', z: 27 },
+    { num: 2, scale: 0.84, rot: -9, left: '84%', mb: '-6%', z: 25 },
     { num: 7, scale: 1.25, rot: -15, left: '90%', mb: '-2%', z: 26 },
   ]
 
@@ -141,7 +147,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
             }}
           >
             <img 
-              src={`/ornaments/bunga/bunga_${flower.num.toString().padStart(2, '0')}.png`} 
+              src={`${FLOWER_ASSET_BASE}/bunga_${flower.num.toString().padStart(2, '0')}.webp`} 
               alt="" 
               className="h-[18vh] sm:h-[22vh] w-auto opacity-90 sepia-[.15] drop-shadow-md" 
             />
@@ -152,32 +158,34 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
   )
 }
 
-function FallingLeaves() {
+function FallingLeaves({ compact = false }: { compact?: boolean }) {
   const leaves = useMemo(() => {
-    return Array.from({ length: 12 }).map((_, i) => {
+    const leafCount = compact ? 6 : 14
+
+    return Array.from({ length: leafCount }).map((_, i) => {
       // Gunakan Math.random untuk variasi natural karena sudah dibungkus useMemo
       const num = Math.floor(Math.random() * 48) + 1; // Valid bunga_01.png to bunga_48.png
       const isSmall = Math.random() > 0.6;
       const isLarge = Math.random() > 0.8;
       const startX = Math.random() * 100;
-      const duration = Math.random() * 10 + 12; // 12s - 22s
-      const delay = Math.random() * 10;
-      const swayRange = isLarge ? 80 : 40;
+      const duration = compact ? Math.random() * 8 + 18 : Math.random() * 10 + 12;
+      const delay = compact ? Math.random() * 8 : Math.random() * 10;
+      const swayRange = compact ? (isLarge ? 34 : 22) : (isLarge ? 80 : 40);
       const swayDirection = Math.random() > 0.5 ? 1 : -1;
       
       return { id: i, num, isSmall, isLarge, startX, duration, delay, swayRange, swayDirection };
     });
-  }, []); // KUNCI UTAMA: dependency kosong menghentikan infinite re-render loop
+  }, [compact]); // KUNCI UTAMA: hanya berubah saat mode viewport berubah
 
   return (
     <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
       {leaves.map((leaf) => (
         <motion.img
           key={leaf.id}
-          src={`/ornaments/bunga/bunga_${leaf.num.toString().padStart(2, '0')}.png`}
+          src={`${FLOWER_ASSET_BASE}/bunga_${leaf.num.toString().padStart(2, '0')}.webp`}
           alt=""
           className={`absolute object-contain opacity-60 drop-shadow-sm ${
-            leaf.isSmall ? 'w-3 h-3 sm:w-4 sm:h-4 blur-[1px] opacity-40' : 
+            leaf.isSmall ? 'w-3 h-3 sm:w-4 sm:h-4 opacity-40' : 
             leaf.isLarge ? 'w-6 h-6 sm:w-8 sm:h-8 opacity-75' : 
             'w-4 h-4 sm:w-6 sm:h-6'
           }`}
@@ -252,7 +260,7 @@ export function HeroSection({
       </div>
 
       <AmbientTrees active={heroMotionActive} />
-      {isMounted && heroMotionActive && !isCompactViewport && <FallingLeaves />}
+      {isMounted && heroMotionActive && <FallingLeaves compact={isCompactViewport} />}
 
       <div className="relative z-40 mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center">
         <motion.div
