@@ -6,6 +6,11 @@ import { motion } from 'framer-motion'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 
 const GAPURA_FRAME_SRC = '/ornaments/gapura/gapura-frame.webp'
+const OPENING_EXIT_TIMELINE = {
+  fadeDelay: 0.2,
+  fadeDuration: 1.2,
+  unmountDelay: 1600,
+} as const
 
 export function OpeningCover({
   data = weddingData,
@@ -26,7 +31,7 @@ export function OpeningCover({
       return
     }
 
-    const timer = window.setTimeout(() => setHidden(true), 5800)
+    const timer = window.setTimeout(() => setHidden(true), OPENING_EXIT_TIMELINE.unmountDelay)
     return () => window.clearTimeout(timer)
   }, [open])
 
@@ -46,7 +51,11 @@ export function OpeningCover({
       }`}
       initial={false}
       animate={{ opacity: open ? 0 : 1 }}
-      transition={{ duration: 1.2, delay: open ? 4.5 : 0, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: OPENING_EXIT_TIMELINE.fadeDuration,
+        delay: open ? OPENING_EXIT_TIMELINE.fadeDelay : 0,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       aria-label="Sampul undangan"
     >
       {/* Background Pemandangan (z-0) - DIKUNCI */}

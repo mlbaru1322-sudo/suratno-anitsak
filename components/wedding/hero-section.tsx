@@ -10,8 +10,17 @@ import { REFERENCE_VIDEO_OPENING_TIMELINE } from './reference-video-opening-time
 const revealEase = [0.22, 1, 0.36, 1] as const
 
 const HERO_TIMELINE = {
-  card: { duration: 1.5, delay: 0.5 },
-  label: { duration: 1.5, delay: 0.5 },
+  ornamentStartDelay: 0.2,
+  treeStagger: 0.4,
+  treeRevealDuration: 1.5,
+  flowerStartDelay: 1.1,
+  flowerStagger: 0.05,
+  flowerRevealDuration: 1.5,
+  fallingLeavesStartDelay: 1.5,
+  cardRevealDelay: 4.9,
+  cardRevealDuration: 2.0,
+  cardFloatDelay: 5.8,
+  label: { duration: 1.4, delay: 4.75 },
 } as const
 
 const FLOWER_ASSET_BASE = '/ornaments/bunga/optimized'
@@ -23,7 +32,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       alt: 'pohon palem kanan bawah',
       className:
         'bottom-[-2%] right-[-25%] w-[48%] max-w-[220px] sm:right-[-11%] sm:w-[26vw] sm:max-w-[300px]',
-      delay: 0.2,
+      delay: HERO_TIMELINE.ornamentStartDelay,
       initialRotate: -10,
       swayRotate: 1.4,
       swayX: 2,
@@ -34,7 +43,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       alt: 'dua pohon kelapa kiri bawah',
       className:
         'bottom-[-4%] left-[-30%] w-[54%] max-w-[240px] sm:left-[-12%] sm:w-[28vw] sm:max-w-[320px]',
-      delay: 0.6,
+      delay: HERO_TIMELINE.ornamentStartDelay + HERO_TIMELINE.treeStagger,
       initialRotate: 10,
       swayRotate: 1.6,
       swayX: -2,
@@ -45,7 +54,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       alt: 'pohon kelapa minimal kiri tengah',
       className:
         'top-[16%] left-[-17%] w-[42%] max-w-[180px] sm:top-[32%] sm:left-[-7%] sm:w-[19vw] sm:max-w-[240px]',
-      delay: 1.0,
+      delay: HERO_TIMELINE.ornamentStartDelay + HERO_TIMELINE.treeStagger * 2,
       initialRotate: 4,
       swayRotate: 1.3,
       swayX: 2,
@@ -56,7 +65,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
       alt: 'pohon kelapa lengkung kanan atas',
       className:
         'top-[20%] right-[-20%] w-[40%] max-w-[170px] sm:top-[14%] sm:right-[-8%] sm:w-[17vw] sm:max-w-[220px]',
-      delay: 1.4,
+      delay: HERO_TIMELINE.ornamentStartDelay + HERO_TIMELINE.treeStagger * 3,
       initialRotate: -7,
       swayRotate: 1.2,
       swayX: -2,
@@ -102,20 +111,20 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
               : { opacity: 0, y: 34, scale: 0.94, rotate: tree.initialRotate, x: 0 }
           }
           transition={{
-            opacity: { duration: 0.9, ease: 'easeOut', delay: active ? tree.delay : 0 },
-            y: { duration: 0.9, ease: 'easeOut', delay: active ? tree.delay : 0 },
-            scale: { duration: 0.9, ease: 'easeOut', delay: active ? tree.delay : 0 },
+            opacity: { duration: HERO_TIMELINE.treeRevealDuration, ease: 'easeOut', delay: active ? tree.delay : 0 },
+            y: { duration: HERO_TIMELINE.treeRevealDuration, ease: 'easeOut', delay: active ? tree.delay : 0 },
+            scale: { duration: HERO_TIMELINE.treeRevealDuration, ease: 'easeOut', delay: active ? tree.delay : 0 },
             rotate: {
               duration: tree.duration,
               repeat: active ? Infinity : 0,
               ease: 'easeInOut',
-              delay: active ? tree.delay + 0.9 : 0,
+              delay: active ? tree.delay + HERO_TIMELINE.treeRevealDuration : 0,
             },
             x: {
               duration: tree.duration,
               repeat: active ? Infinity : 0,
               ease: 'easeInOut',
-              delay: active ? tree.delay + 0.9 : 0,
+              delay: active ? tree.delay + HERO_TIMELINE.treeRevealDuration : 0,
             },
           }}
         >
@@ -142,8 +151,16 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
             animate={active ? { rotate: [flower.rot, flower.rot + 4, flower.rot], opacity: 1, y: 0 } : { rotate: flower.rot, opacity: 0, y: 40 }}
             transition={{ 
               rotate: { duration: 5 + (i % 3), repeat: active ? Infinity : 0, ease: 'easeInOut', delay: i * 0.4 },
-              opacity: { duration: 1.5, ease: 'easeOut', delay: active ? 5.0 + (i * 0.05) : 0 },
-              y: { duration: 1.5, ease: 'easeOut', delay: active ? 5.0 + (i * 0.05) : 0 }
+              opacity: {
+                duration: HERO_TIMELINE.flowerRevealDuration,
+                ease: 'easeOut',
+                delay: active ? HERO_TIMELINE.flowerStartDelay + (i * HERO_TIMELINE.flowerStagger) : 0,
+              },
+              y: {
+                duration: HERO_TIMELINE.flowerRevealDuration,
+                ease: 'easeOut',
+                delay: active ? HERO_TIMELINE.flowerStartDelay + (i * HERO_TIMELINE.flowerStagger) : 0,
+              }
             }}
           >
             <img 
@@ -158,7 +175,13 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
   )
 }
 
-function FallingLeaves({ compact = false }: { compact?: boolean }) {
+function FallingLeaves({
+  compact = false,
+  startDelay = 0,
+}: {
+  compact?: boolean
+  startDelay?: number
+}) {
   const leaves = useMemo(() => {
     const leafCount = compact ? 6 : 14
 
@@ -169,13 +192,13 @@ function FallingLeaves({ compact = false }: { compact?: boolean }) {
       const isLarge = Math.random() > 0.8;
       const startX = Math.random() * 100;
       const duration = compact ? Math.random() * 8 + 18 : Math.random() * 10 + 12;
-      const delay = compact ? Math.random() * 8 : Math.random() * 10;
+      const delay = startDelay + (compact ? Math.random() * 8 : Math.random() * 10);
       const swayRange = compact ? (isLarge ? 34 : 22) : (isLarge ? 80 : 40);
       const swayDirection = Math.random() > 0.5 ? 1 : -1;
       
       return { id: i, num, isSmall, isLarge, startX, duration, delay, swayRange, swayDirection };
     });
-  }, [compact]); // KUNCI UTAMA: hanya berubah saat mode viewport berubah
+  }, [compact, startDelay]); // KUNCI UTAMA: hanya berubah saat mode viewport berubah
 
   return (
     <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
@@ -275,13 +298,15 @@ export function HeroSection({
       </div>
 
       <AmbientTrees active={heroMotionActive} />
-      {isMounted && heroMotionActive && <FallingLeaves compact={isCompactViewport} />}
+      {isMounted && heroMotionActive && (
+        <FallingLeaves compact={isCompactViewport} startDelay={HERO_TIMELINE.fallingLeavesStartDelay} />
+      )}
 
       <div className="relative z-40 mx-auto flex w-full max-w-4xl flex-col items-center justify-center text-center">
         <motion.div
           initial={false}
           animate={active ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: HERO_TIMELINE.label.duration, delay: HERO_TIMELINE.label.delay }}
+          transition={{ duration: HERO_TIMELINE.label.duration, delay: active ? HERO_TIMELINE.label.delay : 0 }}
           className="flex flex-col items-center"
         >
           <p 
@@ -295,12 +320,21 @@ export function HeroSection({
         <motion.div
           initial={{ opacity: 0, scale: 0.96, y: 0 }}
           animate={active ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.96, y: 0 }}
-          transition={{ duration: 2.0, ease: "easeOut", delay: active ? 6.0 : 0 }}
+          transition={{
+            duration: HERO_TIMELINE.cardRevealDuration,
+            ease: "easeOut",
+            delay: active ? HERO_TIMELINE.cardRevealDelay : 0,
+          }}
           className="mt-8 flex w-[90%] max-w-[400px] flex-col items-center"
         >
           <motion.div
             animate={heroMotionActive ? { y: [0, -10, 0] } : { y: 0 }}
-            transition={{ repeat: heroMotionActive ? Infinity : 0, duration: 6, ease: 'easeInOut', delay: 2 }}
+            transition={{
+              repeat: heroMotionActive ? Infinity : 0,
+              duration: 6,
+              ease: 'easeInOut',
+              delay: HERO_TIMELINE.cardFloatDelay,
+            }}
             className="relative flex w-full flex-col items-center overflow-hidden rounded-t-[1000px] rounded-b-3xl bg-[#E5D3B3]/80 backdrop-blur-md pt-10 px-6 pb-12 shadow-[0_20px_50px_rgba(0,0,0,0.3)] border border-[#5c4033]/30 will-change-transform"
           >
             {/* Soft inner glow for depth */}
