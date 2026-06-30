@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo, useRef } from 'react'
-import { motion, useInView, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion'
 import Image from 'next/image'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { ReferenceVideoOpeningScene } from './reference-video-opening-scene'
@@ -24,6 +24,13 @@ const HERO_TIMELINE = {
 } as const
 
 const FLOWER_ASSET_BASE = '/ornaments/bunga/optimized'
+const HERO_SLIDER_INTERVAL_MS = 6800
+const HERO_SLIDER_PHOTOS = [
+  '/images/optimized/couple-portrait.webp',
+  '/images/optimized/gallery-1.webp',
+  '/images/optimized/gallery-2.webp',
+  '/images/optimized/gallery-3.webp',
+] as const
 
 function AmbientTrees({ active = false }: { active?: boolean }) {
   const trees = [
@@ -239,6 +246,63 @@ function FallingLeaves({
   )
 }
 
+function HeroPhotoSlider({
+  active = false,
+  photos,
+  alt,
+}: {
+  active?: boolean
+  photos: readonly string[]
+  alt: string
+}) {
+  const reduceMotion = useReducedMotion()
+  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0)
+
+  useEffect(() => {
+    if (!active || reduceMotion || photos.length <= 1) {
+      setCurrentPhotoIndex(0)
+      return
+    }
+
+    let slideTimer: number | null = null
+    const startTimer = window.setTimeout(() => {
+      setCurrentPhotoIndex((index) => (index + 1) % photos.length)
+      slideTimer = window.setInterval(() => {
+        setCurrentPhotoIndex((index) => (index + 1) % photos.length)
+      }, HERO_SLIDER_INTERVAL_MS)
+    }, HERO_TIMELINE.cardRevealDelay * 1000 + HERO_SLIDER_INTERVAL_MS)
+
+    return () => {
+      window.clearTimeout(startTimer)
+      if (slideTimer !== null) {
+        window.clearInterval(slideTimer)
+      }
+    }
+  }, [active, photos.length, reduceMotion])
+
+  return (
+    <AnimatePresence initial={false} mode="popLayout">
+      <motion.div
+        key={photos[currentPhotoIndex]}
+        className="absolute inset-0"
+        initial={{ opacity: 0, x: reduceMotion ? 0 : 8 }}
+        animate={{ opacity: 1, x: 0 }}
+        exit={{ opacity: 0, x: reduceMotion ? 0 : -8 }}
+        transition={{ duration: reduceMotion ? 0.25 : 1.8, ease: 'easeInOut' }}
+      >
+        <Image
+          src={photos[currentPhotoIndex]}
+          alt={alt}
+          fill
+          priority={currentPhotoIndex === 0}
+          className="object-cover object-top"
+          sizes="(max-width: 640px) 76vw, 312px"
+        />
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
 export function HeroSection({
   data = weddingData,
   active = false,
@@ -246,7 +310,7 @@ export function HeroSection({
   data?: WeddingData
   active?: boolean
 }) {
-  const { bride, groom, portraitPhoto, weddingDateISO } = data
+  const { bride, groom, weddingDateISO } = data
   const reduceMotion = useReducedMotion()
   const [isMounted, setIsMounted] = useState(false)
   const [isCompactViewport, setIsCompactViewport] = useState(false)
@@ -347,13 +411,10 @@ export function HeroSection({
             <div className="relative z-10 w-full flex flex-col items-center">
               {/* Arch Photo Frame */}
               <div className="relative mx-auto aspect-[3/4] w-full max-w-[15rem] overflow-hidden rounded-t-[1000px] rounded-b-xl border-[3px] border-[#cbb387] shadow-[0_10px_20px_rgba(60,40,30,0.2)] bg-[#d8c3a5]">
-                <Image
-                  src={portraitPhoto}
+                <HeroPhotoSlider
+                  active={heroMotionActive}
+                  photos={HERO_SLIDER_PHOTOS}
                   alt={`Foto ${bride.shortName} dan ${groom.shortName}`}
-                  fill
-                  priority
-                  className="object-cover object-top"
-                  sizes="(max-width: 640px) 76vw, 312px"
                 />
                 {/* Subtle vintage overlay */}
                 <div className="absolute inset-0 bg-[#5c4033]/5 pointer-events-none mix-blend-multiply" />
