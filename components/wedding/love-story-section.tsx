@@ -3,30 +3,26 @@
 import { motion } from 'framer-motion'
 import { weddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
-import { SectionBackdrop } from './section-backdrop'
 
 export function LoveStorySection() {
   const { loveStory } = weddingData
 
   return (
     <section
-      className="ornamental-section relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
+      className="ornamental-section relative overflow-hidden bg-[#5a3b2e] px-5 py-20 sm:px-6 sm:py-24"
+      style={{
+        backgroundImage: "url('/images/optimized/love-story-bg.webp')",
+        backgroundPosition: 'center 40%',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'auto 92%',
+      }}
       aria-label="Kisah cinta"
     >
-      <SectionBackdrop variant="story" />
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_5%,rgba(255,248,236,0.42),transparent_28rem),linear-gradient(180deg,rgba(245,241,231,0.12),rgba(101,67,45,0.06)_52%,rgba(245,241,231,0.14))]" />
-      <div className="batik-pattern pointer-events-none absolute inset-0 opacity-[0.03]" />
-      <img
-        src="/ornaments/pohon/optimized/pohon_03_kelapa_minimal_vintage.webp"
-        alt=""
-        className="pointer-events-none absolute -left-14 bottom-16 hidden w-28 -rotate-6 opacity-[0.12] sm:block md:w-36"
-      />
-      <img
-        src="/ornaments/pohon/optimized/pohon_09_kelapa_lengkung_vintage.webp"
-        alt=""
-        className="pointer-events-none absolute -right-14 top-24 hidden w-28 rotate-6 opacity-[0.11] sm:block md:w-36"
-      />
-      <div className="relative z-10 mx-auto max-w-4xl">
+      <div className="javanese-section-frame" aria-hidden="true">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(61,35,23,0.18)_0%,rgba(88,54,36,0.20)_48%,rgba(61,35,23,0.24)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(216,187,133,0.10),transparent_28rem),radial-gradient(circle_at_50%_62%,rgba(44,25,16,0.16),transparent_34rem)]" />
+      </div>
+      <div className="relative z-10 mx-auto max-w-4xl [&_.soft-badge]:border [&_.soft-badge]:border-gold/30 [&_.soft-badge]:bg-ivory/82 [&_h2]:text-ivory [&_h2]:drop-shadow-[0_2px_12px_rgba(35,20,13,0.75)]">
         <SectionHeading subtitle="Our Journey" title="Cerita Cinta" />
 
         <ol className="relative mt-14 grid gap-7 md:gap-10">
@@ -57,8 +53,8 @@ export function LoveStorySection() {
               <div
                 className={
                   index % 2 === 0
-                    ? 'relative ml-12 overflow-hidden rounded-b-[1.4rem] rounded-t-[2.5rem] border border-gold/32 bg-ivory/74 px-5 py-6 shadow-[0_20px_52px_-42px_rgba(43,26,18,0.76),inset_0_1px_0_rgba(255,255,255,0.56)] md:col-start-1 md:ml-0 md:px-6'
-                    : 'relative ml-12 overflow-hidden rounded-b-[1.4rem] rounded-t-[2.5rem] border border-gold/32 bg-ivory/74 px-5 py-6 shadow-[0_20px_52px_-42px_rgba(43,26,18,0.76),inset_0_1px_0_rgba(255,255,255,0.56)] md:col-start-3 md:ml-0 md:px-6'
+                    ? 'relative ml-12 overflow-hidden rounded-b-[1.4rem] rounded-t-[2.5rem] border border-gold/42 bg-[#fff7e8]/78 px-5 py-6 shadow-[0_20px_52px_-34px_rgba(43,26,18,0.88),inset_0_1px_0_rgba(255,255,255,0.58)] backdrop-blur-[1px] md:col-start-1 md:ml-0 md:px-6'
+                    : 'relative ml-12 overflow-hidden rounded-b-[1.4rem] rounded-t-[2.5rem] border border-gold/42 bg-[#fff7e8]/78 px-5 py-6 shadow-[0_20px_52px_-34px_rgba(43,26,18,0.88),inset_0_1px_0_rgba(255,255,255,0.58)] backdrop-blur-[1px] md:col-start-3 md:ml-0 md:px-6'
                 }
               >
                 <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.50),transparent_14rem),linear-gradient(135deg,rgba(216,187,133,0.10),transparent_45%,rgba(90,59,46,0.07))]" />

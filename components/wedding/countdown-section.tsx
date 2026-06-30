@@ -5,6 +5,8 @@ import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { Reveal } from './motion-helpers'
 
+const batikBackground = '/ornaments/batik/background-batik.webp'
+
 function getTimeLeft(target: number) {
   const diff = Math.max(0, target - Date.now())
   const days = Math.floor(diff / (1000 * 60 * 60 * 24))
@@ -34,23 +36,37 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
 
   return (
     <section
-      className="ornamental-section javanese-warmth relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
+      className="ornamental-section relative overflow-hidden bg-[#6f472f] px-5 py-20 sm:px-6 sm:py-24"
+      style={{
+        backgroundImage: `url('${batikBackground}')`,
+        backgroundPosition: 'center top',
+        backgroundRepeat: 'repeat',
+        backgroundSize: '520px auto',
+      }}
       aria-label="Hitung mundur"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,248,236,0.36),transparent_28rem),linear-gradient(180deg,rgba(245,241,231,0.12),rgba(216,187,133,0.10)_50%,rgba(245,241,231,0.14))]" />
-      <div className="relative z-10 mx-auto max-w-4xl">
+      <div className="javanese-section-frame" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,248,236,0.16),transparent_24rem),linear-gradient(180deg,rgba(245,241,231,0.08),rgba(70,42,28,0.08)_46%,rgba(43,26,18,0.14))]" />
+        <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(35,20,13,0.14),transparent)]" />
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(0deg,rgba(35,20,13,0.16),transparent)]" />
+      </div>
+      <div className="relative z-10 mx-auto max-w-4xl [&_.soft-badge]:border [&_.soft-badge]:border-gold/40 [&_.soft-badge]:bg-[#f2e7cf]/88 [&_.soft-badge]:text-[#8c652f] [&_h2]:text-[#fff4dc] [&_h2]:drop-shadow-[0_2px_10px_rgba(35,20,13,0.64)]">
         <SectionHeading subtitle="Menuju Hari Bahagia" title="Hitung Mundur" />
 
         <Reveal delay={0.1} className="mx-auto mt-6 max-w-lg text-center">
-          <p className="text-sm leading-relaxed text-taupe sm:text-base">
+          <p className="text-sm leading-relaxed text-[#f8ead0] drop-shadow-[0_1px_7px_rgba(35,20,13,0.58)] sm:text-base">
             Dengan memohon rahmat Allah SWT, kami menantikan hari bahagia yang
             insya Allah akan menjadi awal perjalanan baru kami.
           </p>
         </Reveal>
 
         <Reveal className="mt-14">
-          <div className="relative overflow-hidden rounded-b-[1.75rem] rounded-t-[3rem] border border-gold/30 bg-ivory/64 px-4 py-7 shadow-[0_22px_58px_-44px_rgba(43,26,18,0.72),inset_0_1px_0_rgba(255,255,255,0.54)] sm:px-8 sm:py-9">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.50),transparent_18rem),linear-gradient(135deg,rgba(216,187,133,0.10),transparent_45%,rgba(90,59,46,0.07))]" />
+          <div className="relative overflow-hidden rounded-b-[1.75rem] rounded-t-[3rem] border border-gold/36 bg-ivory/84 px-4 py-7 shadow-[0_24px_64px_-42px_rgba(24,13,8,0.82),inset_0_1px_0_rgba(255,255,255,0.58)] backdrop-blur-[1px] sm:px-8 sm:py-9">
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.62),transparent_18rem),linear-gradient(135deg,rgba(216,187,133,0.14),transparent_42%,rgba(90,59,46,0.08))]" />
+            <div
+              className="pointer-events-none absolute inset-0 bg-repeat opacity-[0.035]"
+              style={{ backgroundImage: `url('${batikBackground}')`, backgroundSize: '420px auto' }}
+            />
             <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-gold/55 to-transparent" />
 
             <div className="relative grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center">
@@ -80,7 +96,7 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
 
         <Reveal delay={0.2} className="mt-8 text-center">
           <p
-            className="mx-auto w-fit rounded-lg border border-gold/25 bg-ivory/52 px-4 py-2 text-sm text-taupe sm:text-base"
+            className="mx-auto w-fit rounded-lg border border-gold/28 bg-ivory/78 px-4 py-2 text-sm text-taupe shadow-[0_12px_30px_-26px_rgba(43,26,18,0.7)] sm:text-base"
           >
             {data.weddingDateDisplay}
           </p>

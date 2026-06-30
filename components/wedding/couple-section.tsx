@@ -11,9 +11,7 @@ import {
   CornerCarving,
   FloralMark,
   GununganMark,
-  SectionOrnaments,
 } from './ornaments'
-import { SectionBackdrop } from './section-backdrop'
 
 type Person = {
   name: string
@@ -26,12 +24,12 @@ function CoupleCard({ person }: { person: Person }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="ornate-card flex flex-col items-center rounded-[2rem] px-6 py-10 text-center"
+      className="relative flex flex-col items-center rounded-[1.75rem] border border-gold/20 bg-ivory/46 px-6 py-10 text-center shadow-[0_18px_46px_-38px_rgba(43,26,18,0.62)] backdrop-blur-[1px]"
     >
-      <CornerOrnament className="absolute left-4 top-4 w-14 opacity-55" />
-      <CornerOrnament className="absolute bottom-4 right-4 w-14 rotate-180 opacity-55" />
-      <CornerCarving className="right-4 top-4 rotate-90" />
-      <div className="soft-badge mb-6 rounded-full p-2">
+      <CornerOrnament className="absolute left-4 top-4 w-12 opacity-25" />
+      <CornerOrnament className="absolute bottom-4 right-4 w-12 rotate-180 opacity-25" />
+      <CornerCarving className="right-4 top-4 rotate-90 opacity-20" />
+      <div className="mb-6 rounded-full bg-ivory/38 p-2">
         <div className="relative h-48 w-40 overflow-hidden rounded-t-full rounded-b-[5rem] border-[6px] border-ivory outline outline-2 outline-gold/45 shadow-luxe sm:h-56 sm:w-48">
           <span className="batik-pattern pointer-events-none absolute inset-0 z-10 opacity-[0.08]" />
           <Image
@@ -69,21 +67,10 @@ export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
   return (
     <section
       id="couple"
-      className="ornamental-section relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
+      className="relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
       aria-label="Pasangan mempelai"
     >
-      <SectionBackdrop variant="couple" />
-      <SectionOrnaments />
-      <img
-        src="/ornaments/pohon/optimized/pohon_03_kelapa_minimal_vintage.webp"
-        alt=""
-        className="pointer-events-none absolute -left-12 bottom-12 hidden w-28 -rotate-6 opacity-[0.13] sm:block md:w-36"
-      />
-      <img
-        src="/ornaments/pohon/optimized/pohon_09_kelapa_lengkung_vintage.webp"
-        alt=""
-        className="pointer-events-none absolute -right-12 top-28 hidden w-28 rotate-6 opacity-[0.12] sm:block md:w-36"
-      />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(245,241,231,0.18),rgba(255,248,236,0.08)_45%,rgba(245,241,231,0.16))]" />
       <div className="relative z-10 mx-auto max-w-5xl">
         <SectionHeading subtitle="Bismillahirrahmanirrahim" title="Mempelai" />
 

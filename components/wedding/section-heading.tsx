@@ -16,7 +16,7 @@ export function SectionHeading({
           {subtitle}
         </span>
       ) : null}
-      <h2 className="font-serif text-4xl font-semibold leading-tight text-espresso text-balance sm:text-5xl md:text-6xl">
+      <h2 className="font-serif text-[2rem] font-semibold leading-tight text-espresso text-balance sm:text-[2.5rem] md:text-5xl">
         {title}
       </h2>
       <BatikMark className="mt-4 h-8 w-36 opacity-100 sm:w-44" />
