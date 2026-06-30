@@ -7,9 +7,9 @@ import { weddingData, type WeddingData } from '@/lib/wedding-data'
 
 const GAPURA_FRAME_SRC = '/ornaments/gapura/gapura-frame.webp'
 const OPENING_EXIT_TIMELINE = {
-  fadeDelay: 0.2,
+  fadeDelay: 4.5,
   fadeDuration: 1.2,
-  unmountDelay: 1600,
+  unmountDelay: 5800,
 } as const
 
 export function OpeningCover({

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { Toaster } from '@/components/ui/sonner'
 import {
@@ -33,9 +33,12 @@ import {
 import { BackToTopButton } from './back-to-top-button'
 import { SectionDivider } from './ornaments'
 
+const HERO_REVEAL_START_DELAY_MS = 5800
+
 export function InvitationPage() {
   const [opened, setOpened] = useState(false)
   const [heroActive, setHeroActive] = useState(false)
+  const heroRevealTimerRef = useRef<number | null>(null)
   const [data, setData] = useState<WeddingData>(() =>
     getFallbackWeddingData(null),
   )
@@ -84,10 +87,25 @@ export function InvitationPage() {
     void loadSupabaseData()
   }, [])
 
+  useEffect(() => {
+    return () => {
+      if (heroRevealTimerRef.current !== null) {
+        window.clearTimeout(heroRevealTimerRef.current)
+      }
+    }
+  }, [])
+
   function handleOpen() {
     window.dispatchEvent(new Event(WEDDING_MUSIC_PLAY_EVENT))
-    setHeroActive(true)
     setOpened(true)
+    setHeroActive(false)
+    if (heroRevealTimerRef.current !== null) {
+      window.clearTimeout(heroRevealTimerRef.current)
+    }
+    heroRevealTimerRef.current = window.setTimeout(() => {
+      setHeroActive(true)
+      heroRevealTimerRef.current = null
+    }, HERO_REVEAL_START_DELAY_MS)
     document.body.style.overflow = ''
     window.scrollTo({ top: 0 })
   }

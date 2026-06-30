@@ -93,7 +93,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
         <motion.div
           key={tree.src}
           className={`absolute z-30 origin-bottom pointer-events-none will-change-transform ${tree.className}`}
-          initial={{ opacity: 0, y: 34, scale: 0.94, rotate: tree.initialRotate }}
+          initial={{ opacity: 0, y: 0, scale: 0.98, rotate: tree.initialRotate }}
           animate={
             active
               ? {
@@ -108,7 +108,7 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
                   ],
                   x: [0, tree.swayX, -tree.swayX, 0],
                 }
-              : { opacity: 0, y: 34, scale: 0.94, rotate: tree.initialRotate, x: 0 }
+              : { opacity: 0, y: 0, scale: 0.98, rotate: tree.initialRotate, x: 0 }
           }
           transition={{
             opacity: { duration: HERO_TIMELINE.treeRevealDuration, ease: 'easeOut', delay: active ? tree.delay : 0 },
@@ -147,8 +147,12 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
               bottom: flower.mb, 
               zIndex: flower.z
             }}
-            initial={{ rotate: flower.rot, scale: flower.scale, opacity: 0, y: 40 }}
-            animate={active ? { rotate: [flower.rot, flower.rot + 4, flower.rot], opacity: 1, y: 0 } : { rotate: flower.rot, opacity: 0, y: 40 }}
+            initial={{ rotate: flower.rot, scale: flower.scale * 0.98, opacity: 0, y: 0 }}
+            animate={
+              active
+                ? { rotate: [flower.rot, flower.rot + 4, flower.rot], scale: flower.scale, opacity: 1, y: 0 }
+                : { rotate: flower.rot, scale: flower.scale * 0.98, opacity: 0, y: 0 }
+            }
             transition={{ 
               rotate: { duration: 5 + (i % 3), repeat: active ? Infinity : 0, ease: 'easeInOut', delay: i * 0.4 },
               opacity: {
@@ -156,11 +160,11 @@ function AmbientTrees({ active = false }: { active?: boolean }) {
                 ease: 'easeOut',
                 delay: active ? HERO_TIMELINE.flowerStartDelay + (i * HERO_TIMELINE.flowerStagger) : 0,
               },
-              y: {
+              scale: {
                 duration: HERO_TIMELINE.flowerRevealDuration,
                 ease: 'easeOut',
                 delay: active ? HERO_TIMELINE.flowerStartDelay + (i * HERO_TIMELINE.flowerStagger) : 0,
-              }
+              },
             }}
           >
             <img 
