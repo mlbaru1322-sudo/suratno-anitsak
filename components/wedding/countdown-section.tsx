@@ -63,13 +63,27 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
         </div>
 
         <Reveal className="mt-10 sm:mt-12">
-          <div className="relative overflow-hidden rounded-b-[1.75rem] rounded-t-[3rem] border border-gold/36 bg-ivory/84 px-4 py-7 shadow-[0_24px_64px_-42px_rgba(24,13,8,0.82),inset_0_1px_0_rgba(255,255,255,0.58)] backdrop-blur-[1px] sm:px-8 sm:py-9">
+          <div className="relative overflow-hidden rounded-b-[1.75rem] rounded-t-[3.25rem] border border-gold/36 bg-ivory/84 px-5 py-8 shadow-[0_24px_64px_-42px_rgba(24,13,8,0.82),inset_0_1px_0_rgba(255,255,255,0.58)] backdrop-blur-[1px] sm:px-10 sm:py-10">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.62),transparent_18rem),linear-gradient(135deg,rgba(216,187,133,0.14),transparent_42%,rgba(90,59,46,0.08))]" />
             <div
               className="pointer-events-none absolute inset-0 bg-repeat opacity-[0.035]"
               style={{ backgroundImage: `url('${batikBackground}')`, backgroundSize: '420px auto' }}
             />
             <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-gold/55 to-transparent" />
+            <span
+              className="pointer-events-none absolute bottom-7 left-3 top-9 hidden w-5 border-y border-l border-gold/28 sm:block"
+              aria-hidden="true"
+            >
+              <span className="absolute -left-1 top-1/2 size-2 -translate-y-1/2 rotate-45 border border-gold/45 bg-ivory" />
+              <span className="absolute left-2 top-5 h-[calc(100%-2.5rem)] w-px bg-gradient-to-b from-transparent via-gold/35 to-transparent" />
+            </span>
+            <span
+              className="pointer-events-none absolute bottom-7 right-3 top-9 hidden w-5 border-y border-r border-gold/28 sm:block"
+              aria-hidden="true"
+            >
+              <span className="absolute -right-1 top-1/2 size-2 -translate-y-1/2 rotate-45 border border-gold/45 bg-ivory" />
+              <span className="absolute right-2 top-5 h-[calc(100%-2.5rem)] w-px bg-gradient-to-b from-transparent via-gold/35 to-transparent" />
+            </span>
 
             <div className="relative grid grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-center">
               {units.map((unit, index) => (
@@ -77,16 +91,16 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
                   <div
                     className="flex min-w-0 flex-col items-center justify-center px-1 text-center"
                   >
-                    <span className="font-serif text-[2rem] font-semibold leading-none tabular-nums text-espresso sm:text-5xl md:text-6xl">
+                    <span className="font-serif text-[2.2rem] font-semibold leading-none tabular-nums text-espresso sm:text-5xl md:text-[3.6rem]">
                       {mounted ? String(unit.value).padStart(2, '0') : '--'}
                     </span>
-                    <span className="mt-3 text-[0.58rem] font-medium uppercase tracking-[0.18em] text-taupe sm:text-xs sm:tracking-[0.24em]">
+                    <span className="mt-3 text-[0.56rem] font-medium uppercase tracking-[0.18em] text-taupe sm:text-[0.68rem] sm:tracking-[0.24em]">
                       {unit.label}
                     </span>
                   </div>
                   {index < units.length - 1 ? (
                     <span
-                      className="mx-1 h-14 w-px bg-gradient-to-b from-transparent via-gold/45 to-transparent sm:mx-4 sm:h-20"
+                      className="mx-1 h-14 w-px bg-gradient-to-b from-transparent via-gold/42 to-transparent sm:mx-4 sm:h-20"
                       aria-hidden="true"
                     />
                   ) : null}

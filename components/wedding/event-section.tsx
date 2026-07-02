@@ -51,12 +51,24 @@ export function EventSection({ data = weddingData }: { data?: WeddingData }) {
                   transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
                 },
               }}
-              className="relative flex min-w-0 flex-col items-center overflow-hidden rounded-b-[1.25rem] rounded-t-[2.4rem] border border-gold/48 bg-[#fff8ea]/86 px-5 py-9 text-center shadow-[0_22px_58px_-40px_rgba(43,26,18,0.76),inset_0_1px_0_rgba(255,255,255,0.64)] sm:px-7 sm:py-10"
+              className="relative flex min-w-0 flex-col items-center overflow-hidden rounded-b-[1.15rem] rounded-t-[3.75rem] border border-gold/48 bg-[#fff8ea]/86 px-5 py-9 text-center shadow-[0_22px_58px_-40px_rgba(43,26,18,0.76),inset_0_1px_0_rgba(255,255,255,0.64)] sm:rounded-t-[4.5rem] sm:px-7 sm:py-10"
             >
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(216,187,133,0.18),transparent_14rem),linear-gradient(135deg,rgba(255,248,236,0.34),transparent_44%,rgba(90,59,46,0.07))]" />
-              <div className="pointer-events-none absolute inset-2 rounded-b-[0.95rem] rounded-t-[2rem] border border-batik-brown/20" />
-              <div className="pointer-events-none absolute inset-4 rounded-b-[0.7rem] rounded-t-[1.55rem] border border-gold/18" />
+              <div className="pointer-events-none absolute inset-2 rounded-b-[0.95rem] rounded-t-[3.25rem] border border-batik-brown/20 sm:rounded-t-[3.9rem]" />
+              <div className="pointer-events-none absolute inset-4 rounded-b-[0.7rem] rounded-t-[2.65rem] border border-gold/18 sm:rounded-t-[3.25rem]" />
               <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-gold/55 to-transparent" />
+              <span
+                className="pointer-events-none absolute left-6 top-7 h-12 w-8 rounded-t-full border-l border-t border-gold/24"
+                aria-hidden="true"
+              />
+              <span
+                className="pointer-events-none absolute right-6 top-7 h-12 w-8 rounded-t-full border-r border-t border-gold/24"
+                aria-hidden="true"
+              />
+              <span
+                className="pointer-events-none absolute left-1/2 top-5 h-px w-20 -translate-x-1/2 bg-gradient-to-r from-transparent via-gold/40 to-transparent"
+                aria-hidden="true"
+              />
 
               <div className="relative flex w-full flex-1 flex-col items-center">
                 <span className="mb-4 flex size-12 items-center justify-center rounded-t-[1.15rem] rounded-b-lg border border-gold/42 bg-cream/74 text-gold shadow-[0_12px_28px_-24px_rgba(43,26,18,0.72)]">
@@ -93,7 +105,7 @@ export function EventSection({ data = weddingData }: { data?: WeddingData }) {
                 <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
                   <button
                     type="button"
-                    className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-gold/45 bg-ivory/82 px-4 py-3 text-sm font-medium uppercase tracking-[0.1em] text-espresso transition-colors hover:bg-gold/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/30 sm:w-auto"
+                    className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-gold/50 bg-transparent px-4 py-3 text-sm font-medium uppercase tracking-[0.1em] text-espresso shadow-[inset_0_1px_0_rgba(255,255,255,0.38)] transition-colors hover:bg-gold/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/30 sm:w-auto"
                   >
                     <CalendarDays className="size-4 shrink-0" aria-hidden="true" />
                     Simpan Tanggal
@@ -102,7 +114,7 @@ export function EventSection({ data = weddingData }: { data?: WeddingData }) {
                     href={event.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-gold/58 bg-[#4f3326] px-4 py-3 text-sm font-medium uppercase tracking-[0.1em] text-ivory shadow-[0_14px_34px_-26px_rgba(43,26,18,0.82)] transition-colors hover:bg-batik-brown focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/30 sm:w-auto"
+                    className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-gold/58 bg-transparent px-4 py-3 text-sm font-medium uppercase tracking-[0.1em] text-espresso shadow-[inset_0_1px_0_rgba(255,255,255,0.38)] transition-colors hover:bg-batik-brown/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/30 sm:w-auto"
                   >
                     <MapPin className="size-4 shrink-0" aria-hidden="true" />
                     Lihat Lokasi
