@@ -33,7 +33,7 @@ function CoupleCard({ person }: { person: Person }) {
         <div className="relative h-48 w-40 overflow-hidden rounded-t-full rounded-b-[5rem] border-[6px] border-ivory outline outline-2 outline-gold/45 shadow-luxe sm:h-56 sm:w-48">
           <span className="batik-pattern pointer-events-none absolute inset-0 z-10 opacity-[0.08]" />
           <Image
-            src={person.photo || '/placeholder.svg'}
+            src={person.photo}
             alt={person.name}
             fill
             className="object-cover"
@@ -63,6 +63,8 @@ function CoupleCard({ person }: { person: Person }) {
 
 export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
   const { bride, groom } = data
+  const bridePhoto = weddingData.bride.photo
+  const groomPhoto = weddingData.groom.photo
 
   return (
     <section
@@ -81,7 +83,7 @@ export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
           viewport={{ once: true, amount: 0.2 }}
           className="mt-14 grid items-center gap-6 md:grid-cols-[1fr_auto_1fr] md:gap-8"
         >
-          <CoupleCard person={bride} />
+          <CoupleCard person={{ ...bride, photo: bridePhoto }} />
           <motion.div
             variants={fadeUp}
             className="soft-badge mx-auto flex size-20 flex-col items-center justify-center rounded-full bg-ivory/85 font-serif text-5xl text-gold shadow-luxe md:size-24 md:text-6xl"
@@ -90,7 +92,7 @@ export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
             <GununganMark className="mb-[-0.35rem] h-7 w-7 opacity-70" />
             &
           </motion.div>
-          <CoupleCard person={groom} />
+          <CoupleCard person={{ ...groom, photo: groomPhoto }} />
         </motion.div>
       </div>
     </section>
