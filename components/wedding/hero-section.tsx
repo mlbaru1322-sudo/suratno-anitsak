@@ -26,10 +26,10 @@ const HERO_TIMELINE = {
 const FLOWER_ASSET_BASE = '/ornaments/bunga/optimized'
 const HERO_SLIDER_INTERVAL_MS = 6800
 const HERO_SLIDER_PHOTOS = [
-  '/images/optimized/couple-portrait.webp',
-  '/images/optimized/gallery-1.webp',
-  '/images/optimized/gallery-2.webp',
-  '/images/optimized/gallery-3.webp',
+  '/images/optimized/hero-slide-1.webp',
+  '/images/optimized/hero-slide-2.webp',
+  '/images/optimized/hero-slide-3.webp',
+  '/images/optimized/hero-slide-4.webp',
 ] as const
 
 function AmbientTrees({ active = false }: { active?: boolean }) {

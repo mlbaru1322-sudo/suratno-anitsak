@@ -20,10 +20,11 @@ export const weddingData = {
 
   // Display
   coupleShort: 'Rahayu & Mardian',
-  coverPhoto: '/images/optimized/couple-portrait.webp',
+  coverPhoto: '/images/optimized/cover-opening.webp',
   coverPhotoPositionMobile: '43% center',
   coverPhotoPositionDesktop: 'center center',
   portraitPhoto: '/images/optimized/couple-portrait.webp',
+  closingPhoto: '/images/optimized/closing-bg.webp',
   // ISO date used for the countdown and display
   weddingDateISO: '2026-09-12T08:00:00+07:00',
   weddingDateDisplay: 'Sabtu, 12 September 2026',
@@ -111,6 +112,8 @@ export const weddingData = {
     '/images/optimized/gallery-4.webp',
     '/images/optimized/gallery-5.webp',
     '/images/optimized/gallery-6.webp',
+    '/images/optimized/gallery-7.webp',
+    '/images/optimized/gallery-8.webp',
   ],
 
   // Wishes (dummy testimonials)

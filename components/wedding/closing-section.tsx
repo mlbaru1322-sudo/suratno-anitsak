@@ -6,7 +6,7 @@ import { Reveal } from './motion-helpers'
 import { SectionBackdrop } from './section-backdrop'
 
 export function ClosingSection({ data = weddingData }: { data?: WeddingData }) {
-  const { closing, coupleShort, coverPhoto } = data
+  const { closing, coupleShort, closingPhoto } = data
 
   return (
     <section
@@ -15,7 +15,7 @@ export function ClosingSection({ data = weddingData }: { data?: WeddingData }) {
     >
       <div className="absolute inset-0">
         <Image
-          src={coverPhoto}
+          src={closingPhoto}
           alt=""
           fill
           className="object-cover"
