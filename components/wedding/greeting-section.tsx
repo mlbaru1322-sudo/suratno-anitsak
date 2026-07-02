@@ -17,19 +17,19 @@ export function GreetingSection({ data = weddingData }: { data?: WeddingData }) 
 
       <div className="relative mx-auto max-w-2xl">
         <SectionHeading subtitle="Dengan Hormat" title="Salam Pembuka" />
-        <Reveal className="mt-12">
-          <div className="ornate-card rounded-[2rem] px-7 py-12 text-center sm:px-12 sm:py-14">
-            <CornerOrnament className="absolute left-3 top-3 w-16 opacity-60" />
-            <CornerOrnament className="absolute bottom-3 right-3 w-16 rotate-180 opacity-60" />
+        <Reveal className="mt-9 sm:mt-11">
+          <div className="ornate-card rounded-[1.75rem] px-6 py-10 text-center sm:rounded-[2rem] sm:px-10 sm:py-12">
+            <CornerOrnament className="absolute left-3 top-3 w-14 opacity-60 sm:w-16" />
+            <CornerOrnament className="absolute bottom-3 right-3 w-14 rotate-180 opacity-60 sm:w-16" />
 
-            <p className="font-serif text-3xl font-semibold text-espresso sm:text-4xl">
+            <p className="font-serif text-[1.55rem] font-semibold leading-tight text-espresso sm:text-[2rem]">
               {greeting.opening}
             </p>
-            <OrnamentDivider className="my-7" />
-            <p className="text-sm uppercase tracking-[0.26em] text-gold sm:text-base">
+            <OrnamentDivider className="my-6" />
+            <p className="text-xs uppercase tracking-[0.22em] text-gold sm:text-sm sm:tracking-[0.25em]">
               {greeting.basmalah}
             </p>
-            <p className="mx-auto mt-7 max-w-md text-base leading-8 text-taupe sm:text-lg">
+            <p className="mx-auto mt-6 max-w-md text-[0.95rem] leading-7 text-taupe sm:text-base sm:leading-8">
               {greeting.message}
             </p>
           </div>

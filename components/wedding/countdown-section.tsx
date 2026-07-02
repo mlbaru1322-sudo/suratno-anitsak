@@ -50,17 +50,19 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
         <div className="absolute inset-x-0 top-0 h-24 bg-[linear-gradient(180deg,rgba(35,20,13,0.14),transparent)]" />
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(0deg,rgba(35,20,13,0.16),transparent)]" />
       </div>
-      <div className="relative z-10 mx-auto max-w-4xl [&_.soft-badge]:border [&_.soft-badge]:border-gold/40 [&_.soft-badge]:bg-[#f2e7cf]/88 [&_.soft-badge]:text-[#8c652f] [&_h2]:text-[#fff4dc] [&_h2]:drop-shadow-[0_2px_10px_rgba(35,20,13,0.64)]">
-        <SectionHeading subtitle="Menuju Hari Bahagia" title="Hitung Mundur" />
+      <div className="relative z-10 mx-auto max-w-4xl">
+        <div className="mx-auto max-w-2xl rounded-b-[1.35rem] rounded-t-[2.35rem] border border-gold/36 bg-[#fff3d8]/78 px-5 py-7 text-center shadow-[0_20px_54px_-38px_rgba(24,13,8,0.8),inset_0_1px_0_rgba(255,255,255,0.52)] backdrop-blur-[1px] sm:px-8 sm:py-8 [&_.soft-badge]:border [&_.soft-badge]:border-gold/36 [&_.soft-badge]:bg-[#6f472f]/12 [&_.soft-badge]:text-[#7a5529]">
+          <SectionHeading subtitle="Menuju Hari Bahagia" title="Hitung Mundur" />
 
-        <Reveal delay={0.1} className="mx-auto mt-6 max-w-lg text-center">
-          <p className="text-sm leading-relaxed text-[#f8ead0] drop-shadow-[0_1px_7px_rgba(35,20,13,0.58)] sm:text-base">
-            Dengan memohon rahmat Allah SWT, kami menantikan hari bahagia yang
-            insya Allah akan menjadi awal perjalanan baru kami.
-          </p>
-        </Reveal>
+          <Reveal delay={0.1} className="mx-auto mt-5 max-w-lg text-center">
+            <p className="text-sm leading-relaxed text-[#4b2d1f] sm:text-[0.95rem]">
+              Dengan memohon rahmat Allah SWT, kami menantikan hari bahagia yang
+              insya Allah akan menjadi awal perjalanan baru kami.
+            </p>
+          </Reveal>
+        </div>
 
-        <Reveal className="mt-14">
+        <Reveal className="mt-10 sm:mt-12">
           <div className="relative overflow-hidden rounded-b-[1.75rem] rounded-t-[3rem] border border-gold/36 bg-ivory/84 px-4 py-7 shadow-[0_24px_64px_-42px_rgba(24,13,8,0.82),inset_0_1px_0_rgba(255,255,255,0.58)] backdrop-blur-[1px] sm:px-8 sm:py-9">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.62),transparent_18rem),linear-gradient(135deg,rgba(216,187,133,0.14),transparent_42%,rgba(90,59,46,0.08))]" />
             <div
