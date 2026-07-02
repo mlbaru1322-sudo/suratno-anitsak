@@ -6,12 +6,7 @@ import Image from 'next/image'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { staggerContainer, fadeUp } from './motion-helpers'
-import {
-  CornerOrnament,
-  CornerCarving,
-  FloralMark,
-  GununganMark,
-} from './ornaments'
+import { FloralMark, GununganMark } from './ornaments'
 
 type Person = {
   name: string
@@ -24,25 +19,24 @@ function CoupleCard({ person }: { person: Person }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="relative flex flex-col items-center rounded-[1.75rem] border border-gold/20 bg-ivory/46 px-6 py-10 text-center shadow-[0_18px_46px_-38px_rgba(43,26,18,0.62)] backdrop-blur-[1px]"
+      className="relative flex min-w-0 flex-col items-center px-2 text-center"
     >
-      <CornerOrnament className="absolute left-4 top-4 w-12 opacity-25" />
-      <CornerOrnament className="absolute bottom-4 right-4 w-12 rotate-180 opacity-25" />
-      <CornerCarving className="right-4 top-4 rotate-90 opacity-20" />
-      <div className="mb-6 rounded-full bg-ivory/38 p-2">
-        <div className="relative h-48 w-40 overflow-hidden rounded-t-full rounded-b-[5rem] border-[6px] border-ivory outline outline-2 outline-gold/45 shadow-luxe sm:h-56 sm:w-48">
+      <div className="relative mb-6">
+        <span className="pointer-events-none absolute -inset-2 rounded-[50%] border border-gold/20" />
+        <span className="pointer-events-none absolute -inset-4 rounded-[50%] border border-batik-brown/10" />
+        <div className="relative aspect-[3/4] w-36 overflow-hidden rounded-[50%] border border-gold/65 bg-ivory/20 p-1 shadow-[0_22px_54px_-38px_rgba(43,26,18,0.78)] sm:w-44">
           <span className="batik-pattern pointer-events-none absolute inset-0 z-10 opacity-[0.08]" />
           <Image
             src={person.photo}
             alt={person.name}
             fill
-            className="scale-[1.1] object-cover object-[center_35%]"
-            sizes="(max-width: 640px) 160px, 192px"
+            className="scale-[1.18] rounded-[50%] object-cover object-[center_35%]"
+            sizes="(max-width: 640px) 144px, 176px"
           />
         </div>
       </div>
       <FloralMark className="mb-3 h-5 w-20 opacity-80" />
-      <h3 className="font-serif text-2xl font-semibold text-espresso sm:text-3xl">
+      <h3 className="font-serif text-[1.65rem] font-semibold leading-tight text-espresso drop-shadow-[0_1px_10px_rgba(255,248,236,0.5)] sm:text-[2rem]">
         {person.name}
       </h3>
       <p className="mt-3 max-w-xs text-sm leading-relaxed text-taupe">
@@ -81,12 +75,12 @@ export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="mt-14 grid items-center gap-6 md:grid-cols-[1fr_auto_1fr] md:gap-8"
+          className="mt-14 grid items-start gap-10 md:grid-cols-[1fr_auto_1fr] md:gap-8"
         >
           <CoupleCard person={{ ...bride, photo: bridePhoto }} />
           <motion.div
             variants={fadeUp}
-            className="soft-badge mx-auto flex size-20 flex-col items-center justify-center rounded-full bg-ivory/85 font-serif text-5xl text-gold shadow-luxe md:size-24 md:text-6xl"
+            className="mx-auto flex items-center justify-center pt-1 font-serif text-4xl text-gold/80 md:pt-24 md:text-5xl"
             aria-hidden="true"
           >
             <GununganMark className="mb-[-0.35rem] h-7 w-7 opacity-70" />
