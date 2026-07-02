@@ -36,7 +36,7 @@ function CoupleCard({ person }: { person: Person }) {
             src={person.photo}
             alt={person.name}
             fill
-            className="object-cover"
+            className="scale-[1.1] object-cover object-[center_35%]"
             sizes="(max-width: 640px) 160px, 192px"
           />
         </div>
