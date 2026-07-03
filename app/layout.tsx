@@ -1,6 +1,32 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata } from 'next'
+import {
+  Cormorant_Garamond,
+  Montserrat,
+  Pinyon_Script,
+} from 'next/font/google'
 import './globals.css'
+
+const fontScript = Pinyon_Script({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-script',
+  display: 'swap',
+})
+
+const fontSerif = Cormorant_Garamond({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-serif-premium',
+  display: 'swap',
+})
+
+const fontSans = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-sans-premium',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'The Wedding of Rahayu & Mardian',
@@ -33,7 +59,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" className="bg-background" suppressHydrationWarning>
-      <body className="font-sans antialiased" suppressHydrationWarning>
+      <body
+        className={`${fontScript.variable} ${fontSerif.variable} ${fontSans.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

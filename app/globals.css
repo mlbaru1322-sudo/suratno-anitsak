@@ -115,6 +115,18 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+.font-premium-script {
+  font-family: var(--font-script), cursive;
+}
+
+.font-premium-serif {
+  font-family: var(--font-serif-premium), serif;
+}
+
+.font-premium-sans {
+  font-family: var(--font-sans-premium), sans-serif;
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
