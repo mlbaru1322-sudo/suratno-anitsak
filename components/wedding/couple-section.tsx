@@ -22,21 +22,20 @@ function CoupleCard({ person }: { person: Person }) {
       className="relative flex min-w-0 flex-col items-center px-2 text-center"
     >
       <div className="relative mb-6">
-        <span className="pointer-events-none absolute -inset-2 rounded-[50%] border border-gold/20" />
-        <span className="pointer-events-none absolute -inset-4 rounded-[50%] border border-batik-brown/10" />
-        <div className="relative aspect-[3/4] w-36 overflow-hidden rounded-[50%] border border-gold/65 bg-ivory/20 p-1 shadow-[0_22px_54px_-38px_rgba(43,26,18,0.78)] sm:w-44">
+        <span className="pointer-events-none absolute -inset-2 rounded-[50%] border border-[#C5A880]/25" />
+        <div className="relative mx-auto h-[260px] w-[190px] overflow-hidden rounded-[50%] border-[2px] border-[#C5A880] sm:h-[300px] sm:w-[220px]">
           <span className="batik-pattern pointer-events-none absolute inset-0 z-10 opacity-[0.08]" />
           <Image
             src={person.photo}
             alt={person.name}
             fill
-            className="scale-[1.18] rounded-[50%] object-cover object-[center_35%]"
-            sizes="(max-width: 640px) 144px, 176px"
+            className="scale-[1.1] object-cover object-[center_35%]"
+            sizes="(max-width: 640px) 190px, 220px"
           />
         </div>
       </div>
       <FloralMark className="mb-3 h-5 w-20 opacity-80" />
-      <h3 className="font-serif text-[1.65rem] font-semibold leading-tight text-espresso drop-shadow-[0_1px_10px_rgba(255,248,236,0.5)] sm:text-[2rem]">
+      <h3 className="mt-1 text-center font-serif text-[1.65rem] font-semibold leading-tight text-[#4A3525] sm:text-3xl">
         {person.name}
       </h3>
       <p className="mt-3 max-w-xs text-sm leading-relaxed text-taupe">
