@@ -21,26 +21,28 @@ function CoupleProfile({
   imagePriority?: boolean
 }) {
   return (
-    <div className="relative text-center">
-      <div className="relative mx-auto h-[260px] w-[190px] overflow-hidden rounded-[50%] border-[2px] border-[#C5A880] sm:h-[300px] sm:w-[220px]">
-        <span className="batik-pattern pointer-events-none absolute inset-0 z-10 opacity-[0.08]" />
-        <Image
-          src={person.photo}
-          alt={person.name}
-          fill
-          priority={imagePriority}
-          className="scale-[1.1] object-cover object-[center_35%]"
-          sizes="(max-width: 640px) 190px, 220px"
-        />
+    <div className="relative text-center font-serif">
+      <div className="relative mx-auto h-[258px] w-[188px] rounded-[50%] border border-[#8B5E3C]/32 p-1.5 sm:h-[296px] sm:w-[216px]">
+        <div className="relative h-full w-full overflow-hidden rounded-[50%] border-[1.5px] border-[#C5A880] bg-[#F6EFE2] p-1 shadow-[0_18px_42px_-34px_rgba(74,53,37,0.78)]">
+          <span className="batik-pattern pointer-events-none absolute inset-0 z-10 opacity-[0.07]" />
+          <Image
+            src={person.photo}
+            alt={person.name}
+            fill
+            priority={imagePriority}
+            className="scale-[1.1] rounded-[50%] object-cover object-[center_35%]"
+            sizes="(max-width: 640px) 188px, 216px"
+          />
+        </div>
       </div>
-      <p className="mt-6 font-serif text-xl italic leading-none text-[#8B5E3C] sm:text-2xl">
+      <p className="mt-5 text-lg font-medium italic leading-none tracking-[0.02em] text-[#8B5E3C] sm:text-xl">
         {person.shortName}
       </p>
-      <h3 className="mt-2 text-center font-serif text-[1.55rem] font-semibold leading-tight text-[#4A3525] sm:text-[1.9rem]">
+      <h3 className="mt-2 text-center text-[1.45rem] font-semibold leading-tight text-[#4A3525] sm:text-[1.8rem]">
         {person.name}
       </h3>
       <FloralMark className="mx-auto mt-3 h-4 w-20 opacity-65" />
-      <p className="mx-auto mt-3 max-w-[18rem] text-sm leading-relaxed text-taupe">
+      <p className="mx-auto mt-3 max-w-[18rem] text-sm leading-relaxed text-[#6E5644]">
         {person.parents}
       </p>
     </div>
@@ -72,10 +74,12 @@ export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto mt-12 max-w-[360px] overflow-hidden rounded-[2.35rem] border border-[#8B5E3C]/40 bg-[#f6efe2] px-5 py-8 text-[#4A3525] shadow-[0_30px_80px_-56px_rgba(0,0,0,0.88),inset_0_1px_0_rgba(255,255,255,0.5)] sm:max-w-md sm:px-8 sm:py-10"
+          className="relative mx-auto mt-12 max-w-[360px] overflow-hidden rounded-[2.4rem] border border-[#8B5E3C]/45 bg-[#F6EFE2] px-5 py-8 font-serif text-[#4A3525] shadow-[0_30px_78px_-58px_rgba(0,0,0,0.9),0_0_0_1px_rgba(197,168,128,0.12),inset_0_1px_0_rgba(255,255,255,0.58)] sm:max-w-md sm:px-8 sm:py-10"
         >
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(197,168,128,0.16),transparent_18rem),linear-gradient(135deg,rgba(255,248,236,0.42),transparent_42%,rgba(139,94,60,0.08))]" />
-          <div className="pointer-events-none absolute inset-3 rounded-[1.9rem] border border-[#C5A880]/22" />
+          <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(135deg,rgba(74,53,37,0.035)_0,rgba(74,53,37,0.035)_1px,transparent_1px,transparent_14px)] opacity-45" />
+          <div className="pointer-events-none absolute inset-3 rounded-[1.95rem] border border-[#C5A880]/30" />
+          <div className="pointer-events-none absolute inset-5 rounded-[1.55rem] border border-[#8B5E3C]/10" />
 
           <div className="relative">
             <CoupleProfile
@@ -84,17 +88,35 @@ export function CoupleSection({ data = weddingData }: { data?: WeddingData }) {
             />
 
             <div
-              className="mx-auto my-8 flex items-center justify-center gap-4"
+              className="mx-auto my-5 flex items-center justify-center gap-3"
+              aria-hidden="true"
+            >
+              <span className="h-px w-12 bg-[#C5A880]/55" />
+              <span className="h-2 w-2 rotate-45 border border-[#C5A880]/70" />
+              <span className="h-px w-12 bg-[#C5A880]/55" />
+            </div>
+
+            <div
+              className="mx-auto my-6 flex items-center justify-center gap-4"
               aria-hidden="true"
             >
               <span className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C5A880]/45 to-[#C5A880]/22" />
-              <span className="font-serif text-5xl leading-none text-[#8B5E3C]/78 sm:text-6xl">
+              <span className="text-4xl font-medium leading-none text-[#8B5E3C]/82 sm:text-5xl">
                 &
               </span>
               <span className="h-px flex-1 bg-gradient-to-l from-transparent via-[#C5A880]/45 to-[#C5A880]/22" />
             </div>
 
             <CoupleProfile person={{ ...groom, photo: groomPhoto }} />
+
+            <div
+              className="mx-auto mt-5 flex items-center justify-center gap-3"
+              aria-hidden="true"
+            >
+              <span className="h-px w-12 bg-[#C5A880]/55" />
+              <span className="h-2 w-2 rotate-45 border border-[#C5A880]/70" />
+              <span className="h-px w-12 bg-[#C5A880]/55" />
+            </div>
           </div>
         </motion.div>
       </div>
