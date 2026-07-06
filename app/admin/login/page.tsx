@@ -22,11 +22,20 @@ export default function AdminLoginPage() {
 
     async function checkExistingSession() {
       const {
-        data: { user },
-      } = await supabase.auth.getUser()
+        data: { session },
+      } = await supabase.auth.getSession()
 
-      if (user) {
-        router.replace('/admin')
+      if (session?.access_token) {
+        const isAdmin = await establishAdminServerSession(session.access_token)
+
+        if (isAdmin) {
+          router.replace(getNextAdminPath())
+          return
+        }
+
+        await supabase.auth.signOut()
+        await clearAdminServerSession()
+        router.replace('/admin/unauthorized')
         return
       }
 
@@ -49,7 +58,10 @@ export default function AdminLoginPage() {
 
     try {
       const supabase = createSupabaseBrowserClient()
-      const { error: signInError } = await supabase.auth.signInWithPassword({
+      const {
+        data: { session },
+        error: signInError,
+      } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
       })
@@ -58,8 +70,21 @@ export default function AdminLoginPage() {
         throw signInError
       }
 
+      if (!session?.access_token) {
+        throw new Error('Session login tidak tersedia. Silakan coba lagi.')
+      }
+
+      const isAdmin = await establishAdminServerSession(session.access_token)
+
+      if (!isAdmin) {
+        await supabase.auth.signOut()
+        await clearAdminServerSession()
+        router.replace('/admin/unauthorized')
+        return
+      }
+
       toast.success('Login berhasil')
-      router.replace('/admin')
+      router.replace(getNextAdminPath())
     } catch (err) {
       const message =
         err instanceof Error
@@ -144,4 +169,32 @@ export default function AdminLoginPage() {
       </section>
     </main>
   )
+}
+
+function getNextAdminPath() {
+  if (typeof window === 'undefined') return '/admin'
+
+  const nextPath = new URLSearchParams(window.location.search).get('next')
+
+  if (!nextPath?.startsWith('/admin') || nextPath.startsWith('/admin/login')) {
+    return '/admin'
+  }
+
+  return nextPath
+}
+
+async function establishAdminServerSession(accessToken: string) {
+  const response = await fetch('/api/admin/session', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ accessToken }),
+  })
+
+  return response.ok
+}
+
+async function clearAdminServerSession() {
+  await fetch('/api/admin/session', { method: 'DELETE' })
 }

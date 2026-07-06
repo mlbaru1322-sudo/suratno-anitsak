@@ -34,9 +34,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [checkingSession, setCheckingSession] = useState(true)
   const isLoginPage = pathname === '/admin/login'
+  const isUnauthorizedPage = pathname === '/admin/unauthorized'
+  const isAuthFreePage = isLoginPage || isUnauthorizedPage
 
   useEffect(() => {
-    if (isLoginPage) {
+    if (isAuthFreePage) {
       setCheckingSession(false)
       return
     }
@@ -56,6 +58,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         return
       }
 
+      const { data: adminRow } = await supabase
+        .from('admin_users')
+        .select('user_id')
+        .eq('user_id', user.id)
+        .maybeSingle()
+
+      if (!adminRow) {
+        router.replace('/admin/unauthorized')
+        return
+      }
+
       setUserEmail(user.email ?? null)
       setCheckingSession(false)
     }
@@ -64,9 +77,20 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (!session?.user) {
         router.replace('/admin/login')
+        return
+      }
+
+      const { data: adminRow } = await supabase
+        .from('admin_users')
+        .select('user_id')
+        .eq('user_id', session.user.id)
+        .maybeSingle()
+
+      if (!adminRow) {
+        router.replace('/admin/unauthorized')
         return
       }
 
@@ -78,15 +102,16 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       mounted = false
       subscription.unsubscribe()
     }
-  }, [isLoginPage, router])
+  }, [isAuthFreePage, router])
 
   async function handleLogout() {
     const supabase = createSupabaseBrowserClient()
     await supabase.auth.signOut()
+    await fetch('/api/admin/session', { method: 'DELETE' })
     router.replace('/admin/login')
   }
 
-  if (isLoginPage) {
+  if (isAuthFreePage) {
     return (
       <>
         {children}

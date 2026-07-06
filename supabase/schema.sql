@@ -92,6 +92,12 @@ create table if not exists message_templates (
   updated_at timestamptz default now()
 );
 
+create table if not exists admin_users (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  email text,
+  created_at timestamptz default now()
+);
+
 create or replace function update_updated_at_column()
 returns trigger
 language plpgsql

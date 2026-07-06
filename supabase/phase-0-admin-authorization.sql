@@ -1,19 +1,14 @@
--- Final production RLS policies for the wedding invitation project.
--- Run this manually in Supabase SQL Editor after creating the admin user in
--- Supabase Auth. Do not run this from the Next.js app.
+-- Phase 0 admin authorization patch.
+-- Run manually in Supabase SQL Editor after creating the Supabase Auth admin user.
+-- This patch is additive/non-destructive for data rows, but it replaces RLS
+-- policies on project tables so authenticated users are no longer admins by
+-- default.
 
--- ---------------------------------------------------------------------------
--- PRODUCTION NOTES
--- ---------------------------------------------------------------------------
--- Admin access is explicit. A Supabase Auth user is an admin only when their
--- auth.users.id exists in public.admin_users.
---
--- Never expose SUPABASE_SERVICE_ROLE_KEY in client components. The public app
--- should use only NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.
-
--- ---------------------------------------------------------------------------
--- ENABLE RLS
--- ---------------------------------------------------------------------------
+create table if not exists admin_users (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  email text,
+  created_at timestamptz default now()
+);
 
 alter table wedding_settings enable row level security;
 alter table wedding_events enable row level security;
@@ -24,12 +19,6 @@ alter table wedding_wishes enable row level security;
 alter table wedding_guests enable row level security;
 alter table message_templates enable row level security;
 alter table admin_users enable row level security;
-
--- ---------------------------------------------------------------------------
--- DEV POLICY CLEANUP
--- ---------------------------------------------------------------------------
--- RLS policies are additive. Drop every existing policy on the project tables
--- first so old DEV ONLY anon/admin policies cannot keep granting access.
 
 do $$
 declare
@@ -59,12 +48,6 @@ begin
     );
   end loop;
 end $$;
-
--- ---------------------------------------------------------------------------
--- PUBLIC POLICIES
--- ---------------------------------------------------------------------------
--- Anonymous visitors can only read public invitation data and submit RSVP/wish
--- entries. They cannot manage admin-only data.
 
 create policy "Public can read published wedding settings"
 on wedding_settings
@@ -117,13 +100,6 @@ on message_templates
 for select
 to anon
 using (is_active = true);
-
--- ---------------------------------------------------------------------------
--- ADMIN ALLOWLIST POLICIES
--- ---------------------------------------------------------------------------
--- Admin authorization is based on explicit membership in public.admin_users.
--- Add admin rows manually from Supabase SQL Editor or another trusted server
--- context. Do not expose service-role credentials to the app browser.
 
 create policy "Authenticated users can read their own admin membership"
 on admin_users
@@ -192,8 +168,7 @@ to authenticated
 using (exists (select 1 from admin_users where user_id = auth.uid()))
 with check (
   exists (select 1 from admin_users where user_id = auth.uid())
-  and
-  guest_name is not null
+  and guest_name is not null
   and length(btrim(guest_name)) > 0
 );
 
@@ -204,11 +179,15 @@ to authenticated
 using (exists (select 1 from admin_users where user_id = auth.uid()))
 with check (
   exists (select 1 from admin_users where user_id = auth.uid())
-  and
-  title is not null
+  and title is not null
   and length(btrim(title)) > 0
   and content is not null
   and length(btrim(content)) > 0
 );
+
+-- After confirming the admin user's auth.users.id, add exactly that user:
+-- insert into admin_users (user_id, email)
+-- values ('00000000-0000-0000-0000-000000000000', 'admin@example.com')
+-- on conflict (user_id) do update set email = excluded.email;
 
 notify pgrst, 'reload schema';
