@@ -2,7 +2,12 @@
 
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { Reveal } from './motion-helpers'
-import { CornerOrnament, OrnamentDivider, SectionOrnaments } from './ornaments'
+import {
+  CornerOrnament,
+  JavaSideOrnament,
+  OrnamentDivider,
+  SectionOrnaments,
+} from './ornaments'
 import { SectionHeading } from './section-heading'
 
 export function GreetingSection({ data = weddingData }: { data?: WeddingData }) {
@@ -10,12 +15,20 @@ export function GreetingSection({ data = weddingData }: { data?: WeddingData }) 
 
   return (
     <section
-      className="ornamental-section paper-texture px-5 py-20 sm:px-6 sm:py-24"
+      className="ornamental-section paper-texture relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
       aria-label="Salam pembuka"
     >
       <SectionOrnaments />
+      <JavaSideOrnament
+        side="left"
+        className="-left-24 top-16 w-36 opacity-35 sm:-left-16 sm:top-20 sm:w-48 md:w-56"
+      />
+      <JavaSideOrnament
+        side="right"
+        className="-right-24 bottom-12 w-36 opacity-30 sm:-right-16 sm:bottom-14 sm:w-48 md:w-56"
+      />
 
-      <div className="relative mx-auto max-w-2xl">
+      <div className="relative z-10 mx-auto max-w-2xl">
         <SectionHeading subtitle="Dengan Hormat" title="Salam Pembuka" />
         <Reveal className="mt-9 sm:mt-11">
           <div className="ornate-card rounded-[1.75rem] px-6 py-10 text-center sm:rounded-[2rem] sm:px-10 sm:py-12">

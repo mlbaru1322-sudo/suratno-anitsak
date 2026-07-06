@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { Reveal } from './motion-helpers'
+import { JavaOrnamentDivider } from './ornaments'
 
 const batikBackground = '/ornaments/batik/background-batik.webp'
 
@@ -51,6 +52,7 @@ export function CountdownSection({ data = weddingData }: { data?: WeddingData })
         <div className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(0deg,rgba(35,20,13,0.16),transparent)]" />
       </div>
       <div className="relative z-10 mx-auto max-w-4xl">
+        <JavaOrnamentDivider className="mb-6 py-0 [&_img]:!w-[min(50vw,10rem)] [&_img]:!opacity-70 sm:mb-7 sm:[&_img]:!w-[12rem]" />
         <div className="mx-auto max-w-2xl rounded-b-[1.35rem] rounded-t-[2.35rem] border border-gold/36 bg-[#fff3d8]/78 px-5 py-7 text-center shadow-[0_20px_54px_-38px_rgba(24,13,8,0.8),inset_0_1px_0_rgba(255,255,255,0.52)] backdrop-blur-[1px] sm:px-8 sm:py-8 [&_.soft-badge]:border [&_.soft-badge]:border-gold/36 [&_.soft-badge]:bg-[#6f472f]/12 [&_.soft-badge]:text-[#7a5529]">
           <SectionHeading subtitle="Menuju Hari Bahagia" title="Hitung Mundur" />
 
