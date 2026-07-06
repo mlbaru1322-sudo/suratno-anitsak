@@ -105,22 +105,20 @@ Safety checks:
 | `faab7f7` | `feat: refine wedding gallery experience` | Gallery 8+8 experience, autoplay/lightbox/collage, optimized gallery assets. |
 | `9e0bac4` | `style: polish couple section and java ornaments` | Couple visual polish, Java ornament components, referenced ornament PNG assets. |
 | `161550e` | `fix: stabilize wedding data loading and remove dummy fallbacks` | Neutral initial loading, mapper corrections, gift/wishes dummy removal, event/maps neutral states. |
+| `b18c2ee` | `docs: update wedding project implementation reports` | Audit, gallery, ornament, and validation reports. |
 
 ## Push Result
 
-Pending at report creation time.
+Push succeeded.
+
+- Branch: `main`
+- Remote: `origin`
+- Target: `origin/main`
+- Pushed range: `d59eb47..b18c2ee`
 
 ## Remaining Uncommitted Changes
 
-At report creation time:
-
-- `DATA_FLOW_DUMMY_AUDIT.md`
-- `GALLERY_CROP_CLEANUP_REPORT.md`
-- `GALLERY_UI_REDESIGN_REPORT.md`
-- `ORNAMENT_INTEGRATION_REPORT.md`
-- `DATA_FLOW_COMMIT_PUSH_REPORT.md`
-
-These are documentation/report artifacts intended for the docs commit.
+None after the first push. This report was then updated to record the final push result.
 
 ## Warnings
 
