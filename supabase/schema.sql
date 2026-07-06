@@ -265,40 +265,6 @@ where not exists (
   where wedding_bank_accounts.account_number = item.account_number
 );
 
-insert into wedding_wishes (
-  guest_name,
-  attendance_status,
-  guest_count,
-  message,
-  is_approved
-)
-select item.guest_name, item.attendance_status, item.guest_count, item.message, true
-from (
-  values
-    (
-      'Andi Pratama',
-      'Hadir',
-      1,
-      'Selamat menempuh hidup baru! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah. Bahagia selalu.'
-    ),
-    (
-      'Siti Nurhaliza',
-      'Hadir',
-      1,
-      'Turut berbahagia atas pernikahan kalian. Semoga langgeng sampai kakek nenek ya. Aamiin.'
-    ),
-    (
-      'Budi Santoso',
-      'Masih Ragu',
-      1,
-      'Selamat ya Rahayu & Mardian! Semoga diberikan kelancaran di hari bahagia. Doa terbaik dari kami.'
-    )
-) as item(guest_name, attendance_status, guest_count, message)
-where not exists (
-  select 1 from wedding_wishes
-  where wedding_wishes.guest_name = item.guest_name
-);
-
 insert into wedding_guests (guest_name, phone, guest_token)
 select 'Bapak Hadi Sekeluarga', null, 'bapak-hadi-sekeluarga'
 where not exists (

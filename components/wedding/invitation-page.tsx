@@ -187,7 +187,7 @@ export function InvitationPage() {
         <LoveStorySection />
         <GallerySection />
         <SectionDivider />
-        <RsvpSection />
+        <RsvpSection data={publicData} />
         <SectionDivider />
         <WishesSection enabled={opened} />
         <DigitalGiftSection data={publicData} />

@@ -12,8 +12,8 @@ import type {
 
 export type SubmitWeddingWishInput = {
   guest_name: string
-  attendance_status: string
-  guest_count: number
+  attendance_status?: string | null
+  guest_count?: number | null
   message?: string
 }
 
@@ -427,16 +427,19 @@ export async function markGuestAsSent(id: string) {
 
 export async function submitWeddingWish(input: SubmitWeddingWishInput) {
   const guestName = input.guest_name.trim()
-  const attendanceStatus = input.attendance_status.trim()
-  const guestCount = Math.max(1, Number(input.guest_count) || 1)
+  const attendanceStatus = input.attendance_status?.trim() || null
+  const guestCount =
+    input.guest_count === undefined || input.guest_count === null
+      ? undefined
+      : Math.max(1, Number(input.guest_count) || 1)
   const message = input.message?.trim() || null
 
   if (!guestName) {
     throw new Error('Nama tamu wajib diisi.')
   }
 
-  if (!attendanceStatus) {
-    throw new Error('Status kehadiran wajib dipilih.')
+  if (!message) {
+    throw new Error('Ucapan dan doa wajib diisi.')
   }
 
   const supabase = getSupabase()
@@ -447,7 +450,7 @@ export async function submitWeddingWish(input: SubmitWeddingWishInput) {
     .insert({
       guest_name: guestName,
       attendance_status: attendanceStatus,
-      guest_count: guestCount,
+      ...(guestCount === undefined ? {} : { guest_count: guestCount }),
       message,
       is_approved: true,
     })
