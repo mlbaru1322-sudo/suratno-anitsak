@@ -84,23 +84,23 @@ export const weddingData = {
     {
       id: 1,
       title: 'Awal Bertemu',
-      date: '2019',
+      date: '2025',
       description:
-        'Pertemuan pertama kami terjadi di sebuah acara kampus. Sebuah perkenalan sederhana yang menjadi awal dari segalanya.',
+        'Berawal dari dikenalkan lewat teman. Sebuah perkenalan sederhana tanpa ada bayangan kedepannya yang menjadi awal dari segalanya.',
     },
     {
       id: 2,
       title: 'Lamaran',
-      date: '2024',
+      date: '2025',
       description:
-        'Setelah melewati banyak cerita bersama, kami memutuskan untuk melangkah ke tahap yang lebih serius melalui sebuah lamaran yang penuh haru.',
+        'Hubungan yang diawali tanpa ada kata pacaran ternyata membawa kami melangkah ke tahap yang lebih serius melalui sebuah lamaran yang berlangsung dalam suasana hangat, penuh haru, serta dikelilingi doa dan restu keluarga.',
     },
     {
       id: 3,
       title: 'Menuju Hari Bahagia',
       date: '2026',
       description:
-        'Dengan restu kedua keluarga, kami siap menyatukan dua hati dalam ikatan pernikahan yang suci.',
+        'Atas restu kedua keluarga, kami siap menyatukan dua manusia, dua hati, dua jiwa dan dua keluarga dalam sebuah ikatan pernikahan yang suci.',
     },
   ],
 
