@@ -1,11 +1,9 @@
 import { createClient, type User } from '@supabase/supabase-js'
 
 export const ADMIN_SESSION_COOKIE = 'wedding_admin_access_token'
-export const ADMIN_UNAUTHORIZED_PATH = '/admin/unauthorized'
 
 type AdminCheckResult = {
   user: User | null
-  isAdmin: boolean
 }
 
 function getSupabaseConfig() {
@@ -41,7 +39,7 @@ export async function checkAdminAccessToken(
   accessToken: string | undefined,
 ): Promise<AdminCheckResult> {
   if (!accessToken) {
-    return { user: null, isAdmin: false }
+    return { user: null }
   }
 
   try {
@@ -52,21 +50,11 @@ export async function checkAdminAccessToken(
     } = await supabase.auth.getUser(accessToken)
 
     if (userError || !user) {
-      return { user: null, isAdmin: false }
+      return { user: null }
     }
 
-    const { data: adminRow, error: adminError } = await supabase
-      .from('admin_users')
-      .select('user_id')
-      .eq('user_id', user.id)
-      .maybeSingle()
-
-    if (adminError || !adminRow) {
-      return { user, isAdmin: false }
-    }
-
-    return { user, isAdmin: true }
+    return { user }
   } catch {
-    return { user: null, isAdmin: false }
+    return { user: null }
   }
 }

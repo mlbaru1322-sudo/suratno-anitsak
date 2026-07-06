@@ -34,11 +34,9 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const [checkingSession, setCheckingSession] = useState(true)
   const isLoginPage = pathname === '/admin/login'
-  const isUnauthorizedPage = pathname === '/admin/unauthorized'
-  const isAuthFreePage = isLoginPage || isUnauthorizedPage
 
   useEffect(() => {
-    if (isAuthFreePage) {
+    if (isLoginPage) {
       setCheckingSession(false)
       return
     }
@@ -58,17 +56,6 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         return
       }
 
-      const { data: adminRow } = await supabase
-        .from('admin_users')
-        .select('user_id')
-        .eq('user_id', user.id)
-        .maybeSingle()
-
-      if (!adminRow) {
-        router.replace('/admin/unauthorized')
-        return
-      }
-
       setUserEmail(user.email ?? null)
       setCheckingSession(false)
     }
@@ -83,17 +70,6 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         return
       }
 
-      const { data: adminRow } = await supabase
-        .from('admin_users')
-        .select('user_id')
-        .eq('user_id', session.user.id)
-        .maybeSingle()
-
-      if (!adminRow) {
-        router.replace('/admin/unauthorized')
-        return
-      }
-
       setUserEmail(session.user.email ?? null)
       setCheckingSession(false)
     })
@@ -102,7 +78,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       mounted = false
       subscription.unsubscribe()
     }
-  }, [isAuthFreePage, router])
+  }, [isLoginPage, router])
 
   async function handleLogout() {
     const supabase = createSupabaseBrowserClient()
@@ -111,7 +87,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     router.replace('/admin/login')
   }
 
-  if (isAuthFreePage) {
+  if (isLoginPage) {
     return (
       <>
         {children}
@@ -143,8 +119,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             </div>
             <p className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
               <AlertTriangle className="size-4 text-gold" aria-hidden="true" />
-              Area admin sudah memakai Supabase Auth. Lengkapi policy production
-              sebelum live.
+              Area admin memakai Supabase Auth untuk login.
             </p>
             {userEmail ? (
               <p className="mt-1 text-xs text-muted-foreground">

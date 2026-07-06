@@ -13,14 +13,10 @@ export async function POST(request: Request) {
   const accessToken =
     typeof body?.accessToken === 'string' ? body.accessToken : ''
 
-  const { user, isAdmin } = await checkAdminAccessToken(accessToken)
+  const { user } = await checkAdminAccessToken(accessToken)
 
   if (!user) {
     return NextResponse.json({ error: 'UNAUTHENTICATED' }, { status: 401 })
-  }
-
-  if (!isAdmin) {
-    return NextResponse.json({ error: 'FORBIDDEN' }, { status: 403 })
   }
 
   const response = NextResponse.json({ ok: true })

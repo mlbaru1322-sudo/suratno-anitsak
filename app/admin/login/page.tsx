@@ -26,16 +26,18 @@ export default function AdminLoginPage() {
       } = await supabase.auth.getSession()
 
       if (session?.access_token) {
-        const isAdmin = await establishAdminServerSession(session.access_token)
+        const sessionEstablished = await establishAdminServerSession(
+          session.access_token,
+        )
 
-        if (isAdmin) {
+        if (sessionEstablished) {
           router.replace(getNextAdminPath())
           return
         }
 
         await supabase.auth.signOut()
         await clearAdminServerSession()
-        router.replace('/admin/unauthorized')
+        setCheckingSession(false)
         return
       }
 
@@ -74,13 +76,14 @@ export default function AdminLoginPage() {
         throw new Error('Session login tidak tersedia. Silakan coba lagi.')
       }
 
-      const isAdmin = await establishAdminServerSession(session.access_token)
+      const sessionEstablished = await establishAdminServerSession(
+        session.access_token,
+      )
 
-      if (!isAdmin) {
+      if (!sessionEstablished) {
         await supabase.auth.signOut()
         await clearAdminServerSession()
-        router.replace('/admin/unauthorized')
-        return
+        throw new Error('Sesi admin tidak dapat dibuat. Silakan coba lagi.')
       }
 
       toast.success('Login berhasil')
