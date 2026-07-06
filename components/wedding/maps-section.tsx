@@ -9,6 +9,7 @@ import { SectionOrnaments } from './ornaments'
 export function MapsSection({ data = weddingData }: { data?: WeddingData }) {
   const { events, maps } = data
   const primaryEvent = events[1] ?? events[0]
+  const address = primaryEvent?.address ?? 'Alamat menyusul'
 
   return (
     <section
@@ -44,21 +45,27 @@ export function MapsSection({ data = weddingData }: { data?: WeddingData }) {
                   {maps.label}
                 </p>
                 <p className="mt-2 max-w-xs text-sm leading-relaxed text-taupe">
-                  {primaryEvent.address}
+                  {address}
                 </p>
               </div>
             </div>
 
             <div className="px-6 py-6 text-center">
-              <a
-                href={maps.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="gold-button inline-flex min-h-12 items-center gap-2 rounded-full px-7 py-3 text-sm font-medium uppercase tracking-[0.15em] transition-transform hover:-translate-y-0.5"
-              >
-                <Navigation className="size-4" aria-hidden="true" />
-                Buka Lokasi
-              </a>
+              {maps.url ? (
+                <a
+                  href={maps.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="gold-button inline-flex min-h-12 items-center gap-2 rounded-full px-7 py-3 text-sm font-medium uppercase tracking-[0.15em] transition-transform hover:-translate-y-0.5"
+                >
+                  <Navigation className="size-4" aria-hidden="true" />
+                  Buka Lokasi
+                </a>
+              ) : (
+                <p className="text-sm font-medium uppercase tracking-[0.15em] text-taupe">
+                  Lokasi menyusul
+                </p>
+              )}
             </div>
           </div>
         </Reveal>

@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { CalendarDays, Clock, MapPin } from 'lucide-react'
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
+import { JavaSideOrnament } from './ornaments'
 
 function EventDivider() {
   return (
@@ -31,6 +32,10 @@ export function EventSection({ data = weddingData }: { data?: WeddingData }) {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_4%,rgba(197,168,128,0.16),transparent_25rem),radial-gradient(circle_at_12%_72%,rgba(111,71,47,0.24),transparent_22rem),linear-gradient(180deg,rgba(62,39,35,0.96),rgba(47,29,25,0.94)_48%,rgba(31,18,12,0.98))]" />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,248,236,0.035)_1px,transparent_1px),linear-gradient(180deg,rgba(255,248,236,0.025)_1px,transparent_1px)] bg-[size:42px_42px] opacity-40" />
       </div>
+      <JavaSideOrnament
+        side="right"
+        className="-right-28 top-20 w-40 opacity-25 sm:-right-16 sm:top-24 sm:w-56 md:w-64"
+      />
       <div className="relative z-10 mx-auto max-w-4xl [&_.soft-badge]:border-[#C5A880]/34 [&_.soft-badge]:bg-transparent [&_.soft-badge]:text-[#C5A880] [&_h2]:text-[#F5E6D3] [&_h2]:drop-shadow-[0_2px_14px_rgba(0,0,0,0.5)]">
         <SectionHeading subtitle="Save The Date" title="Rangkaian Acara" />
 
@@ -97,10 +102,14 @@ export function EventSection({ data = weddingData }: { data?: WeddingData }) {
                     href={event.mapsUrl}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-disabled={!event.mapsUrl}
                     className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border-[1.5px] border-[#C5A880] bg-transparent px-6 py-3 text-sm font-medium uppercase tracking-widest text-[#C5A880] transition-colors hover:bg-[#C5A880]/10 focus:outline-none focus:ring-2 focus:ring-[#C5A880]/40 sm:w-auto"
+                    onClick={(eventClick) => {
+                      if (!event.mapsUrl) eventClick.preventDefault()
+                    }}
                   >
                     <MapPin className="size-4 shrink-0" aria-hidden="true" />
-                    Lihat Lokasi
+                    {event.mapsUrl ? 'Lihat Lokasi' : 'Lokasi Menyusul'}
                   </a>
                 </div>
               </div>

@@ -2,13 +2,27 @@
 
 import { useState } from 'react'
 import { Check, Copy, Mail } from 'lucide-react'
-import { weddingData } from '@/lib/wedding-data'
+import { weddingData, type WeddingData } from '@/lib/wedding-data'
 import { SectionHeading } from './section-heading'
 import { motion } from 'framer-motion'
+import { JavaOrnamentDivider, JavaSideOrnament } from './ornaments'
 
-export function DigitalGiftSection() {
-  const { gifts } = weddingData
+type GiftItem = {
+  id: string
+  bank: string
+  accountNumber: string
+  accountHolder: string
+}
+
+export function DigitalGiftSection({
+  data = weddingData,
+}: {
+  data?: WeddingData
+}) {
+  const gifts = data.gifts as readonly GiftItem[]
   const [copiedId, setCopiedId] = useState<string | null>(null)
+
+  if (gifts.length === 0) return null
 
   async function copyNumber(id: string, value: string) {
     try {
@@ -26,7 +40,12 @@ export function DigitalGiftSection() {
       aria-label="Hadiah digital"
     >
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_8%,rgba(255,248,236,0.42),transparent_28rem),radial-gradient(circle_at_12%_88%,rgba(90,59,46,0.10),transparent_20rem),linear-gradient(180deg,rgba(245,241,231,0.16),rgba(216,187,133,0.10)_48%,rgba(245,241,231,0.18))]" />
+      <JavaSideOrnament
+        side="left"
+        className="-left-28 bottom-4 w-40 opacity-30 sm:-left-16 sm:bottom-8 sm:w-52 md:w-60"
+      />
       <div className="relative z-10 mx-auto max-w-3xl">
+        <JavaOrnamentDivider className="mb-6 py-0 [&_img]:!w-[min(50vw,10rem)] [&_img]:!opacity-70 sm:mb-7 sm:[&_img]:!w-[12rem]" />
         <SectionHeading subtitle="Wedding Gift" title="Amplop Digital" />
 
         <p className="mx-auto mt-6 max-w-md text-center text-sm leading-relaxed text-taupe">

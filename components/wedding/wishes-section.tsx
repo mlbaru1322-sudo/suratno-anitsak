@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
-import { weddingData } from '@/lib/wedding-data'
 import {
   getApprovedWishes,
   isSupabaseConfigured,
@@ -15,13 +14,6 @@ type DisplayWish = {
   status: string
   message: string
 }
-
-const dummyWishes: DisplayWish[] = weddingData.wishes.map((wish) => ({
-  id: wish.id,
-  name: wish.name,
-  status: wish.status,
-  message: wish.message,
-}))
 
 function GuestBookDivider() {
   return (
@@ -36,10 +28,6 @@ function GuestBookDivider() {
 function mapApprovedWishes(
   approvedWishes: Awaited<ReturnType<typeof getApprovedWishes>>,
 ): DisplayWish[] {
-  if (approvedWishes.length === 0) {
-    return dummyWishes
-  }
-
   return approvedWishes.map((wish) => ({
     id: wish.id,
     name: wish.guest_name,
@@ -49,7 +37,7 @@ function mapApprovedWishes(
 }
 
 export function WishesSection({ enabled = true }: { enabled?: boolean }) {
-  const [wishes, setWishes] = useState<DisplayWish[]>(dummyWishes)
+  const [wishes, setWishes] = useState<DisplayWish[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [refreshIndex, setRefreshIndex] = useState(0)
 
@@ -61,7 +49,7 @@ export function WishesSection({ enabled = true }: { enabled?: boolean }) {
     async function load() {
       if (!isSupabaseConfigured()) {
         if (!cancelled) {
-          setWishes(dummyWishes)
+          setWishes([])
           setIsLoading(false)
         }
         return
@@ -78,7 +66,7 @@ export function WishesSection({ enabled = true }: { enabled?: boolean }) {
         }
       } catch {
         if (!cancelled) {
-          setWishes(dummyWishes)
+          setWishes([])
         }
       } finally {
         if (!cancelled) {
@@ -133,36 +121,44 @@ export function WishesSection({ enabled = true }: { enabled?: boolean }) {
               </p>
             ) : null}
 
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5">
-              {wishes.map((wish) => (
-                <motion.figure
-                  key={wish.id}
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                  viewport={{ once: true, amount: 0.15 }}
-                  className="relative min-w-0 overflow-hidden rounded-xl border border-gold/28 bg-cream/48 px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.50)]"
-                >
-                  <span
-                    className="mb-4 flex size-9 items-center justify-center rounded-t-[1rem] rounded-b-lg border border-gold/35 bg-ivory/70 font-serif text-xl leading-none text-gold"
-                    aria-hidden="true"
+            {!isLoading && wishes.length === 0 ? (
+              <p className="my-6 text-center text-sm leading-relaxed text-taupe">
+                Belum ada ucapan yang ditampilkan.
+              </p>
+            ) : null}
+
+            {wishes.length > 0 ? (
+              <div className="mt-6 grid gap-4 sm:grid-cols-2 sm:gap-5">
+                {wishes.map((wish) => (
+                  <motion.figure
+                    key={wish.id}
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+                    viewport={{ once: true, amount: 0.15 }}
+                    className="relative min-w-0 overflow-hidden rounded-xl border border-gold/28 bg-cream/48 px-5 py-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.50)]"
                   >
-                    "
-                  </span>
-                  <blockquote className="text-sm leading-relaxed text-espresso text-pretty">
-                    {wish.message}
-                  </blockquote>
-                  <figcaption className="mt-5 flex flex-col gap-2 border-t border-gold/20 pt-4 sm:flex-row sm:items-center sm:justify-between">
-                    <span className="font-serif text-lg font-semibold leading-tight text-espresso">
-                      {wish.name}
+                    <span
+                      className="mb-4 flex size-9 items-center justify-center rounded-t-[1rem] rounded-b-lg border border-gold/35 bg-ivory/70 font-serif text-xl leading-none text-gold"
+                      aria-hidden="true"
+                    >
+                      "
                     </span>
-                    <span className="w-fit rounded-lg border border-gold/30 bg-ivory/60 px-3 py-1 text-xs font-medium text-gold">
-                      {wish.status}
-                    </span>
-                  </figcaption>
-                </motion.figure>
-              ))}
-            </div>
+                    <blockquote className="text-sm leading-relaxed text-espresso text-pretty">
+                      {wish.message}
+                    </blockquote>
+                    <figcaption className="mt-5 flex flex-col gap-2 border-t border-gold/20 pt-4 sm:flex-row sm:items-center sm:justify-between">
+                      <span className="font-serif text-lg font-semibold leading-tight text-espresso">
+                        {wish.name}
+                      </span>
+                      <span className="w-fit rounded-lg border border-gold/30 bg-ivory/60 px-3 py-1 text-xs font-medium text-gold">
+                        {wish.status}
+                      </span>
+                    </figcaption>
+                  </motion.figure>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

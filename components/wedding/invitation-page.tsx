@@ -4,14 +4,12 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import Image from 'next/image'
 import { Toaster } from '@/components/ui/sonner'
 import {
+  getWeddingBankAccounts,
   getWeddingEvents,
   getWeddingSettings,
 } from '@/lib/services/wedding-service'
 import { type WeddingData } from '@/lib/wedding-data'
-import {
-  getFallbackWeddingData,
-  mergeSupabaseWeddingData,
-} from '@/lib/wedding-data-mapper'
+import { mergeSupabaseWeddingData } from '@/lib/wedding-data-mapper'
 import { OpeningCover } from './opening-cover'
 import { HeroSection } from './hero-section'
 import { GreetingSection } from './greeting-section'
@@ -39,12 +37,13 @@ export function InvitationPage() {
   const [opened, setOpened] = useState(false)
   const [heroActive, setHeroActive] = useState(false)
   const heroRevealTimerRef = useRef<number | null>(null)
-  const [data, setData] = useState<WeddingData>(() =>
-    getFallbackWeddingData(null),
-  )
+  const [data, setData] = useState<WeddingData | null>(null)
+  const [loadError, setLoadError] = useState(false)
   const [guestName, setGuestName] = useState<string | null>(null)
 
-  const publicData = useMemo<WeddingData>(() => {
+  const publicData = useMemo<WeddingData | null>(() => {
+    if (!data) return null
+
     const cleanGuestName = guestName?.trim()
 
     if (!cleanGuestName) return data
@@ -63,24 +62,30 @@ export function InvitationPage() {
     const queryGuestName = params.get('to')
 
     setGuestName(queryGuestName)
-    setData(getFallbackWeddingData(queryGuestName))
 
     async function loadSupabaseData() {
       try {
-        const [settings, events] = await Promise.all([
+        const [settings, events, bankAccounts] = await Promise.all([
           getWeddingSettings(),
           getWeddingEvents(),
+          getWeddingBankAccounts(),
         ])
 
-        setData(
+        const mergedData =
           mergeSupabaseWeddingData({
             settings,
             events,
+            bankAccounts,
             guestName: queryGuestName,
-          }),
-        )
+          })
+
+        if (mergedData) {
+          setData(mergedData)
+        } else {
+          setLoadError(true)
+        }
       } catch {
-        setData(getFallbackWeddingData(queryGuestName))
+        setLoadError(true)
       }
     }
 
@@ -108,6 +113,34 @@ export function InvitationPage() {
     }, HERO_REVEAL_START_DELAY_MS)
     document.body.style.overflow = ''
     window.scrollTo({ top: 0 })
+  }
+
+  if (!publicData) {
+    return (
+      <main className="vintage-public-page relative isolate flex min-h-screen items-center justify-center overflow-hidden bg-[#1f120c] px-6 text-center text-ivory">
+        <div className="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+          <div className="absolute top-0 h-full w-[125%] -left-[12.5%] scale-[1.08] sm:w-full sm:left-0">
+            <Image
+              src="/reference-video-opening/images/landscape-background.jpg"
+              alt=""
+              fill
+              priority
+              className="object-cover object-center contrast-[1.08] brightness-[1.04] saturate-[1.08]"
+              sizes="100vw"
+            />
+          </div>
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,7,4,0.76),rgba(28,17,11,0.58),rgba(10,6,4,0.84))]" />
+        </div>
+        <div className="relative z-10 max-w-sm">
+          <p className="text-xs uppercase tracking-[0.28em] text-champagne/80">
+            Wedding Invitation
+          </p>
+          <p className="mt-4 font-serif text-2xl text-ivory">
+            {loadError ? 'Undangan belum dapat dimuat.' : 'Memuat undangan...'}
+          </p>
+        </div>
+      </main>
+    )
   }
 
   return (
@@ -145,7 +178,6 @@ export function InvitationPage() {
         <QuoteSection data={publicData} />
         <SectionDivider />
         <CoupleSection data={publicData} />
-        <SectionDivider />
         <CountdownSection data={publicData} />
         <SectionDivider />
         <EventSection data={publicData} />
@@ -153,14 +185,12 @@ export function InvitationPage() {
         <MapsSection data={publicData} />
         <SectionDivider />
         <LoveStorySection />
-        <SectionDivider />
         <GallerySection />
         <SectionDivider />
         <RsvpSection />
         <SectionDivider />
         <WishesSection enabled={opened} />
-        <SectionDivider />
-        <DigitalGiftSection />
+        <DigitalGiftSection data={publicData} />
         <SectionDivider />
         <ClosingSection data={publicData} />
       </div>

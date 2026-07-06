@@ -1,19 +1,25 @@
 import { weddingData, type WeddingData } from '@/lib/wedding-data'
-import type { WeddingEvent, WeddingSettings } from '@/lib/types/wedding'
+import type {
+  WeddingBankAccount,
+  WeddingEvent,
+  WeddingSettings,
+} from '@/lib/types/wedding'
 
-type PublicWeddingData = WeddingData
+type PublicWeddingData = WeddingData | null
 
 export function mergeSupabaseWeddingData({
   settings,
   events,
+  bankAccounts = [],
   guestName,
 }: {
   settings: WeddingSettings | null
   events: WeddingEvent[]
+  bankAccounts?: WeddingBankAccount[]
   guestName?: string | null
 }): PublicWeddingData {
   if (!settings) {
-    return getFallbackWeddingData(guestName)
+    return null
   }
 
   const brideShortName =
@@ -48,7 +54,7 @@ export function mergeSupabaseWeddingData({
     weddingDateDisplay,
     guest: {
       ...weddingData.guest,
-      name: clean(guestName) || weddingData.guest.name,
+      name: clean(guestName) || weddingData.guest.recipient,
     },
     quote: {
       ...weddingData.quote,
@@ -57,6 +63,7 @@ export function mergeSupabaseWeddingData({
     greeting: mapGreeting(settings),
     events: mappedEvents,
     maps: mapMaps(mappedEvents),
+    gifts: mapBankAccounts(bankAccounts),
     music: {
       ...weddingData.music,
       src: clean(settings?.music_url) || weddingData.music.src,
@@ -69,7 +76,7 @@ export function getFallbackWeddingData(guestName?: string | null) {
     ...weddingData,
     guest: {
       ...weddingData.guest,
-      name: clean(guestName) || weddingData.guest.name,
+      name: clean(guestName) || weddingData.guest.recipient,
     },
   } as unknown as PublicWeddingData
 }
@@ -98,7 +105,7 @@ function mapGreeting(settings: WeddingSettings | null) {
 }
 
 function mapEvents(events: WeddingEvent[], fallbackDate: string) {
-  if (events.length === 0) return weddingData.events
+  if (events.length === 0) return []
 
   return [...events]
     .sort((first, second) => first.sort_order - second.sort_order)
@@ -107,9 +114,9 @@ function mapEvents(events: WeddingEvent[], fallbackDate: string) {
       title: clean(event.title) || event.type || 'Acara',
       date: event.event_date ? formatWeddingDate(event.event_date) : fallbackDate,
       time: formatEventTime(event),
-      venue: clean(event.venue_name) || weddingData.events[0]?.venue || '-',
-      address: clean(event.address) || weddingData.events[0]?.address || '-',
-      mapsUrl: clean(event.maps_url) || 'https://maps.google.com',
+      venue: clean(event.venue_name) || 'Lokasi menyusul',
+      address: clean(event.address) || 'Alamat menyusul',
+      mapsUrl: clean(event.maps_url) || '',
     }))
 }
 
@@ -125,12 +132,34 @@ function mapMaps(
     events[1] ??
     events[0]
 
-  if (!primaryEvent) return weddingData.maps
+  if (!primaryEvent) {
+    return {
+      label: 'Lokasi acara',
+      url: '',
+    }
+  }
 
   return {
-    label: primaryEvent.venue || weddingData.maps.label,
-    url: primaryEvent.mapsUrl || weddingData.maps.url,
+    label: primaryEvent.venue || 'Lokasi acara',
+    url: primaryEvent.mapsUrl || '',
   }
+}
+
+function mapBankAccounts(bankAccounts: WeddingBankAccount[]) {
+  return bankAccounts
+    .filter((account) => {
+      return (
+        clean(account.bank_name) &&
+        clean(account.account_number) &&
+        clean(account.account_holder)
+      )
+    })
+    .map((account) => ({
+      id: account.id,
+      bank: account.bank_name.trim(),
+      accountNumber: account.account_number.trim(),
+      accountHolder: account.account_holder.trim(),
+    }))
 }
 
 function formatEventTime(event: WeddingEvent) {
@@ -138,7 +167,7 @@ function formatEventTime(event: WeddingEvent) {
   const end = clean(event.end_time)
 
   if (start && end) return `${start} - ${end}`
-  return start || end || weddingData.events[0]?.time || '-'
+  return start || end || 'Waktu menyusul'
 }
 
 function toWeddingDateISO(date: string | null | undefined) {
