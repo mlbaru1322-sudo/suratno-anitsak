@@ -6,6 +6,7 @@ import type {
 } from '@/lib/types/wedding'
 
 type PublicWeddingData = WeddingData | null
+const DUMMY_ACCOUNT_NUMBERS = new Set(['1234567890', '0987654321'])
 
 export function mergeSupabaseWeddingData({
   settings,
@@ -31,6 +32,7 @@ export function mergeSupabaseWeddingData({
     ? formatWeddingDate(settings.wedding_date)
     : weddingData.weddingDateDisplay
   const mappedEvents = mapEvents(events, weddingDateDisplay)
+  const mappedBankAccounts = mapBankAccounts(bankAccounts)
 
   return {
     ...weddingData,
@@ -63,7 +65,7 @@ export function mergeSupabaseWeddingData({
     greeting: mapGreeting(settings),
     events: mappedEvents,
     maps: mapMaps(mappedEvents),
-    gifts: mapBankAccounts(bankAccounts),
+    gifts: mappedBankAccounts.length > 0 ? mappedBankAccounts : weddingData.gifts,
     music: {
       ...weddingData.music,
       src: clean(settings?.music_url) || weddingData.music.src,
@@ -151,7 +153,8 @@ function mapBankAccounts(bankAccounts: WeddingBankAccount[]) {
       return (
         clean(account.bank_name) &&
         clean(account.account_number) &&
-        clean(account.account_holder)
+        clean(account.account_holder) &&
+        !DUMMY_ACCOUNT_NUMBERS.has(clean(account.account_number))
       )
     })
     .map((account) => ({

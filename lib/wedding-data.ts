@@ -7,14 +7,14 @@ export const weddingData = {
     name: 'Tri Rahayu',
     shortName: 'Rahayu',
     photo: '/images/optimized/bride.webp',
-    parents: 'Putri dari Bapak Suparman & Ibu Sulastri',
+    parents: 'Putri dari Bapak Suharno & Ibu Umaidah',
     instagram: '@trirahayu',
   },
   groom: {
     name: 'Mardian Ifan Rizkyadi',
     shortName: 'Mardian',
     photo: '/images/optimized/groom.webp',
-    parents: 'Putra dari Bapak Hartono & Ibu Mardiana',
+    parents: 'Putra dari Bapak Arjo Pono & Ibu Suwarti',
     instagram: '@mardian.ifan',
   },
 
@@ -151,16 +151,10 @@ export const weddingData = {
   // Digital gift
   gifts: [
     {
-      id: 'bca',
-      bank: 'Bank BCA',
-      accountNumber: '1234567890',
-      accountHolder: 'Tri Rahayu',
-    },
-    {
-      id: 'mandiri',
-      bank: 'Bank Mandiri',
-      accountNumber: '0987654321',
-      accountHolder: 'Mardian Ifan Rizkyadi',
+      id: 'bni-anitsak',
+      bank: 'Bank BNI',
+      accountNumber: '1819877496',
+      accountHolder: 'Anitsak Nur Anggraini',
     },
   ],
 

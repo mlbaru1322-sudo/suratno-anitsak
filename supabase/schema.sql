@@ -258,8 +258,7 @@ insert into wedding_bank_accounts (
 select item.bank_name, item.account_number, item.account_holder, item.sort_order
 from (
   values
-    ('Bank BCA', '1234567890', 'Tri Rahayu', 1),
-    ('Bank Mandiri', '0987654321', 'Mardian Ifan Rizkyadi', 2)
+    ('Bank BNI', '1819877496', 'Anitsak Nur Anggraini', 1)
 ) as item(bank_name, account_number, account_holder, sort_order)
 where not exists (
   select 1 from wedding_bank_accounts
