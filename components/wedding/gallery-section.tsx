@@ -8,26 +8,10 @@ import { createPortal } from 'react-dom'
 import { SectionHeading } from './section-heading'
 import { JavaOrnamentDivider } from './ornaments'
 
-const galleryFiles = [
-  'Salinan IMG_0973.JPG.webp',
-  'Salinan IMG_0977.JPG.webp',
-  'Salinan IMG_0993.JPG.webp',
-  'Salinan IMG_1023.JPG.webp',
-  'Salinan IMG_1029.webp',
-  'Salinan IMG_1034 (1).JPG.webp',
-  'Salinan IMG_1034.JPG.webp',
-  'Salinan IMG_1055.JPG.webp',
-  'Salinan IMG_1062.JPG.webp',
-  'Salinan IMG_1081.webp',
-  'Salinan IMG_1090.JPG.webp',
-  'Salinan IMG_1116.webp',
-  'Salinan IMG_1150.JPG.webp',
-  'Salinan IMG_1163.JPG.webp',
-  'Salinan IMG_1168.JPG.webp',
-  'Salinan IMG_1178.JPG.webp',
-  'Salinan IMG_1186.JPG.webp',
-  'Salinan IMG_1191.JPG.webp',
-] as const
+const galleryFiles = Array.from(
+  { length: 16 },
+  (_, index) => `gallery-${String(index + 1).padStart(2, '0')}.webp`,
+)
 
 const galleryPhotos = galleryFiles.map((file, index) => ({
   id: file,
@@ -53,8 +37,8 @@ const collagePatterns = [
   'col-span-1 row-span-2 sm:col-span-2 sm:row-span-3',
   'col-span-2 row-span-3 sm:col-span-2 sm:row-span-3',
   'col-span-2 row-span-3 sm:col-span-4 sm:row-span-3',
-  'col-span-4 row-span-5 sm:col-span-6 sm:row-span-6 md:row-span-7',
-  'col-span-4 row-span-5 sm:col-span-6 sm:row-span-6 md:row-span-7',
+  'col-span-4 row-span-5 sm:col-span-6 sm:row-span-7 md:row-span-8',
+  'col-span-4 row-span-5 sm:col-span-6 sm:row-span-7 md:row-span-8',
 ]
 
 const collageObjectPositions = [
@@ -64,8 +48,8 @@ const collageObjectPositions = [
   '',
   '',
   '',
-  'object-[50%_48%]',
   'object-[50%_44%]',
+  'object-[50%_50%]',
 ]
 
 export function GallerySection() {

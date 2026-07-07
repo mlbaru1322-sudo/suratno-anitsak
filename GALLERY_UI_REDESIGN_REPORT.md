@@ -278,6 +278,73 @@ Verification method:
 * Source inspection confirmed manual thumbnail selection resets the timer through the `activeIndex` effect dependency.
 * Source inspection confirmed the bottom collage uses `gap-0`.
 * Source inspection confirmed all 8 bottom photos keep full-cell click targets.
+
+## Fixed 16-Photo Numbered Gallery System
+
+Previous problem:
+
+The gallery component still depended on original camera/export filenames. One stale duplicate reference, `Salinan IMG_1034 (1).JPG.webp`, had no matching thumbnail, so the gallery could produce an empty or broken thumbnail slot. Photo ordering also required editing `gallery-section.tsx`.
+
+Actual photo pair count found:
+
+* 19 display WebP files were present in `public/images/optimized/galery`.
+* 18 thumbnail WebP files were present in `public/images/optimized/galery/thumbs`.
+* 18 valid display/thumbnail filename pairs existed.
+* 17 unique valid pairs remained after excluding the exact duplicate `Salinan IMG_0977.JPG - Copy.webp`.
+* `Salinan IMG_1034 (1).JPG.webp` was an exact duplicate of `Salinan IMG_1034.JPG.webp` and had no matching thumbnail.
+
+Selected 16-photo order:
+
+| Old filename | New filename |
+| --- | --- |
+| `Salinan IMG_0973.JPG.webp` | `gallery-01.webp` |
+| `Salinan IMG_0977.JPG.webp` | `gallery-02.webp` |
+| `Salinan IMG_0993.JPG.webp` | `gallery-03.webp` |
+| `Salinan IMG_1023.JPG.webp` | `gallery-04.webp` |
+| `Salinan IMG_1029.webp` | `gallery-05.webp` |
+| `Salinan IMG_1034.JPG.webp` | `gallery-06.webp` |
+| `Salinan IMG_1055.JPG.webp` | `gallery-07.webp` |
+| `Salinan IMG_1062.JPG.webp` | `gallery-08.webp` |
+| `Salinan IMG_1081.webp` | `gallery-09.webp` |
+| `Salinan IMG_1090.JPG.webp` | `gallery-10.webp` |
+| `Salinan IMG_1116.webp` | `gallery-11.webp` |
+| `Salinan IMG_1150.JPG.webp` | `gallery-12.webp` |
+| `Salinan IMG_1163.JPG.webp` | `gallery-13.webp` |
+| `Salinan IMG_1168.JPG.webp` | `gallery-14.webp` |
+| `Salinan IMG_1178.JPG.webp` | `gallery-15.webp` |
+| `Salinan IMG_1186.JPG.webp` | `gallery-16.webp` |
+
+Final counts:
+
+* Top gallery: `gallery-01.webp` through `gallery-08.webp`, exactly 8 photos.
+* Bottom collage: `gallery-09.webp` through `gallery-16.webp`, exactly 8 photos.
+* Bottom photos 5-6 still use the approved side-by-side collage positions.
+* Bottom photos 7-8 still use full-width stacked rows with no gap.
+
+Extra-file behavior:
+
+Only `gallery-01.webp` through `gallery-16.webp` are public gallery inputs. Extra files in the folder are ignored by the component and do not appear automatically.
+
+Ignored extras left in place:
+
+* `Salinan IMG_0977.JPG - Copy.webp`
+* `Salinan IMG_1034 (1).JPG.webp`
+* `Salinan IMG_1191.JPG.webp`
+
+Future reorder instructions:
+
+To change photo order later, swap both the display file and its matching thumbnail file.
+
+Example:
+
+* Swap `public/images/optimized/galery/gallery-03.webp` with `public/images/optimized/galery/gallery-12.webp`.
+* Also swap `public/images/optimized/galery/thumbs/gallery-03.webp` with `public/images/optimized/galery/thumbs/gallery-12.webp`.
+
+After matching display and thumbnail files are swapped together, no `gallery-section.tsx` change is needed.
+
+No empty slot confirmation:
+
+All 16 numbered display files and all 16 matching numbered thumbnails exist. The stale deleted/duplicate filename is no longer referenced by the active gallery code.
 * Typecheck: PASS.
 * Production build: PASS.
 * Runtime browser automation was not available in this environment, so final visual review in a real browser is still recommended.
