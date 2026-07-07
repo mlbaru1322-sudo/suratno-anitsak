@@ -127,6 +127,17 @@ export function WishesSection({ enabled = true }: { enabled?: boolean }) {
     setActivePage(Math.round(element.scrollLeft / pageWidth))
   }
 
+  function goToPage(pageIndex: number) {
+    const element = scrollRef.current
+    if (!element) return
+
+    element.scrollTo({
+      left: pageIndex * element.clientWidth,
+      behavior: 'smooth',
+    })
+    setActivePage(pageIndex)
+  }
+
   return (
     <section
       className="ornamental-section paper-texture relative overflow-hidden px-5 py-20 sm:px-6 sm:py-24"
@@ -168,69 +179,74 @@ export function WishesSection({ enabled = true }: { enabled?: boolean }) {
           ) : null}
 
           {pages.length > 0 ? (
-            <div
-              ref={scrollRef}
-              onScroll={handleScroll}
-              className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-              aria-label="Halaman ucapan tamu"
-            >
-              {pages.map((page, pageIndex) => (
-                <motion.div
-                  key={pageIndex}
-                  initial={{ opacity: 0, y: 14 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                  viewport={{ once: true, amount: 0.16 }}
-                  className="min-w-full snap-start px-0.5"
-                >
-                  <article className="relative overflow-hidden rounded-[10px] border border-gold/30 bg-ivory/76 px-5 pb-5 pt-6 shadow-[0_18px_44px_-36px_rgba(43,26,18,0.72),inset_0_1px_0_rgba(255,255,255,0.56)] sm:px-7 sm:pb-6">
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.54),transparent_17rem),linear-gradient(135deg,rgba(216,187,133,0.10),transparent_45%,rgba(90,59,46,0.07))]" />
-                    <div className="pointer-events-none absolute inset-3 rounded-[7px] border border-gold/13" />
-                    <div className="relative">
-                      <GuestBookDivider />
+            <>
+              <div
+                ref={scrollRef}
+                onScroll={handleScroll}
+                className="flex snap-x snap-mandatory overflow-x-auto scroll-smooth pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                aria-label="Halaman ucapan tamu"
+              >
+                {pages.map((page, pageIndex) => (
+                  <div
+                    key={pageIndex}
+                    className="grid min-w-full snap-start gap-4 px-1 pr-10 sm:gap-5 sm:px-2 sm:pr-2"
+                  >
+                    {page.map((wish, wishIndex) => (
+                      <motion.figure
+                        key={wish.id}
+                        initial={{ opacity: 0, y: 14 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.7,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        viewport={{ once: true, amount: 0.15 }}
+                        className={`relative min-w-0 overflow-hidden rounded-[12px] border border-gold/28 bg-ivory/76 px-5 py-5 shadow-[0_16px_38px_-34px_rgba(43,26,18,0.72),inset_0_1px_0_rgba(255,255,255,0.58)] sm:px-6 ${
+                          wishIndex % 2 === 1
+                            ? 'ml-5 sm:ml-10'
+                            : 'mr-5 sm:mr-10'
+                        }`}
+                      >
+                        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,248,236,0.52),transparent_14rem),linear-gradient(135deg,rgba(216,187,133,0.10),transparent_45%,rgba(90,59,46,0.06))]" />
+                        <div className="pointer-events-none absolute inset-2 rounded-[9px] border border-gold/12" />
 
-                      <div className="mt-5 space-y-0 pr-8 sm:pr-4">
-                        {page.map((wish, wishIndex) => (
-                          <div
-                            key={wish.id}
-                            className={`${
-                              wishIndex % 4 === 1 || wishIndex % 4 === 3
-                                ? 'sm:px-5'
-                                : ''
-                            }`}
-                          >
-                            <div className="py-4 first:pt-0">
-                              <p className="text-[0.95rem] leading-[1.78] text-espresso text-pretty sm:text-base">
-                                {wish.message}
-                              </p>
-                              <p className="mt-2 text-right font-serif text-sm font-medium leading-tight text-taupe sm:text-[0.95rem]">
-                                <span aria-hidden="true">- </span>
-                                {wish.name}
-                              </p>
-                            </div>
-                            {wishIndex < page.length - 1 ? (
-                              <span
-                                className="block h-px bg-gradient-to-r from-transparent via-gold/24 to-transparent"
-                                aria-hidden="true"
-                              />
-                            ) : null}
-                          </div>
-                        ))}
-                      </div>
-
-                      {pages.length > 1 ? (
-                        <div className="mt-4 flex justify-end pr-8 sm:pr-0">
-                          <span className="text-[0.68rem] font-medium uppercase tracking-[0.22em] text-gold/78 tabular-nums">
-                            {String(activePage + 1).padStart(2, '0')} /{' '}
-                            {String(pages.length).padStart(2, '0')}
-                          </span>
+                        <div className="relative">
+                          <p className="text-[0.95rem] leading-[1.72] text-espresso text-pretty sm:text-base">
+                            {wish.message}
+                          </p>
+                          <figcaption className="mt-3 text-right font-serif text-sm font-medium leading-tight text-taupe sm:text-[0.95rem]">
+                            <span aria-hidden="true">- </span>
+                            {wish.name}
+                          </figcaption>
                         </div>
-                      ) : null}
-                    </div>
-                  </article>
-                </motion.div>
-              ))}
-            </div>
+                      </motion.figure>
+                    ))}
+                  </div>
+                ))}
+              </div>
+
+              {pages.length > 1 ? (
+                <div
+                  className="mt-6 flex justify-center gap-2 pr-8 sm:pr-0"
+                  aria-label="Navigasi halaman ucapan"
+                >
+                  {pages.map((_, pageIndex) => (
+                    <button
+                      key={pageIndex}
+                      type="button"
+                      onClick={() => goToPage(pageIndex)}
+                      aria-label={`Tampilkan halaman ${pageIndex + 1}`}
+                      aria-current={activePage === pageIndex ? 'true' : undefined}
+                      className={`size-2.5 rounded-full border border-gold/45 transition-colors ${
+                        activePage === pageIndex
+                          ? 'bg-gold'
+                          : 'bg-ivory/70 hover:bg-gold/35'
+                      }`}
+                    />
+                  ))}
+                </div>
+              ) : null}
+            </>
           ) : null}
         </div>
       </div>

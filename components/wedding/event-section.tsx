@@ -36,7 +36,7 @@ export function EventSection({ data = weddingData }: { data?: WeddingData }) {
         side="right"
         className="-right-28 top-20 w-40 opacity-25 sm:-right-16 sm:top-24 sm:w-56 md:w-64"
       />
-      <div className="relative z-10 mx-auto max-w-4xl [&_.soft-badge]:border-[#C5A880]/34 [&_.soft-badge]:bg-transparent [&_.soft-badge]:text-[#C5A880] [&_h2]:text-[#F5E6D3] [&_h2]:drop-shadow-[0_2px_14px_rgba(0,0,0,0.5)]">
+      <div className="relative z-10 mx-auto max-w-4xl [&_.soft-badge]:border-[#C5A880]/52 [&_.soft-badge]:bg-[#F6EFE2]/92 [&_.soft-badge]:font-semibold [&_.soft-badge]:text-[#6F4A2E] [&_.soft-badge]:shadow-[0_10px_26px_-18px_rgba(0,0,0,0.85)] [&_h2]:text-[#F5E6D3] [&_h2]:drop-shadow-[0_2px_14px_rgba(0,0,0,0.5)]">
         <SectionHeading subtitle="Save The Date" title="Rangkaian Acara" />
 
         <motion.div

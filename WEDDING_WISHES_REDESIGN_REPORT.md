@@ -85,6 +85,21 @@ New structure:
 - The carousel dots were replaced by an editorial page counter such as `01 / 03`.
 - Mobile safe space was added on the right side of the page content to reduce overlap risk from floating controls.
 
+## Alternating Premium Wish Cards
+
+The one-page guestbook structure was changed again because the wishes felt too merged together on one shared paper surface.
+
+New structure:
+
+- Each wish is rendered as its own premium ivory card.
+- Each swipe page still contains up to four wishes.
+- Cards are stacked in one vertical column, not a grid.
+- Cards alternate subtly left and right for editorial rhythm.
+- No quote mark decorations are rendered.
+- Attendance badges remain removed.
+- Pagination uses small centered dots instead of page numbers.
+- Mobile safe spacing remains on the right side so floating controls do not cover the card content or dots.
+
 ## Four-Wish Page Behavior
 
 Wishes are chunked into pages of 4:
