@@ -46,6 +46,17 @@ type LightboxState = {
   index: number
 } | null
 
+const collagePatterns = [
+  'col-span-4 row-span-3 sm:col-span-6 sm:row-span-4',
+  'col-span-3 row-span-4 sm:col-span-4 sm:row-span-5',
+  'col-span-1 row-span-2 sm:col-span-2 sm:row-span-2',
+  'col-span-1 row-span-2 sm:col-span-2 sm:row-span-3',
+  'col-span-2 row-span-3 sm:col-span-2 sm:row-span-3',
+  'col-span-2 row-span-3 sm:col-span-4 sm:row-span-3',
+  'col-span-4 row-span-3 sm:col-span-6 sm:row-span-3',
+  'col-span-4 row-span-2 sm:col-span-6 sm:row-span-3',
+]
+
 export function GallerySection() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [lightbox, setLightbox] = useState<LightboxState>(null)
@@ -313,17 +324,17 @@ export function GallerySection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.14 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-10 grid grid-cols-2 gap-2 overflow-hidden sm:gap-3"
+          className="mt-10 grid auto-rows-[4.8rem] grid-flow-dense grid-cols-4 gap-0 overflow-hidden sm:auto-rows-[5.2rem] sm:grid-cols-6 md:auto-rows-[6rem]"
         >
           {bottomGalleryImages.map((photo, index) => (
             <div
               key={photo.id}
-              className="relative min-w-0 overflow-hidden rounded-[10px] border border-gold/18 bg-espresso/8"
+              className={`relative min-w-0 overflow-hidden ${collagePatterns[index]}`}
             >
               <button
                 type="button"
                 onClick={() => setLightbox({ group: 'bottom', index })}
-                className="group relative block aspect-[2/3] h-full w-full cursor-pointer overflow-hidden outline-none focus-visible:ring-2 focus-visible:ring-gold/55"
+                className="group absolute inset-0 block h-full w-full cursor-pointer overflow-hidden outline-none focus-visible:ring-2 focus-visible:ring-gold/55"
                 aria-label={`Buka ${photo.alt}`}
               >
                 <Image
@@ -331,10 +342,10 @@ export function GallerySection() {
                   alt={photo.alt}
                   fill
                   loading={index < 4 ? 'eager' : 'lazy'}
-                  sizes="(max-width: 640px) 46vw, (max-width: 1024px) 44vw, 460px"
-                  className="object-contain sepia-[0.08] saturate-[0.95] contrast-[1.03] transition-transform duration-700 ease-out group-hover:scale-[1.018]"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 420px"
+                  className="object-cover sepia-[0.08] saturate-[0.95] contrast-[1.03] transition-transform duration-700 ease-out group-hover:scale-[1.025]"
                 />
-                <span className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(216,187,133,0.04),rgba(62,39,35,0.08))] opacity-70 mix-blend-multiply" />
+                <span className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(216,187,133,0.08),rgba(62,39,35,0.10))] opacity-70 mix-blend-multiply" />
               </button>
             </div>
           ))}
