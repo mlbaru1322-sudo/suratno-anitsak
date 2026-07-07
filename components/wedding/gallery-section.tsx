@@ -53,8 +53,19 @@ const collagePatterns = [
   'col-span-1 row-span-2 sm:col-span-2 sm:row-span-3',
   'col-span-2 row-span-3 sm:col-span-2 sm:row-span-3',
   'col-span-2 row-span-3 sm:col-span-4 sm:row-span-3',
-  'col-span-4 row-span-3 sm:col-span-6 sm:row-span-3',
-  'col-span-4 row-span-2 sm:col-span-6 sm:row-span-3',
+  'col-span-4 row-span-5 sm:col-span-6 sm:row-span-6 md:row-span-7',
+  'col-span-4 row-span-5 sm:col-span-6 sm:row-span-6 md:row-span-7',
+]
+
+const collageObjectPositions = [
+  '',
+  '',
+  '',
+  '',
+  '',
+  '',
+  'object-[50%_48%]',
+  'object-[50%_44%]',
 ]
 
 export function GallerySection() {
@@ -343,7 +354,9 @@ export function GallerySection() {
                   fill
                   loading={index < 4 ? 'eager' : 'lazy'}
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 420px"
-                  className="object-cover sepia-[0.08] saturate-[0.95] contrast-[1.03] transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                  className={`object-cover sepia-[0.08] saturate-[0.95] contrast-[1.03] transition-transform duration-700 ease-out group-hover:scale-[1.025] ${
+                    collageObjectPositions[index] ?? ''
+                  }`}
                 />
                 <span className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(216,187,133,0.08),rgba(62,39,35,0.10))] opacity-70 mix-blend-multiply" />
               </button>

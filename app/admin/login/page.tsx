@@ -121,7 +121,7 @@ export default function AdminLoginPage() {
             Admin Login
           </h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            Admin Undangan Rahayu & Mardian
+            Admin Undangan Anitsak & Suratno
           </p>
         </div>
 

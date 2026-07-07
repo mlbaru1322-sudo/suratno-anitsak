@@ -30,7 +30,7 @@ export function DigitalGiftSection({
       setCopiedId(id)
       setTimeout(() => setCopiedId(null), 2000)
     } catch {
-      console.log('[v0] Clipboard copy failed')
+      console.log('Clipboard copy failed')
     }
   }
 

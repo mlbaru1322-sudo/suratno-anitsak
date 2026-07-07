@@ -45,9 +45,9 @@ Bismillahirrahmanirrahim.
 
 Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami:
 
-Tri Rahayu
+Anitsak Nur Anggraini, S.Ak
 &
-Mardian Ifan Rizkyadi
+Suratno
 
 Berikut link untuk informasi lengkap acara kami:
 
@@ -60,7 +60,7 @@ Wassalamu'alaikum Wr. Wb.
 Terima kasih.
 
 Hormat kami,
-Rahayu & Mardian
+Anitsak & Suratno
 
 Catatan:
 Simpan nomor ini jika link tidak dapat disentuh, atau salin link ke Chrome/browser untuk membuka undangan.`

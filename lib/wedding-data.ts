@@ -1,25 +1,24 @@
-// Centralized wedding data. Replace with Supabase data later.
-// Keeping all dummy content here makes it easy to swap for real data.
+// Centralized wedding data used as static fallback for this invitation.
 
 export const weddingData = {
   // Couple
   bride: {
-    name: 'Tri Rahayu',
-    shortName: 'Rahayu',
+    name: 'Anitsak Nur Anggraini, S.Ak',
+    shortName: 'Anitsak',
     photo: '/images/optimized/bride.webp',
     parents: 'Putri dari Bapak Suharno & Ibu Umaidah',
     instagram: '@trirahayu',
   },
   groom: {
-    name: 'Mardian Ifan Rizkyadi',
-    shortName: 'Mardian',
+    name: 'Suratno',
+    shortName: 'Suratno',
     photo: '/images/optimized/groom.webp',
     parents: 'Putra dari Bapak Arjo Pono & Ibu Suwarti',
     instagram: '@mardian.ifan',
   },
 
   // Display
-  coupleShort: 'Rahayu & Mardian',
+  coupleShort: 'Anitsak & Suratno',
   coverPhoto: '/images/optimized/cover-opening.webp',
   coverPhotoPositionMobile: '43% center',
   coverPhotoPositionDesktop: 'center center',
@@ -137,7 +136,7 @@ export const weddingData = {
       name: 'Budi Santoso',
       status: 'Masih Ragu',
       message:
-        'Selamat ya Rahayu & Mardian! Semoga diberikan kelancaran di hari bahagia. Doa terbaik dari kami.',
+        'Selamat ya Anitsak & Suratno! Semoga diberikan kelancaran di hari bahagia. Doa terbaik dari kami.',
     },
     {
       id: 4,

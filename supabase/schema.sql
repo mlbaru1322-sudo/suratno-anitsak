@@ -138,10 +138,10 @@ insert into wedding_settings (
   is_published
 )
 select
-  'Tri Rahayu',
-  'Mardian Ifan Rizkyadi',
-  'Rahayu',
-  'Mardian',
+  'Anitsak Nur Anggraini, S.Ak',
+  'Suratno',
+  'Anitsak',
+  'Suratno',
   '2026-09-12',
   '/images/couple-portrait.png',
   '/images/couple-portrait.png',
@@ -155,8 +155,8 @@ select
   true
 where not exists (
   select 1 from wedding_settings
-  where bride_name = 'Tri Rahayu'
-    and groom_name = 'Mardian Ifan Rizkyadi'
+  where bride_name = 'Anitsak Nur Anggraini, S.Ak'
+    and groom_name = 'Suratno'
 );
 
 insert into wedding_events (
@@ -285,9 +285,9 @@ Bismillahirrahmanirrahim.
 
 Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami:
 
-Tri Rahayu
+Anitsak Nur Anggraini, S.Ak
 &
-Mardian Ifan Rizkyadi
+Suratno
 
 Berikut link untuk informasi lengkap acara kami:
 
@@ -300,7 +300,7 @@ Wassalamu''alaikum Wr. Wb.
 Terima kasih.
 
 Hormat kami,
-Rahayu & Mardian
+Anitsak & Suratno
 
 Catatan:
 Simpan nomor ini jika link tidak dapat disentuh, atau salin link ke Chrome/browser untuk membuka undangan.',

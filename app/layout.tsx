@@ -29,26 +29,27 @@ const fontSans = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: 'The Wedding of Rahayu & Mardian',
+  title: 'Undangan Pernikahan Anitsak & Suratno',
   description:
-    'Undangan pernikahan Tri Rahayu & Mardian Ifan Rizkyadi. Merupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir.',
-  generator: 'v0.app',
+    'Undangan pernikahan Anitsak dan Suratno. Kami mengundang Anda untuk hadir dan memberikan doa terbaik.',
+  openGraph: {
+    title: 'Undangan Pernikahan Anitsak & Suratno',
+    description:
+      'Undangan pernikahan Anitsak dan Suratno. Kami mengundang Anda untuk hadir dan memberikan doa terbaik.',
+    siteName: 'Undangan Pernikahan Anitsak & Suratno',
+    locale: 'id_ID',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Undangan Pernikahan Anitsak & Suratno',
+    description:
+      'Undangan pernikahan Anitsak dan Suratno. Kami mengundang Anda untuk hadir dan memberikan doa terbaik.',
+  },
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    shortcut: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/icon.svg', type: 'image/svg+xml' }],
   },
 }
 
