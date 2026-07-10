@@ -155,6 +155,12 @@ export const weddingData = {
       accountNumber: '1819877496',
       accountHolder: 'Anitsak Nur Anggraini',
     },
+    {
+      id: 'bri-suratno',
+      bank: 'Bank BRI',
+      accountNumber: '671101017796538',
+      accountHolder: 'Suratno',
+    },
   ],
 
   // Closing
